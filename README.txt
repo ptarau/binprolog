@@ -14,24 +14,24 @@ The main directories in this distribution are:
 +---progs -------------------> sample programs
 +---library -----------------> Prolog libraries
 
--- UNTESTED recently
+-- EXTENSIONS: UNTESTED recently - only available in the BinProlog.zip DOWNLOAD
+
 +---c_inter------------------> high performance C interface
 +---pl2c --------------------> Prolog to C translator
 +---csocks ------------------> simple C socket interface
 +---j_inter------------------> simple JNI Java interface
 
-Look in directory "bin" for ready to run executables. Just copy the 
-executable bp (on OS x, Linux) and bp.exe (on Windows) somewhere 
-on your path.
+After typing "make" look in directory "bin" for ready to run executables. Just copy the 
+executable bp (on OS x, Linux) and bp.exe (on Windows) somewhere on your path.
 
-The directory "doc" (or "bp_doc" in some distributions) contains the
-documentation in PostScript and HTML form. The new API description
-is in file help.html. You can regenerate it by just typing "help" in BinProlog.
+The directory "doc" contains the documentation in PDF and HTML form. 
+The API description is in file help.html. You can regenerate 
+it by just typing "help" in BinProlog.
 
 The documentation has not been recently revised - some things might be outdated.
 
 WITH THE EXCEPTION of the "make" process in src, no recent testing 
-has been performed on the following BinProlog EXTENSIONS.
+has been performed on the BinProlog EXTENSIONS.
 
 Please read the README.txt files in various directories before staring 
 to work with them. 
