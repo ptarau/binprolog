@@ -1,0 +1,1639 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+           "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<meta name="GENERATOR" content="TtH 3.81">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+ <style type="text/css"> div.p { margin-top: 7pt;}</style>
+ <style type="text/css"><!--
+ td div.comp { margin-top: -0.6ex; margin-bottom: -1ex;}
+ td div.comb { margin-top: -0.6ex; margin-bottom: -.6ex;}
+ td div.hrcomp { line-height: 0.9; margin-top: -0.8ex; margin-bottom: -1ex;}
+ td div.norm {line-height:normal;}
+ span.roman {font-family: serif; font-style: normal; font-weight: normal;} 
+ span.overacc2 {position: relative;  left: .8em; top: -1.2ex;}
+ span.overacc1 {position: relative;  left: .6em; top: -1.2ex;} --></style>
+ 
+
+  
+<title>0mm</title>
+
+0mm
+
+
+
+<div class="p"><!----></div>
+ 
+<title>
+\Huge
+BinProlog 2006 version 11.x Professional Edition\
+User Guide\
+\vskip 5cm
+</title>
+    
+<h1 align="center">
+<font size="+4">
+BinProlog 2006 version 11.x Professional Edition<br />
+User Guide<br />
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+</font> </h1>
+
+<div class="p"><!----></div>
+
+<h3 align="center">
+<font size="+2">
+  <b>Paul Tarau</b><br /><br />
+<font size="+1">
+  BinNet Corp.<br />
+  e-mail: binnetcorp@binnetcorp.com<br />
+  WWW: http://www.binnetcorp.com
+<font size="+0">
+ </h3></font></font></font>
+
+<div class="p"><!----></div>
+
+<h3 align="center"> </h3>
+
+<div class="p"><!----></div>
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /> <h2><a name="tth_sEc1">
+1</a>&nbsp;&nbsp;Installation</h2>
+
+<div class="p"><!----></div>
+<em>Copy the BinProlog executable for your architecture to 
+something called <b>bp.exe</b> or <b>bp</b> somewhere in your path, then type `bp'.
+BinProlog standalone executables are usually provided in subderectory <b>bin</b> of
+the distribution.</em>
+
+<div class="p"><!----></div>
+For <em>multi-user</em> installations set the <tt>BP_PATH</tt> variable 
+to point to the BinProlog source directory, for instance <b>/bp_dist/src</b>. 
+This will allow users to load
+example programs in directory <b>/bp_dist/progs</b> without providing path 
+information  and will also make include commands like :-[library(lists),
+refering to <b>/bp_dist/library</b> accessible from any directory.
+
+<div class="p"><!----></div>
+Normally the appropriate <b>bp.exe</b> or <b>bp</b> file (a self contained
+executable) is all you need to have BinProlog  running.  For
+PCs, just copy the bp.exe Windows executable file somewhere in your PATH.  
+
+<div class="p"><!----></div>
+To start BinProlog use
+
+<div class="p"><!----></div>
+
+<pre>
+$&nbsp;bp&nbsp;&lt;command-line&nbsp;options&#62;&nbsp;&lt;wam-bytecode-file&#62;&nbsp;or&nbsp;&lt;prolog-file&#62;
+
+</pre>
+
+<div class="p"><!----></div>
+or simply
+
+<div class="p"><!----></div>
+
+<pre>
+$&nbsp;bp
+
+</pre>
+
+<div class="p"><!----></div>
+Sizes of the blackboard, heap, stack, trail and code areas can be passed as
+command line parameters etc., as well as other options, as shown
+with <tt>bp -x</tt> help request:
+
+<div class="p"><!----></div>
+
+<pre>
+With&nbsp;bp&nbsp;-x&nbsp;you&nbsp;can&nbsp;list&nbsp;the&nbsp;following:
+
+COMAND&nbsp;LINE&nbsp;OPTIONS:
+
+-h&nbsp;==&#62;&nbsp;HEAP&nbsp;SIZE&nbsp;in&nbsp;Kbytes,&nbsp;&nbsp;default:1024K
+-s&nbsp;==&#62;&nbsp;STACK&nbsp;SIZE&nbsp;in&nbsp;Kbytes,&nbsp;default:256K
+-t&nbsp;==&#62;&nbsp;TRAIL&nbsp;SIZE&nbsp;in&nbsp;Kbytes,&nbsp;default:256K
+-c&nbsp;==&#62;&nbsp;CODE&nbsp;SIZE&nbsp;in&nbsp;Kbytes,&nbsp;&nbsp;default:1024K
+-b&nbsp;==&#62;&nbsp;BLACKBOARD&nbsp;SIZE&nbsp;in&nbsp;Kbytes,&nbsp;dynamic&nbsp;if&nbsp;0,&nbsp;default:512K
+-a&nbsp;==&#62;&nbsp;MAX.&nbsp;ATOMS,&nbsp;give&nbsp;exponent&nbsp;of&nbsp;2,&nbsp;2^&lt;value&#62;,&nbsp;default=2^16=65536
+-d&nbsp;==&#62;&nbsp;HASH&nbsp;DICT.&nbsp;entries,&nbsp;give&nbsp;exponent&nbsp;of&nbsp;2,&nbsp;&nbsp;2^&lt;value&#62;,&nbsp;default&nbsp;2^16=65536
+-i&nbsp;==&#62;&nbsp;IOBUFFER,&nbsp;in&nbsp;bytes,&nbsp;default:131072bytes
+-q&nbsp;==&#62;&nbsp;QUIETNESS&nbsp;level,&nbsp;default:2&nbsp;(lower&nbsp;means&nbsp;more&nbsp;verbose)
+-l&nbsp;==&#62;&nbsp;LOAD_METHOD:
+&nbsp;&nbsp;(1=mcompile,&nbsp;2=scompile,&nbsp;3=oconsult,&nbsp;4=dconsult,&nbsp;5=sconsult):&nbsp;1
+-r&nbsp;==&#62;&nbsp;call/update&nbsp;RATIO&nbsp;controlling&nbsp;dynamic&nbsp;recompilation:10
+-p&nbsp;==&#62;&nbsp;PORT&nbsp;to&nbsp;run&nbsp;on&nbsp;as&nbsp;a&nbsp;daemon&nbsp;if&nbsp;&#62;0,&nbsp;1&nbsp;shorthand&nbsp;for&nbsp;default_port,&nbsp;current&nbsp;d
+efault:0,&nbsp;-p10&nbsp;forces&nbsp;detection&nbsp;of&nbsp;current&nbsp;IP&nbsp;address
+
+ARGUMENTS:
+&nbsp;&nbsp;STARTUP&nbsp;FILE:&nbsp;*.bp,&nbsp;*.pl,&nbsp;*.wam&nbsp;or
+&nbsp;&nbsp;GOAL:&nbsp;pred(args),
+&nbsp;&nbsp;default:&nbsp;wam.bp
+
+
+Prolog&nbsp;execution&nbsp;halted(2).&nbsp;CPU&nbsp;time&nbsp;=&nbsp;0.241s
+
+ARGUMENTS:
+&nbsp;&nbsp;STARTUP&nbsp;FILE:&nbsp;*.bp,&nbsp;*.pl,&nbsp;*.wam&nbsp;or
+&nbsp;&nbsp;GOAL:&nbsp;pred(args),
+&nbsp;&nbsp;default:&nbsp;wam.bp
+
+</pre>
+
+<div class="p"><!----></div>
+ Type
+
+<div class="p"><!----></div>
+
+<pre>
+?-&nbsp;help(&lt;word&#62;).
+
+</pre>
+
+<div class="p"><!----></div>
+ and then use <tt>info/1</tt> with the matching predicate names
+to get a short description and possibly an example of use:
+
+<div class="p"><!----></div>
+
+<pre>
+?-&nbsp;info(name/arity).
+
+</pre>
+
+<div class="p"><!----></div>
+ Type
+
+<div class="p"><!----></div>
+
+<pre>
+?-info.
+
+</pre>
+
+<div class="p"><!----></div>
+ for a (long) description of builtins and examples.
+
+<div class="p"><!----></div>
+ <h2><a name="tth_sEc2">
+2</a>&nbsp;&nbsp;Deprecated Predicates</h2>
+
+<div class="p"><!----></div>
+BinProlog  has undergone a number of simplifications and as a result, older,
+seldomly used functionality has been removed. Please take a look at the file
+<b>library/deprecated.pl</b> for the code of the removed predicates. By including
+the file in your older programs, most of the functionality of the removed
+predicates can be reactivated. The changes include replacement of the Assumption Grammar
+operations (now part of standard DCG processing) and mobile code+client/server 
+networking (now replaced by robust Jinni  compatible code which
+supports socket reuse for improved performance - see help(rpc)).
+
+<div class="p"><!----></div>
+ <h2><a name="tth_sEc3">
+3</a>&nbsp;&nbsp;Obtaining BinProlog</h2>
+
+<div class="p"><!----></div>
+The ORIGINAL DISTRIBUTION SITE for BinProlog<a href="#tthFtNtAAB" name="tthFrefAAB"><sup>1</sup></a> is:
+
+<div class="p"><!----></div>
+
+<pre>
+&nbsp;&nbsp;&nbsp;http://www.binnetcorp.com/BinProlog
+
+</pre>
+
+<div class="p"><!----></div>
+Please send comments and bug reports to <em>binnetcorp@binnetcorp.com .</em>
+
+<div class="p"><!----></div>
+ <h2><a name="tth_sEc4">
+4</a>&nbsp;&nbsp;Release Notes for This Version of BinProlog</h2>
+
+<div class="p"><!----></div>
+<font size="-1">
+<pre>
+Welcome&nbsp;to&nbsp;BinProlog&nbsp;Full&nbsp;Source&nbsp;Edition&nbsp;and&nbsp;BinProlog&nbsp;Professional&nbsp;Edition!
+
+!!!&nbsp;after&nbsp;you&nbsp;work&nbsp;with&nbsp;them&nbsp;on&nbsp;Windows&nbsp;some&nbsp;makefiles&nbsp;might&nbsp;need&nbsp;conversion&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;to&nbsp;remove&nbsp;^M&nbsp;character&nbsp;on&nbsp;Unix&nbsp;systems
+
+!!!&nbsp;Please&nbsp;look&nbsp;for&nbsp;*.bat&nbsp;files&nbsp;which&nbsp;usually&nbsp;automate&nbsp;frequent&nbsp;maintenance&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;operations&nbsp;on&nbsp;XP,&nbsp;2000,&nbsp;NT&nbsp;or&nbsp;Win9x&nbsp;PCs.
+
+With&nbsp;Microsoft&nbsp;VCC&nbsp;based&nbsp;precompiled&nbsp;distributions&nbsp;for&nbsp;Windows&nbsp;XP/2000/NT/98/95,
+
+-a&nbsp;ready&nbsp;to&nbsp;run&nbsp;binary&nbsp;(bp.exe)&nbsp;is&nbsp;included&nbsp;in&nbsp;directory&nbsp;bin,
+&nbsp;as&nbsp;well&nbsp;as&nbsp;a&nbsp;redistributable&nbsp;runtime&nbsp;bpr.exe&nbsp;for&nbsp;Windows&nbsp;&nbsp;
+
+-a&nbsp;packaging&nbsp;of&nbsp;BinProlog&nbsp;as&nbsp;a&nbsp;DLL&nbsp;and&nbsp;examples&nbsp;are&nbsp;available&nbsp;in&nbsp;
+&nbsp;directory&nbsp;BP_DLL.
+
+-header&nbsp;files&nbsp;in&nbsp;static&nbsp;libraries&nbsp;are&nbsp;available&nbsp;in&nbsp;directory&nbsp;lib&nbsp;-&nbsp;allowing
+&nbsp;to&nbsp;use&nbsp;the&nbsp;C-interface&nbsp;or&nbsp;generate&nbsp;C-code&nbsp;without&nbsp;need&nbsp;to&nbsp;recompile&nbsp;the&nbsp;sources
+
+Just&nbsp;copy&nbsp;the&nbsp;executables&nbsp;bp.exe&nbsp;or&nbsp;bpr.exe&nbsp;somewhere&nbsp;on&nbsp;your&nbsp;path,&nbsp;
+and&nbsp;bp_lib.dll&nbsp;and&nbsp;bpr_lib.dll&nbsp;to&nbsp;the&nbsp;Windows&nbsp;or&nbsp;Winnt/System32&nbsp;directory,&nbsp;
+or&nbsp;simply&nbsp;copy&nbsp;them&nbsp;to&nbsp;the&nbsp;local&nbsp;directory&nbsp;where&nbsp;you&nbsp;keep&nbsp;your&nbsp;application.
+
+BinProlog's&nbsp;C-interface&nbsp;tools&nbsp;are&nbsp;in&nbsp;directory&nbsp;c_inter.
+
+Tools&nbsp;for&nbsp;generation&nbsp;of&nbsp;standalone&nbsp;executables,&nbsp;through&nbsp;compilation&nbsp;to&nbsp;C
+are&nbsp;available&nbsp;in&nbsp;directory&nbsp;pl2c.
+
+BinProlog's&nbsp;Tcl/Tk&nbsp;interface&nbsp;is&nbsp;in&nbsp;directory&nbsp;TCL.&nbsp;Is&nbsp;ready&nbsp;to&nbsp;run,&nbsp;on
+all&nbsp;platforms&nbsp;(new&nbsp;client/server&nbsp;design),&nbsp;no&nbsp;special&nbsp;make&nbsp;actions&nbsp;are&nbsp;
+needed.
+
+Finally,&nbsp;the&nbsp;directory&nbsp;doc,&nbsp;in&nbsp;distributions&nbsp;coming&nbsp;with&nbsp;full&nbsp;documentation,
+contains&nbsp;the&nbsp;documentation&nbsp;in&nbsp;PostScript&nbsp;and&nbsp;HTML&nbsp;form&nbsp;-&nbsp;note&nbsp;the&nbsp;new&nbsp;API&nbsp;
+description&nbsp;in&nbsp;file&nbsp;help.html,&nbsp;also&nbsp;generated&nbsp;whin&nbsp;just&nbsp;typing&nbsp;"help"&nbsp;in&nbsp;
+BinProlog.
+
+--------------------------------------------------------------------------
+In&nbsp;case&nbsp;you&nbsp;have&nbsp;BinProlog&nbsp;Full&nbsp;Source&nbsp;Edition,&nbsp;the&nbsp;directory&nbsp;src
+contains&nbsp;makefiles&nbsp;for&nbsp;gcc,&nbsp;VCC&nbsp;6.0&nbsp;and&nbsp;.NET&nbsp;C/C++&nbsp;batch&nbsp;files&nbsp;to&nbsp;rebuild&nbsp;the
+sources&nbsp;after&nbsp;you&nbsp;make&nbsp;changes.&nbsp;Just&nbsp;go&nbsp;in&nbsp;directory&nbsp;src&nbsp;and&nbsp;type
+make&nbsp;all&nbsp;or&nbsp;makeall.bat
+
+Please&nbsp;read&nbsp;the&nbsp;documentation&nbsp;files&nbsp;provided&nbsp;separately&nbsp;and&nbsp;visit
+our&nbsp;ONLINE&nbsp;HELP&nbsp;SYSTEM&nbsp;at&nbsp;BinNet&nbsp;Corp.'s&nbsp;web&nbsp;site,&nbsp;for&nbsp;last&nbsp;minute
+updates,&nbsp;demos&nbsp;and&nbsp;information&nbsp;about&nbsp;new&nbsp;features&nbsp;and&nbsp;components.
+
+On&nbsp;Cygnus'&nbsp;CYGWIN&nbsp;gcc,&nbsp;taking
+
+&nbsp;&nbsp;make&nbsp;all
+
+which&nbsp;also&nbsp;works&nbsp;on&nbsp;normal&nbsp;Unix&nbsp;systems&nbsp;not&nbsp;requiring&nbsp;unusual&nbsp;flags.
+
+On&nbsp;Linux&nbsp;PCs&nbsp;type
+
+&nbsp;&nbsp;make&nbsp;linux_mt
+&nbsp;&nbsp;
+&nbsp;&nbsp;or
+&nbsp;&nbsp;
+&nbsp;&nbsp;make&nbsp;linux
+
+On&nbsp;Solaris&nbsp;sparcs&nbsp;type
+
+&nbsp;&nbsp;make&nbsp;solaris
+
+This&nbsp;will&nbsp;take&nbsp;care&nbsp;to&nbsp;generate&nbsp;the&nbsp;content&nbsp;of&nbsp;most&nbsp;of&nbsp;the&nbsp;directories.
+
+Finally,&nbsp;the&nbsp;Full&nbsp;Source&nbsp;Edition&nbsp;also&nbsp;contains&nbsp;VCC&nbsp;6.0&nbsp;project&nbsp;files
+in&nbsp;deirectory&nbsp;winbp,&nbsp;for&nbsp;working&nbsp;conveniently&nbsp;with&nbsp;the&nbsp;sources&nbsp;on&nbsp;a&nbsp;
+Windows&nbsp;NT&nbsp;workstation.
+
+Alternatively,&nbsp;work&nbsp;on&nbsp;sources&nbsp;is&nbsp;now&nbsp;also&nbsp;supported&nbsp;for&nbsp;Cygnus&nbsp;gcc
+as&nbsp;well&nbsp;as&nbsp;Linux&nbsp;and&nbsp;othe&nbsp;Unix&nbsp;platforms,&nbsp;through&nbsp;a&nbsp;complete&nbsp;set&nbsp;of
+updated&nbsp;makefiles.
+
+----------------------------------------------------------------------
+Additional&nbsp;components,&nbsp;available&nbsp;on&nbsp;some&nbsp;platforms.
+
+The&nbsp;directory&nbsp;csocks&nbsp;contains&nbsp;tools&nbsp;for&nbsp;building&nbsp;standalone&nbsp;C-based
+socket&nbsp;based&nbsp;client,&nbsp;server&nbsp;and&nbsp;a&nbsp;remote&nbsp;toplevel&nbsp;components&nbsp;
+based&nbsp;on&nbsp;BinProlog's&nbsp;modular&nbsp;and&nbsp;portable&nbsp;socket&nbsp;package.
+
+Tools&nbsp;to&nbsp;build&nbsp;an&nbsp;ISO&nbsp;parser&nbsp;for&nbsp;BinProlog&nbsp;are&nbsp;in&nbsp;directory&nbsp;cparser.
+
+</pre></font>
+
+<div class="p"><!----></div>
+ <h2><a name="tth_sEc5">
+5</a>&nbsp;&nbsp;Using BinProlog</h2>
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc5.1">
+5.1</a>&nbsp;&nbsp;Learning Prolog</h3>
+
+<div class="p"><!----></div>
+If you are just starting, you might want to take a look at one of
+the following online tutorials. Most of their content applies to
+any Prolog around, and in particular to BinProlog which a fairly
+standard Prolog system.
+
+<div class="p"><!----></div>
+
+<pre>
+Online&nbsp;Prolog&nbsp;Introductions/Tutorials:
+
+&nbsp;&nbsp;http://kti.ms.mff.cuni.cz/~bartak/prolog/learning.html&nbsp;
+&nbsp;&nbsp;http://www.cs.bham.ac.uk/~pjh/prolog_course/sem223.html&nbsp;
+&nbsp;&nbsp;http://www.cs.sfu.ca/CC/SW/Prolog/Notes/toc.html&nbsp;
+
+</pre>
+
+<div class="p"><!----></div>
+The latest version of BinProlog is usable directly over the
+Internet (follow the <em>demo</em> and <em>query</em> links from <a href="http://www.binnetcorp.com"><tt>http://www.binnetcorp.com</tt></a>).
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc5.2">
+5.2</a>&nbsp;&nbsp;Consulting/compiling files</h3>
+
+<div class="p"><!----></div>
+BinProlog features a number of different compilation and consulting
+methods as well as dynamic recompilation of consulted (interpreted) code
+for fast execution.
+
+<div class="p"><!----></div>
+ The shorthand
+
+<div class="p"><!----></div>
+
+<pre>
+&nbsp;&nbsp;&nbsp;?-&nbsp;[myFile].
+
+</pre>
+
+<div class="p"><!----></div>
+ defaults to the last used compilation method applied to
+<tt>myFile.pro</tt> <tt>myGile.pl</tt> or <tt>myFile</tt>. Among them,
+the default mcompile/1 comiling to memory and scompile/1 which
+uses temporary *.wam files and to quicly load files which have not been
+changed. A good way to work with BinProlog is to make a "project" *.pro
+file includeing its components, as in:
+
+<div class="p"><!----></div>
+
+<pre>
+:-[myFile1].
+:-[myFile2].
+..............
+
+</pre>
+
+<div class="p"><!----></div>
+  The shorthand for <tt>co(myFile)</tt>,
+
+<div class="p"><!----></div>
+
+<pre>
+&nbsp;&nbsp;&nbsp;&nbsp;?-&nbsp;~myFile.
+
+</pre>
+
+<div class="p"><!----></div>
+ defaults to the last used <em>interpretation</em> method applied to
+<tt>myFile.pro</tt> <tt>myFile.pl</tt> or <tt>myFile</tt>.
+For online information
+on their precise behavior, do:
+
+<div class="p"><!----></div>
+
+<pre>
+?-info(oconsult),info(consult),info(dconsult),info(sconsult).
+
+oconsult/1:&nbsp;
+&nbsp;&nbsp;reconsult&nbsp;variant,&nbsp;consults&nbsp;and&nbsp;overwrites&nbsp;old&nbsp;clauses
+
+consult/1:&nbsp;
+&nbsp;&nbsp;consults&nbsp;with&nbsp;possible&nbsp;duplication&nbsp;of&nbsp;clauses,&nbsp;allows&nbsp;
+&nbsp;&nbsp;later&nbsp;dynamic&nbsp;recompilation
+
+consult/2:&nbsp;
+&nbsp;&nbsp;consult(File,DB)&nbsp;consults&nbsp;File&nbsp;into&nbsp;DB
+
+dconsult/1:&nbsp;reconsult/1&nbsp;variant,&nbsp;cleans&nbsp;up&nbsp;data&nbsp;areas,&nbsp;
+&nbsp;&nbsp;consults,&nbsp;allowing&nbsp;dynamic&nbsp;recompilation
+
+sconsult/1:&nbsp;
+&nbsp;&nbsp;reconsult/1&nbsp;variant:&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;cleans&nbsp;up&nbsp;data&nbsp;areas,&nbsp;consults,&nbsp;makes&nbsp;all&nbsp;static
+
+</pre>
+
+<div class="p"><!----></div>
+To control dynamic recompilation you can use <tt>dynco/1</tt> with <tt>yes</tt>
+and <tt>no</tt> as arguments or <tt>db_ratio/1</tt> to precisely specify
+the ratio between calls and updateds to predicates which will
+trigger moving it from interpreted to compiled representation
+(default=10).
+
+<div class="p"><!----></div>
+<em>BinProlog's compilation mode is intended to work with ONE toplevel
+project file including various components.</em> For interactive development
+use: 
+
+<div class="p"><!----></div>
+
+<pre>
+~file1.
+~file2.
+......
+~fileN.
+
+</pre>
+
+<div class="p"><!----></div>
+ Note that, by default, older definitions from previous or the same file
+of predicates with same name/arity are quietly overwritten by default.
+
+<div class="p"><!----></div>
+
+<blockquote>Do not worry about performance. List your predicates at will, using listing/1 or debug them with trace/1, modify them with assert/retract. 
+Automagically, BinProlog will
+override heavily used predicates with compiled variants. This usually
+pushes performance to about half of optimized compiled code, while
+giving you the full flexibility of interpreted code.
+</blockquote>
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc5.3">
+5.3</a>&nbsp;&nbsp;The interactive toplevel shell</h3>
+
+<div class="p"><!----></div>
+To see the command line options:
+
+<div class="p"><!----></div>
+
+<pre>
+&nbsp;&nbsp;&nbsp;$&nbsp;bp&nbsp;-x
+
+</pre>
+
+<div class="p"><!----></div>
+ To compile and load a file possibly having one of
+the sufixes `pl' or `pro', do:
+
+<div class="p"><!----></div>
+
+<pre>
+&nbsp;&nbsp;&nbsp;?-[&lt;file&#62;].
+
+</pre>
+
+<div class="p"><!----></div>
+ To quickly consult a file for interpreted execution, having one of
+the sufixes `pl' or `pro', do:
+
+<div class="p"><!----></div>
+
+<pre>
+&nbsp;&nbsp;&nbsp;?-co(&lt;file&#62;).
+
+</pre>
+
+<div class="p"><!----></div>
+
+<b>Search path mechanism.&nbsp;&nbsp;</b> BinProlog
+searches for programs in the directories <tt>., ./progs</tt>
+ and <tt>../src ../library</tt>, relative to
+the <tt>BP_PATH</tt> environment variable which defaults
+silently to the current directory if undefined.
+The directory <tt>./myprogs</tt> is also searched for possible
+user programs. While compatible to previous configurations
+which where single user minded, this allows installing the
+BinProlog distributon for shared use in a place like 
+<tt>/usr/local/BinProlog</tt><a href="#tthFtNtAAC" name="tthFrefAAC"><sup>2</sup></a> In addition, the environment variable <tt>PROLOG_PATH</tt>
+provides a secondary search directory for including an 
+individual user's Prolog library files.
+
+<div class="p"><!----></div>
+ Mode
+is interactive by default (for compatibility with other Prologs) but if
+you use a modern, windows based environment you may want to switch it
+off with:
+
+<div class="p"><!----></div>
+
+<pre>
+?-&nbsp;interactive(no).
+
+</pre>
+
+<div class="p"><!----></div>
+ or turn it on again with
+
+<div class="p"><!----></div>
+
+<pre>
+?-&nbsp;interactive(yes).
+
+</pre>
+
+<div class="p"><!----></div>
+ Operators are defined and retrieved with
+
+<div class="p"><!----></div>
+
+<pre>
+:-op/3,&nbsp;current_op/3.
+
+as&nbsp;in:
+
+?-op(333,xfx,and).
+
+allowng&nbsp;to&nbsp;enter:
+
+?-write(joe&nbsp;and&nbsp;mary),nl.
+
+instead&nbsp;of&nbsp;the&nbsp;usual&nbsp;?-write(and(joe,mary)).
+
+</pre>
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc5.4">
+5.4</a>&nbsp;&nbsp;Source code loading methods</h3>
+
+<div class="p"><!----></div>
+The preferred use of BinProlog is through reloading a unique
+project file containing included files<a href="#tthFtNtAAD" name="tthFrefAAD"><sup>3</sup></a>.
+
+<div class="p"><!----></div>
+A smart compile facility (scompile/1) implement a basic
+<em>make</em> facility: if the <tt>*.wam</tt> version of the file
+is newer it will be reloded very quickly instead of recompiling the
+corresponding <tt>*.pl</tt> file.
+
+<div class="p"><!----></div>
+
+<b>Including files.&nbsp;&nbsp;</b> 
+For both compiled and consulted files use a generic include directive:
+
+<div class="p"><!----></div>
+
+<pre>
+:-[file].
+
+</pre>
+
+<div class="p"><!----></div>
+which automatically adjusts to your current <em>load method</em>.
+You can set your prefered loading method directly from the command line
+using option <tt>l</tt>. Explicite use of <tt>compile/1</tt> or <tt>reconsult/1</tt> can be used to restrict your selection to a current
+compile method or consult method.
+
+<div class="p"><!----></div>
+Use <tt>co/0</tt> and <tt>ed/0</tt> as a shorthand to reload/re-edit
+the last compiled/consulted file.
+
+<div class="p"><!----></div>
+Use <tt>&#126;&nbsp; file</tt> or <tt>co(file)</tt> as a short hand to reconsult a file with your
+current consult method. This is useful if your load method is
+by default a version of compile but you want to reconsult a file
+so that you can debug/list clauses of verious predicates.
+
+<div class="p"><!----></div>
+<em>Normally, after each compile BinProlog
+cleanes up ALL its data areas. Not relaying on hidden state
+of the database as most Prologs do is a very IMPORTANT
+element of reliable software developpment. In compiled BinProlog
+recompiling means a fresh start, so that the future of
+computation is only dependent on your code, not on
+what happens to be accidentally in your database.
+This FEATURE is unlikely to be changed in the future.
+</em>.
+
+<div class="p"><!----></div>
+With full flexibility of interpreted code and its automatic
+on the fly compilation, this limitation does not affect by
+any means a user who prefers conventional Prolog semantics,
+which is the default for the consulting facility co/1 or its shorthand &#126;&nbsp; .
+There's however an ability to <em>push</em> your code into
+the BinProlog protected kernel at runtime by typing <tt>pc</tt>.
+This allows doing another <tt>compile/1</tt> without discarding the currently
+compiled file, while protecting the first one from
+accidental overriding of predicates.
+A better way to proceed with multiple files is to create a <tt>*.pro</tt>
+project file and include in it all the files needed for the project
+using the <tt>:-[myFile]</tt> directive. BinProlog's built-in <tt>make</tt>
+facility (using <tt>scompile/1</tt>) ensures quick compilation of
+a project by only recompiling files that have been edited.
+
+<div class="p"><!----></div>
+ <h2><a name="tth_sEc6">
+6</a>&nbsp;&nbsp;Editing, help/1, info/1, apropos/1, trace/1, spy/1, nospy/1</h2>
+
+<div class="p"><!----></div>
+To edit a file and then compile it use:
+
+<div class="p"><!----></div>
+
+<pre>
+&nbsp;&nbsp;&nbsp;?-&nbsp;edit(&lt;editor&#62;,&lt;file&#62;).
+
+</pre>
+
+<div class="p"><!----></div>
+To edit and recompile the currently compiled file using the
+<tt>emacs</tt> editor, attached to environment variables EDITOR or VISUAL type:
+
+<div class="p"><!----></div>
+
+<pre>
+&nbsp;&nbsp;&nbsp;?-&nbsp;ed.
+
+</pre>
+
+<div class="p"><!----></div>
+To edit and recompile the currently compiled file using the
+<tt>edit</tt> editor (under DOS) type:
+
+<div class="p"><!----></div>
+
+<pre>
+&nbsp;&nbsp;&nbsp;?-&nbsp;edit.
+
+</pre>
+
+<div class="p"><!----></div>
+To simply recompile the last file type:
+
+<div class="p"><!----></div>
+
+<pre>
+&nbsp;&nbsp;?-&nbsp;co.
+
+</pre>
+
+<div class="p"><!----></div>
+ The debugger/tracer uses R.A. O'Keefe's public domain
+meta-interpreter.  You can modify it in the file &#235;xtra.pl".
+ DCG-expansion is supported by the public domain file dcg.pl.
+
+<div class="p"><!----></div>
+To debug a file type:
+
+<div class="p"><!----></div>
+
+<pre>
+?-&nbsp;reconsult(FileName).
+
+</pre>
+
+<div class="p"><!----></div>
+ and then
+
+<div class="p"><!----></div>
+
+<pre>
+?-&nbsp;trace(Goal).
+
+</pre>
+
+<div class="p"><!----></div>
+ For
+ interactivity, both the toplevel and the debugger depend on
+
+<div class="p"><!----></div>
+
+<pre>
+?-interactive(yes).
+
+</pre>
+
+<div class="p"><!----></div>
+ or
+
+<div class="p"><!----></div>
+
+<pre>
+?-interactive(no).
+
+</pre>
+
+<div class="p"><!----></div>
+ My personal preference is using
+<tt>interactive(no)</tt> within a scrollable window.
+However, as traditionally all Prologs hassle the user after
+each answer BinProlog  will do the same by default.
+
+<div class="p"><!----></div>
+<em>If you forget the name of some builtin, <tt>apropos/1</tt> (or <tt>help/1</tt>) will
+give you some (flexible up to one misspelled or missing
+letter) matches with their arities, while info/1 will give you online
+information on builtins.
+</em>
+
+<div class="p"><!----></div>
+BinProlog  allows debugging of dynamically recompiled code.
+Load your file with reconsult or one of its variants (dconsult, oconsult).
+You can benefit from efficient execution of code you do not want to
+look into which gets compiled on the fly during the debugging session,
+while being able to use trace/1 and listing/1 to see your predicates.
+
+<div class="p"><!----></div>
+BinProlog  also features some new tracing options, i.e:
+
+<div class="p"><!----></div>
+
+<pre>
+ENTER&nbsp;==&#62;&nbsp;call&nbsp;without&nbsp;tracing
+l&nbsp;==&#62;&nbsp;listing
+q,a&nbsp;==&#62;&nbsp;abort
+p&nbsp;==&#62;&nbsp;toplevel&nbsp;Prolog&nbsp;query
+t&nbsp;==&#62;&nbsp;succeed,&nbsp;but&nbsp;do&nbsp;not&nbsp;call&nbsp;this&nbsp;goal
+f&nbsp;==&#62;&nbsp;fail,&nbsp;and&nbsp;do&nbsp;not&nbsp;call&nbsp;this&nbsp;goal
+k&nbsp;==&#62;&nbsp;keep&nbsp;goal&nbsp;for&nbsp;further&nbsp;inspection
+s&nbsp;==&#62;&nbsp;show&nbsp;saved&nbsp;goals&nbsp;instances
+h&nbsp;==&#62;&nbsp;help
+;&nbsp;==&#62;&nbsp;continue&nbsp;(default)
+
+</pre>
+
+<div class="p"><!----></div>
+The following terminal session shows an example of debugging session:
+<font size="-1">
+<pre>
+?-reconsult(allperms).
+consulting(../progs/allperms.pl)
+consulted(../progs/allperms.pl)
+time(consulting&nbsp;=&nbsp;50,quick_compiling&nbsp;=&nbsp;0,static_space&nbsp;=&nbsp;0)
+yes
+?-&nbsp;interactive(no).
+yes
+?-&nbsp;trace(g0(3)).
+Call:&nbsp;g0(3)
+&nbsp;!!!&nbsp;clause:&nbsp;g0/1
+&nbsp;Call:&nbsp;nats(1,3,_x2770)
+&nbsp;&nbsp;!!!&nbsp;clause:&nbsp;nats/3
+&nbsp;&nbsp;Call:&nbsp;1&nbsp;&lt;&nbsp;3
+&nbsp;&nbsp;&nbsp;!!!&nbsp;compiled((&lt;)/2)
+&nbsp;&nbsp;Exit:&nbsp;1&nbsp;&lt;&nbsp;3
+&nbsp;&nbsp;Call:&nbsp;_x3157&nbsp;is&nbsp;1+1
+&nbsp;&nbsp;&nbsp;!!!&nbsp;compiled((is)/2)
+&nbsp;&nbsp;Exit:&nbsp;2&nbsp;is&nbsp;1+1
+&nbsp;&nbsp;Call:&nbsp;nats(2,3,_x3159)
+&nbsp;&nbsp;&nbsp;!!!&nbsp;clause:&nbsp;nats/3
+&nbsp;&nbsp;&nbsp;Call:&nbsp;2&nbsp;&lt;&nbsp;3
+&nbsp;&nbsp;&nbsp;&nbsp;!!!&nbsp;compiled((&lt;)/2)
+&nbsp;&nbsp;&nbsp;Exit:&nbsp;2&nbsp;&lt;&nbsp;3
+&nbsp;&nbsp;&nbsp;Call:&nbsp;_x4115&nbsp;is&nbsp;2+1
+&nbsp;&nbsp;&nbsp;&nbsp;!!!&nbsp;compiled((is)/2)
+&nbsp;&nbsp;&nbsp;Exit:&nbsp;3&nbsp;is&nbsp;2+1
+&nbsp;&nbsp;&nbsp;Call:&nbsp;nats(3,3,_x4117)
+&nbsp;&nbsp;&nbsp;&nbsp;!!!&nbsp;clause:&nbsp;nats/3
+&nbsp;&nbsp;&nbsp;&nbsp;CUT
+&nbsp;&nbsp;&nbsp;Exit:&nbsp;nats(3,3,[3])
+&nbsp;&nbsp;Exit:&nbsp;nats(2,3,[2,3])
+&nbsp;Exit:&nbsp;nats(1,3,[1,2,3])
+&nbsp;Call:&nbsp;perm([1,2,3],_x2773)
+&nbsp;&nbsp;!!!&nbsp;clause:&nbsp;perm/2
+&nbsp;&nbsp;Call:&nbsp;perm([2,3],_x5527)
+&nbsp;&nbsp;&nbsp;!!!&nbsp;clause:&nbsp;perm/2
+&nbsp;&nbsp;&nbsp;Call:&nbsp;perm([3],_x5905)
+&nbsp;&nbsp;&nbsp;&nbsp;!!!&nbsp;clause:&nbsp;perm/2
+&nbsp;&nbsp;&nbsp;&nbsp;Call:&nbsp;perm([],_x6283)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;!!!&nbsp;clause:&nbsp;perm/2
+&nbsp;&nbsp;&nbsp;&nbsp;Exit:&nbsp;perm([],[])
+&nbsp;&nbsp;&nbsp;&nbsp;Call:&nbsp;insert(3,[],_x5905)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;!!!&nbsp;clause:&nbsp;insert/3
+&nbsp;&nbsp;&nbsp;&nbsp;Exit:&nbsp;insert(3,[],[3])
+&nbsp;&nbsp;&nbsp;Exit:&nbsp;perm([3],[3])
+&nbsp;&nbsp;&nbsp;Call:&nbsp;insert(2,[3],_x5527)
+&nbsp;&nbsp;&nbsp;&nbsp;!!!&nbsp;clause:&nbsp;insert/3
+&nbsp;&nbsp;&nbsp;Exit:&nbsp;insert(2,[3],[2,3])
+&nbsp;&nbsp;Exit:&nbsp;perm([2,3],[2,3])
+&nbsp;&nbsp;Call:&nbsp;insert(1,[2,3],_x2773)
+&nbsp;&nbsp;&nbsp;!!!&nbsp;clause:&nbsp;insert/3
+&nbsp;&nbsp;Exit:&nbsp;insert(1,[2,3],[1,2,3])
+&nbsp;Exit:&nbsp;perm([1,2,3],[1,2,3])
+&nbsp;Call:&nbsp;fail
+&nbsp;&nbsp;!!!&nbsp;compiled(fail/0)
+&nbsp;Fail:&nbsp;fail
+&nbsp;Redo:&nbsp;perm([1,2,3],[1,2,3])
+&nbsp;&nbsp;Redo:&nbsp;insert(1,[2,3],[1,2,3])
+&nbsp;&nbsp;&nbsp;Call:&nbsp;insert(1,[3],_x7793)
+&nbsp;&nbsp;&nbsp;&nbsp;!!!&nbsp;clause:&nbsp;insert/3
+&nbsp;&nbsp;&nbsp;Exit:&nbsp;insert(1,[3],[1,3])
+&nbsp;&nbsp;Exit:&nbsp;insert(1,[2,3],[2,1,3])
+&nbsp;Exit:&nbsp;perm([1,2,3],[2,1,3])
+&nbsp;Call:&nbsp;fail
+&nbsp;&nbsp;!!!&nbsp;compiled(fail/0)
+&nbsp;Fail:&nbsp;fail
+&nbsp;Redo:&nbsp;perm([1,2,3],[2,1,3])
+&nbsp;&nbsp;Redo:&nbsp;insert(1,[2,3],[2,1,3])
+&nbsp;&nbsp;&nbsp;Redo:&nbsp;insert(1,[3],[1,3])
+&nbsp;&nbsp;&nbsp;&nbsp;Call:&nbsp;insert(1,[],_x8180)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;!!!&nbsp;clause:&nbsp;insert/3
+&nbsp;&nbsp;&nbsp;&nbsp;Exit:&nbsp;insert(1,[],[1])
+&nbsp;&nbsp;&nbsp;Exit:&nbsp;insert(1,[3],[3,1])
+&nbsp;&nbsp;Exit:&nbsp;insert(1,[2,3],[2,3,1])
+&nbsp;Exit:&nbsp;perm([1,2,3],[2,3,1])
+&nbsp;Call:&nbsp;fail
+&nbsp;&nbsp;!!!&nbsp;compiled(fail/0)
+&nbsp;Fail:&nbsp;fail
+&nbsp;Redo:&nbsp;perm([1,2,3],[2,3,1])
+&nbsp;&nbsp;Redo:&nbsp;insert(1,[2,3],[2,3,1])
+&nbsp;&nbsp;&nbsp;Redo:&nbsp;insert(1,[3],[3,1])
+&nbsp;&nbsp;&nbsp;&nbsp;Redo:&nbsp;insert(1,[],[1])
+&nbsp;&nbsp;&nbsp;&nbsp;Fail:&nbsp;insert(1,[],_x8180)
+&nbsp;&nbsp;&nbsp;Fail:&nbsp;insert(1,[3],_x7793)
+&nbsp;&nbsp;Fail:&nbsp;insert(1,[2,3],_x2773)
+&nbsp;&nbsp;Redo:&nbsp;perm([2,3],[2,3])
+&nbsp;&nbsp;&nbsp;Redo:&nbsp;insert(2,[3],[2,3])
+&nbsp;&nbsp;&nbsp;&nbsp;Call:&nbsp;insert(2,[],_x7404)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;!!!&nbsp;clause:&nbsp;insert/3
+&nbsp;&nbsp;&nbsp;&nbsp;Exit:&nbsp;insert(2,[],[2])
+&nbsp;&nbsp;&nbsp;Exit:&nbsp;insert(2,[3],[3,2])
+&nbsp;&nbsp;Exit:&nbsp;perm([2,3],[3,2])
+&nbsp;&nbsp;Call:&nbsp;insert(1,[3,2],_x2773)
+&nbsp;&nbsp;&nbsp;!!!&nbsp;clause:&nbsp;insert/3
+&nbsp;&nbsp;Exit:&nbsp;insert(1,[3,2],[1,3,2])
+&nbsp;Exit:&nbsp;perm([1,2,3],[1,3,2])
+&nbsp;Call:&nbsp;fail
+&nbsp;&nbsp;!!!&nbsp;compiled(fail/0)
+&nbsp;Fail:&nbsp;fail
+&nbsp;Redo:&nbsp;perm([1,2,3],[1,3,2])
+&nbsp;&nbsp;Redo:&nbsp;insert(1,[3,2],[1,3,2])
+&nbsp;&nbsp;&nbsp;Call:&nbsp;insert(1,[2],_x8155)
+&nbsp;&nbsp;&nbsp;&nbsp;!!!&nbsp;clause:&nbsp;insert/3
+&nbsp;&nbsp;&nbsp;Exit:&nbsp;insert(1,[2],[1,2])
+&nbsp;&nbsp;Exit:&nbsp;insert(1,[3,2],[3,1,2])
+&nbsp;Exit:&nbsp;perm([1,2,3],[3,1,2])
+&nbsp;Call:&nbsp;fail
+&nbsp;&nbsp;!!!&nbsp;compiled(fail/0)
+&nbsp;Fail:&nbsp;fail
+&nbsp;Redo:&nbsp;perm([1,2,3],[3,1,2])
+&nbsp;&nbsp;Redo:&nbsp;insert(1,[3,2],[3,1,2])
+&nbsp;&nbsp;&nbsp;Redo:&nbsp;insert(1,[2],[1,2])
+&nbsp;&nbsp;&nbsp;&nbsp;Call:&nbsp;insert(1,[],_x8542)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;!!!&nbsp;clause:&nbsp;insert/3
+&nbsp;&nbsp;&nbsp;&nbsp;Exit:&nbsp;insert(1,[],[1])
+&nbsp;&nbsp;&nbsp;Exit:&nbsp;insert(1,[2],[2,1])
+&nbsp;&nbsp;Exit:&nbsp;insert(1,[3,2],[3,2,1])
+&nbsp;Exit:&nbsp;perm([1,2,3],[3,2,1])
+&nbsp;Call:&nbsp;fail
+&nbsp;&nbsp;!!!&nbsp;compiled(fail/0)
+&nbsp;Fail:&nbsp;fail
+&nbsp;Redo:&nbsp;perm([1,2,3],[3,2,1])
+&nbsp;&nbsp;Redo:&nbsp;insert(1,[3,2],[3,2,1])
+&nbsp;&nbsp;&nbsp;Redo:&nbsp;insert(1,[2],[2,1])
+&nbsp;&nbsp;&nbsp;&nbsp;Redo:&nbsp;insert(1,[],[1])
+&nbsp;&nbsp;&nbsp;&nbsp;Fail:&nbsp;insert(1,[],_x8542)
+&nbsp;&nbsp;&nbsp;Fail:&nbsp;insert(1,[2],_x8155)
+&nbsp;&nbsp;Fail:&nbsp;insert(1,[3,2],_x2773)
+&nbsp;&nbsp;Redo:&nbsp;perm([2,3],[3,2])
+&nbsp;&nbsp;&nbsp;Redo:&nbsp;insert(2,[3],[3,2])
+&nbsp;&nbsp;&nbsp;&nbsp;Redo:&nbsp;insert(2,[],[2])
+&nbsp;&nbsp;&nbsp;&nbsp;Fail:&nbsp;insert(2,[],_x7404)
+&nbsp;&nbsp;&nbsp;Fail:&nbsp;insert(2,[3],_x5527)
+&nbsp;&nbsp;&nbsp;Redo:&nbsp;perm([3],[3])
+&nbsp;&nbsp;&nbsp;&nbsp;Redo:&nbsp;insert(3,[],[3])
+&nbsp;&nbsp;&nbsp;&nbsp;Fail:&nbsp;insert(3,[],_x5905)
+&nbsp;&nbsp;&nbsp;&nbsp;Redo:&nbsp;perm([],[])
+&nbsp;&nbsp;&nbsp;&nbsp;Fail:&nbsp;perm([],_x6283)
+&nbsp;&nbsp;&nbsp;Fail:&nbsp;perm([3],_x5905)
+&nbsp;&nbsp;Fail:&nbsp;perm([2,3],_x5527)
+&nbsp;Fail:&nbsp;perm([1,2,3],_x2773)
+&nbsp;Redo:&nbsp;nats(1,3,[1,2,3])
+&nbsp;&nbsp;Redo:&nbsp;nats(2,3,[2,3])
+&nbsp;&nbsp;&nbsp;Redo:&nbsp;nats(3,3,[3])
+&nbsp;&nbsp;&nbsp;Fail:&nbsp;nats(3,3,_x4117)
+&nbsp;&nbsp;&nbsp;Redo:&nbsp;3&nbsp;is&nbsp;2+1
+&nbsp;&nbsp;&nbsp;Fail:&nbsp;_x4115&nbsp;is&nbsp;2+1
+&nbsp;&nbsp;&nbsp;Redo:&nbsp;2&nbsp;&lt;&nbsp;3
+&nbsp;&nbsp;&nbsp;Fail:&nbsp;2&nbsp;&lt;&nbsp;3
+&nbsp;&nbsp;Fail:&nbsp;nats(2,3,_x3159)
+&nbsp;&nbsp;Redo:&nbsp;2&nbsp;is&nbsp;1+1
+&nbsp;&nbsp;Fail:&nbsp;_x3157&nbsp;is&nbsp;1+1
+&nbsp;&nbsp;Redo:&nbsp;1&nbsp;&lt;&nbsp;3
+&nbsp;&nbsp;Fail:&nbsp;1&nbsp;&lt;&nbsp;3
+&nbsp;Fail:&nbsp;nats(1,3,_x2770)
+Exit:&nbsp;g0(3)
+
+?-&nbsp;&nbsp;interactive(yes).
+
+?-&nbsp;&nbsp;trace(insert(1,[2,3],Res)).
+Call:&nbsp;insert(1,[2,3],_x2407)&nbsp;&lt;ENTER=call,&nbsp;;=trace,&nbsp;h=help&#62;:&nbsp;l
+
+%&nbsp;dynamic:&nbsp;insert/3:
+insert(A,B,[A|B]).
+insert(B,[A|C],[A|D])&nbsp;:-&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;insert(B,C,D).
+
+!!!&nbsp;clause:&nbsp;insert/3
+Exit:&nbsp;insert(1,[2,3],[1,2,3])
+Res=[1,2,3];
+
+Redo:&nbsp;insert(1,[2,3],[1,2,3])
+Call:&nbsp;insert(1,[3],_x3149)&nbsp;&lt;ENTER=call,&nbsp;;=trace,&nbsp;h=help&#62;:&nbsp;;
+&nbsp;!!!&nbsp;clause:&nbsp;insert/3
+Exit:&nbsp;insert(1,[3],[1,3])
+Exit:&nbsp;insert(1,[2,3],[2,1,3])
+Res=[2,1,3]q
+
+?-
+
+</pre></font>
+
+<div class="p"><!----></div>
+Starting with version 3.08 spy/1 and nospy/1 allow to watch
+entry and exit from compiled predicates. Note that they
+should be in
+the file to be compiled, before any use
+of the predicate to be spied on as in:
+
+<div class="p"><!----></div>
+
+<pre>
+%&nbsp;FILE:&nbsp;jbond.pl
+:-spy&nbsp;a/1.
+:-spy&nbsp;c/1.
+
+b(X):-a(X),c(X).
+
+a(1).
+a(2).
+
+c(2).
+c(3).
+
+</pre>
+
+<div class="p"><!----></div>
+ This gives the following interaction:
+
+<div class="p"><!----></div>
+<font size="-1">
+<pre>
+?-[jbond].
+......
+?-&nbsp;b(X).
+
+Call:&nbsp;a(_2158)&nbsp;&lt;enter=call,&nbsp;other=trace&#62;:&nbsp;;
+&nbsp;!!!&nbsp;compiled(a/1)
+Exit:&nbsp;a(1)
+Call:&nbsp;c(1)&nbsp;&lt;enter=call,&nbsp;other=trace&#62;:&nbsp;;
+&nbsp;!!!&nbsp;compiled(c/1)
+Fail:&nbsp;c(1)
+Redo:&nbsp;a(1)
+Exit:&nbsp;a(2)
+Call:&nbsp;c(2)&nbsp;&lt;enter=call,&nbsp;other=trace&#62;:&nbsp;;
+&nbsp;!!!&nbsp;compiled(c/1)
+Exit:&nbsp;c(2)
+X=2;
+
+Redo:&nbsp;c(2)
+Fail:&nbsp;c(2)
+Redo:&nbsp;a(2)
+Fail:&nbsp;a(_2158)
+
+
+no
+
+</pre></font>
+
+<div class="p"><!----></div>
+ Although these are very basic debugging facilities you can
+enhance them at your will and with some discipline in programming they
+may be all you really need.  Anyway, future of debugging is definitely
+not by tracing.  One thing is to have stronger static checking. In
+dynamic debugging the way go is to have a database of trace-events and
+then query it with high level tools.  We plan to add some non-tracing
+database-oriented debugging facilities in the future.
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc6.1">
+6.1</a>&nbsp;&nbsp;Debugging dynamically compiled code</h3>
+
+<div class="p"><!----></div>
+Let's suppose we load a file, let's say progs/cal.pl (a calendar
+benchmark) in interpreted mode with:
+
+<div class="p"><!----></div>
+
+<pre>
+?-&nbsp;~cal.
+
+</pre>
+
+<div class="p"><!----></div>
+After running the benchmark (which, by the way gets such a big
+speed-up through dynamic recompilation that it actually executes
+faster than the benchmark witness empty loop) we would like to spy
+on a predicate, with:
+
+<div class="p"><!----></div>
+
+<pre>
+?-listing(day_of_week).
+?-spy(day_of_week/4).
+?-go(1).&nbsp;%&nbsp;toplevel&nbsp;goal
+
+</pre>
+
+<div class="p"><!----></div>
+Spy works as if no compilation has taken place! The trick is
+that BinProlog can switch back to the interpreted version quite easily
+as it has both in its working memory. You can at any time use
+something like <tt>make_static/1</tt> or <tt>make_dynamic/1</tt> to explicitely chose
+the desired execution format of a consulted predicate.
+This is a major improvement on debugging programs, over previous
+versions of BinProlog.
+
+<div class="p"><!----></div>
+<font size="-1">
+<pre>
+?-&nbsp;go(1).
+Call:&nbsp;day_of_week(1992,12,1,_x2474)&nbsp;&lt;ENTER=call,&nbsp;;=trace,&nbsp;h=help&#62;:&nbsp;;
+&nbsp;!!!&nbsp;clause:&nbsp;day_of_week/4
+&nbsp;Call:&nbsp;cal_key(12,_x2947,_x2948)&nbsp;&lt;ENTER=call,&nbsp;;=trace,&nbsp;h=help&#62;:&nbsp;;
+&nbsp;&nbsp;!!!&nbsp;clause:&nbsp;cal_key/3
+&nbsp;Exit:&nbsp;cal_key(12,4,0)
+......................
+......................
+
+</pre></font>
+
+<div class="p"><!----></div>
+ <h2><a name="tth_sEc7">
+7</a>&nbsp;&nbsp;Source-level stateless modules</h2>
+
+<div class="p"><!----></div>
+
+<pre>
+(module)/1
+current_module/1
+is_module/1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;checks/generates&nbsp;an&nbsp;existing&nbsp;module-name
+module_call/2,&nbsp;':'/2&nbsp;-&nbsp;calls&nbsp;a&nbsp;predicate&nbsp;hidden&nbsp;in&nbsp;a&nbsp;module
+module_name/3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;adds&nbsp;the&nbsp;name&nbsp;of&nbsp;a&nbsp;module&nbsp;to&nbsp;a&nbsp;symbol
+module_predicate/3&nbsp;&nbsp;&nbsp;-&nbsp;adds&nbsp;the&nbsp;name&nbsp;of&nbsp;a&nbsp;module&nbsp;to&nbsp;a&nbsp;goal
+modules/1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;gives&nbsp;the&nbsp;list&nbsp;of&nbsp;existing&nbsp;modules
+
+</pre>
+
+<div class="p"><!----></div>
+The following example:
+
+<pre>
+:-module&nbsp;m1.
+:-public&nbsp;d/1.
+
+a(1).
+a(2).
+a(3).
+a(4).
+
+d(X):-a(X).
+
+:-module&nbsp;m2.
+
+:-public&nbsp;b/1.
+
+b(X):-c(X).
+
+c(2).
+c(3).
+c(4).
+c(5).
+c(6).
+
+:-module&nbsp;m3.
+
+:-public&nbsp;test/1.
+
+test(X):-b(X),d(X).
+
+:-module&nbsp;user.
+
+go:-modules(Ms),write(Ms),nl,fail.
+go:-test(X),write(X),nl,fail.
+
+</pre>
+
+<div class="p"><!----></div>
+Executing goal `go' will generate the following output:
+
+<div class="p"><!----></div>
+
+<pre>
+[user/0,m1/0,m2/0,m3/0]
+2
+3
+4
+
+</pre>
+
+<div class="p"><!----></div>
+Starting with version 3.30, predicates in the BinProlog system
+itself which are not intended to be used by applications, are hidden in
+the module <tt>prolog</tt> but can be accessed by calling them with
+
+<pre>
+&nbsp;&nbsp;&nbsp;'prolog:my_predicate'(...)
+
+</pre>
+
+<div class="p"><!----></div>
+Explicit naming of the module where the hidden predicate
+is defined should be used when call/1, findall/3 etc. uses
+a hidden predicate, even if it is in the module itself.
+
+<div class="p"><!----></div>
+This draconian constraint is motivated by simplicity of
+BinProlog's stateless purely source-level module system.
+Basically predicates in a module have their names prefixed
+as in
+
+<pre>
+&nbsp;&nbsp;&nbsp;my_current_module:my_predicate
+
+</pre>
+in a preprocessing
+step, except if they are declared <tt>public</tt> or are known to
+the system as being so (i.e. in the case of builtins).
+
+<div class="p"><!----></div>
+This basic concept of modules (essentially the same as
+what can be achieved with <tt>extern</tt> and <tt>static</tt>
+declarations in C) covers only compiled code,
+and is mostly intended to ensure
+multiple name spaces with a very simple semantics
+and no additional space or time overhead. On the other
+hand use of linear and intuitionistic implication
+is suggested for dynamic modular and hypothetical reasoning
+constructs.
+
+<div class="p"><!----></div>
+<em>Meta-predicate</em> declarations are not supported at this time (mostly
+because they are at least as cumbersome as just putting the right
+name extension in argument positions which require it, but they
+might be added in the future if a significant number of
+users will ask to have them.
+
+<div class="p"><!----></div>
+Note that builtins and predicates defined in a special module <tt>user</tt>
+are always public. A public predicate keeps its name unchanged
+in the global name space while hidden predicates have their
+names prefixed by the name of the module in their
+definitions and in all their statically obvious (first-order)
+uses.
+
+<div class="p"><!----></div>
+Alternatively, <tt>module/2</tt> allows to define a module and its
+public predicates with one declaration as in:
+
+<div class="p"><!----></div>
+
+<pre>
+:-module(beings,[cat/4,dog/4,chicken/2,fish/0,maple/1,octopus/255]).
+
+</pre>
+
+<div class="p"><!----></div>
+ <h2><a name="tth_sEc8">
+8</a>&nbsp;&nbsp;Interoperation with Jinni</h2>
+
+<div class="p"><!----></div>
+BinProlog interoperates as a client or server with Jinni . Communication over
+sockets is very fast, around 1000 exchanges per second.
+
+<div class="p"><!----></div>
+The BinProlog side API is compatible with Jinni's server and client classes and supports socket reuse:
+
+<div class="p"><!----></div>
+
+<ul>
+<li> <tt>rpc_server(Port,Password)</tt>: runs Jinni compatible server with socket reuse
+<div class="p"><!----></div>
+</li>
+
+<li> <tt>rpc_server</tt>: runs Jinni compatible server with socket reuse on default port
+<div class="p"><!----></div>
+</li>
+
+<li> <tt>rpc(Query)</tt>: calls server on current local reusable socket]
+<div class="p"><!----></div>
+</li>
+
+<li> <tt>rpc(Answer,Goal,Result)</tt>: calls server on local reusable socket and
+gets back Result as the(Answer) or no
+<div class="p"><!----></div>
+</li>
+</ul>
+
+<div class="p"><!----></div>
+Here is a Jinni client talking to a BinProlog server:
+
+<div class="p"><!----></div>
+
+<pre>
+BinProlog&nbsp;Server&nbsp;Window:
+
+?-rpc_server.
+
+Jinni&nbsp;Client&nbsp;Window::
+
+?-new(client,C),C:ask(println(hello)),C:disconnect.
+hello
+
+</pre>
+
+<div class="p"><!----></div>
+Here is a BinProlog client talking to a Jinni server:
+
+<div class="p"><!----></div>
+
+<pre>
+Jinni&nbsp;Server&nbsp;Window:
+
+?-&nbsp;new(server,S),S:serve.
+hello
+
+BinProlog&nbsp;Client&nbsp;Window:
+
+?-&nbsp;new_client(C),ask(C,println(hello)),stop_service(C).
+
+
+</pre>
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+ <h2><a name="tth_sEc9">
+9</a>&nbsp;&nbsp;Threads</h2>
+
+<div class="p"><!----></div>
+Windows and Linux versions of BinProlog also support multithreaded execution.
+Type help(thread), then use info/1 for more information on thread related operations.
+
+<div class="p"><!----></div>
+In fact, for most programs just using
+
+<div class="p"><!----></div>
+<font size="-1">
+<pre>
+bg(Goal)
+
+and
+
+synchronize(Statement)
+
+</pre></font>
+
+<div class="p"><!----></div>
+are all you need to get started.
+Take a look at the StockMarket Web-based demo at
+
+<pre>
+http://www.binnetcorp.com&nbsp;
+
+</pre>
+
+<div class="p"><!----></div>
+for a more interesting example using multiple threads.
+BinNet's <em>online demo</em> page contanins a naive reverse benchmark
+allowing the user to mesure BinProlog's performance with various
+thread/list lenght/iterations by filling in a Web form.
+
+<div class="p"><!----></div>
+On a Pentium 4 2.4 GHz, depending on the parmeters, BinProlog
+achieves between 120 and 130 million inferences/second (MegaLIPS).
+
+<div class="p"><!----></div>
+ <h2><a name="tth_sEc10">
+10</a>&nbsp;&nbsp;Calling BinProlog as a DLL</h2>
+
+<div class="p"><!----></div>
+The library bp_lib.dll (available to users with BinProlog Source
+or BinProlog Professional License) is called with parameters 
+similar to BinProlog's command line. 
+
+<div class="p"><!----></div>
+When a C string parameter parameter like:
+
+<div class="p"><!----></div>
+
+<pre>
+&nbsp;&nbsp;"call((consult(hello),go,halt))"
+
+</pre>
+
+<div class="p"><!----></div>
+ is passed to the function <b>bp_main()</b> exported by the DLL,
+BinProlog consults the file <b>hello.pro</b>, starts with the goal
+<b>go</b> and finaly halts.
+
+<div class="p"><!----></div>
+For more complex interaction with DLLs, we refer to BinProlog's C interface
+described in [<a href="#bp7interface" name="CITEbp7interface">3</a>].
+Mor complex interaction patterns may require some adaptation of
+the BinProlog sources, i.e. exporting some other functions and
+calling back through new BinProlog builtins.
+A Visual C/C++ project file is provided to simplify working with
+the sources as well as command line makefiles (see directory BP_DLL).
+
+<div class="p"><!----></div>
+ <h2><a name="tth_sEc11">
+11</a>&nbsp;&nbsp;Exceptions</h2>
+BinProlog support ISO Prolog exception handling.
+Throwing and exception specified with throw/1 has
+the result that the control leaves the current point
+and the stack is searched until a matching catch/3
+is found (a default one waits at toplevel for 
+uncought exceptions). Catch(Goal,ExceptionPattern,Action),
+executes Goal and if it catches an exception matching
+ExceptionPattern, it executes Action, like in the
+following example:
+
+<div class="p"><!----></div>
+
+<pre>
+?-&nbsp;catch(
+&nbsp;&nbsp;&nbsp;&nbsp;(for(I,1,100),I=10,throw(boo(I)),println(too_late)),
+&nbsp;&nbsp;&nbsp;&nbsp;X,
+&nbsp;&nbsp;&nbsp;&nbsp;println(got(X))
+&nbsp;&nbsp;).
+
+got(boo(10))
+I=_x2316,
+X=boo(10)
+
+yes
+
+</pre>
+
+<div class="p"><!----></div>
+ <h2><a name="tth_sEc12">
+12</a>&nbsp;&nbsp;Using the Redistributable BinProlog Runtime Executable</h2>
+Starting with version 7.20, owners of BinProlog Professional
+Edition can distribute their applications in binary format,
+together with the BinProlog Runtime Executable (bpr.exe on
+Windows, bor or bpr.&lt;platform&#62; on Unix).
+
+<div class="p"><!----></div>
+To build a binary application do the following. Create
+a file, for instance <b>myfile.pl</b>, possibly including 
+various modules in it with
+
+<pre>
+:-[file1].
+...
+:-[fileN].
+
+</pre>
+
+<div class="p"><!----></div>
+Compile the myfile.pl file to a corresponding <b>myfile.wam</b> file, 
+using <b>fcompile(myfile)</b> or <b>scompile(myfile)</b> . 
+The later contains a builtin <em>make</em> facility, 
+for upgrading only the modules which have changed, 
+while also loading the file into the development environment 
+at the end.
+
+<div class="p"><!----></div>
+To execute the resulting <b>myfile.wam</b> binary application,
+type:
+
+<div class="p"><!----></div>
+
+<pre>
+bpr&nbsp;&lt;myfile&#62;.wam
+
+</pre>
+
+<div class="p"><!----></div>
+The BinProlog Runtime Executable (bpr.exe or bpr) has all
+the abilities of BinProlog, except the ability to compile
+applications to files or memory. However, it is able to
+consult and interpret Prolog data files, by asserting their
+content into the dynamic database. Executing complex code
+with the interpreter is, however, much slower than compiling,
+pleas make sure that the code you deliver has been previously&nbsp;compiled to the *.wam form, which is executed by the runtime
+system at full speed.
+
+<div class="p"><!----></div>
+
+ <h2><a name="tth_sEc13">
+13</a>&nbsp;&nbsp;Example programs</h2>
+The directory <tt>progs</tt> contains a few BinProlog benchmarks and applications.
+
+<div class="p"><!----></div>
+<font size="-1">
+<pre>
+allperms.pl:&nbsp;permutation&nbsp;benchmarks&nbsp;with&nbsp;findall
+bestof.pl:&nbsp;&nbsp;&nbsp;an&nbsp;implementation&nbsp;&nbsp;of&nbsp;bestof/3
+
+bfmeta.pl:&nbsp;&nbsp;&nbsp;breadth-first&nbsp;metainterpreter
+backprop.pl:&nbsp;float&nbsp;intensive&nbsp;neural&nbsp;net&nbsp;learning&nbsp;by&nbsp;back-propagation
+cal.pl:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;calendar:&nbsp;computes&nbsp;the&nbsp;last&nbsp;10000&nbsp;fools-days
+chat.pl:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHAT&nbsp;parser
+choice.pl:&nbsp;&nbsp;&nbsp;Choice-intensive&nbsp;ECRC&nbsp;benchmark
+cbrev.pl:&nbsp;&nbsp;&nbsp;&nbsp;nrev&nbsp;with&nbsp;^/2&nbsp;as&nbsp;a&nbsp;constructor&nbsp;instead&nbsp;of&nbsp;./2
+cube.pl:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;E.&nbsp;Tick's&nbsp;benchmark&nbsp;program
+fibo.pl:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;naive&nbsp;Fibonacci
+ffibo.pl:&nbsp;&nbsp;&nbsp;&nbsp;naive&nbsp;Fibonacci&nbsp;with&nbsp;floats
+mfibo.pl:&nbsp;&nbsp;&nbsp;&nbsp;Fibonacci&nbsp;with&nbsp;memoing
+dfibo.pl:&nbsp;&nbsp;&nbsp;&nbsp;Fibonacci&nbsp;with&nbsp;Delphi&nbsp;memoing
+hello.pl:&nbsp;&nbsp;&nbsp;&nbsp;example&nbsp;program&nbsp;to&nbsp;create&nbsp;stand-alone&nbsp;Unix&nbsp;application
+knight.pl:&nbsp;&nbsp;&nbsp;knight&nbsp;tour&nbsp;to&nbsp;cover&nbsp;a&nbsp;chess-board&nbsp;(uses&nbsp;the&nbsp;bboard)
+lknight.pl:&nbsp;&nbsp;knight&nbsp;tour&nbsp;to&nbsp;cover&nbsp;a&nbsp;chess-board&nbsp;(uses&nbsp;the&nbsp;lists)
+ltak.pl:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tak&nbsp;program&nbsp;with&nbsp;lemmas
+lfibo.pl:&nbsp;&nbsp;&nbsp;&nbsp;fibo&nbsp;program&nbsp;with&nbsp;lemmas
+lq8.pl&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;8&nbsp;queens&nbsp;using&nbsp;global&nbsp;logical&nbsp;variables
+maplist.pl:&nbsp;&nbsp;fast&nbsp;findall&nbsp;based&nbsp;maplist&nbsp;predicate
+brev.pl:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;naive&nbsp;reverse&nbsp;benchmark
+nrev30.pl:&nbsp;&nbsp;&nbsp;small&nbsp;nrev&nbsp;benchmark&nbsp;to&nbsp;reconsult&nbsp;for&nbsp;the&nbsp;meta-interpreter
+or.pl:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or-parallel&nbsp;simulator&nbsp;for&nbsp;binary&nbsp;programs&nbsp;(VT100)
+other_bm*:&nbsp;&nbsp;&nbsp;benchmark&nbsp;suite&nbsp;to&nbsp;compare&nbsp;Sicstus,&nbsp;Quintus&nbsp;and&nbsp;BinProlog
+puzzle.pl:&nbsp;&nbsp;&nbsp;king-prince-queen&nbsp;puzzle
+q8.pl:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fast&nbsp;N-queens
+qrev.pl:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;quick&nbsp;nrev&nbsp;using&nbsp;builtin&nbsp;det_append/3
+subset.pl:&nbsp;&nbsp;&nbsp;findall+subset
+tetris.pl:&nbsp;&nbsp;&nbsp;tetris&nbsp;player&nbsp;(VT100)
+
+</pre>
+</font>
+
+<div class="p"><!----></div>
+ <h2><a name="tth_sEc14">
+14</a>&nbsp;&nbsp;Appendix</h2>
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc14.1">
+14.1</a>&nbsp;&nbsp;Default Operator Definition</h3>
+
+<div class="p"><!----></div>
+Note the operators when used as non-operator atoms <em>need to be in paranthesises</em>, i.e. you should say write([this,(module), is, (not), in, the,(public),domain]) instead of write([this,module, is, not, in, the,public,domain]).
+
+<div class="p"><!----></div>
+BinProlog's default operator definitions
+(see file oper.pl) are the following:
+
+<div class="p"><!----></div>
+<font size="-1">
+<pre>
+:-op(1000,xfy,',').
+:-op(1100,xfy,(';')).
+
+:-op(1200,xfx,('--&#62;')).
+:-op(1200,xfx,(':-')).
+:-op(1200,fx,(':-')).
+:-op(700,xfx,'is').
+:-op(700,xfx,'=').
+
+:-op(1050,xfx,(@@)).
+
+:-op(500,yfx,'-').
+:-op(200,fy,'-').
+
+:-op(500,yfx,'+').
+:-op(200,fy,'+').
+
+:-op(400,yfx,'/').
+:-op(400,yfx,'*').
+:-op(400,fx,'*').
+:-op(400,yfx,(mod)).
+:-op(200,yfx,(**)).
+:-op(200,xfy,(^)).
+
+:-op(300,fy,(~)).
+:-op(650,xfy,'.').
+:-op(660,xfy,'++').
+
+:-op(700,xfx,'&#62;=').
+:-op(700,xfx,'&#62;').
+:-op(700,xfx,'=&lt;').
+:-op(700,xfx,(&lt;)).
+:-op(700,xfx,(=\=)).
+:-op(700,xfx,(=:=)).
+
+:-op(400,yfx,(&#62;&#62;)).
+:-op(400,yfx,(&lt;&lt;)).
+:-op(400,yfx,(//)).
+
+:-op(200,yfx,(\/)).
+:-op(200,yfx,(/\)).
+:-op(200,yfx,(\)).
+:-op(200,fx,(\)).
+
+:-op(700,xfx,(@&#62;=)).
+:-op(700,xfx,(@=&lt;)).
+:-op(700,xfx,(@&#62;)).
+:-op(700,xfx,(@&lt;)).
+
+:-op(700,xfx,(\==)).
+:-op(700,xfx,(==)).
+:-op(700,xfx,(=..)).
+:-op(700,xfx,(\=)).
+
+:-op(900,fy,(not)).
+:-op(900,fy,(\+)).
+:-op(900,fx,(spy)).
+:-op(900,fx,(nospy)).
+
+:-op(950,fx,(##)).
+
+:-op(950,xfy,(=&#62;)).
+:-op(950,xfx,(&lt;=)).
+
+:-op(1050,xfy,(-&#62;)).
+
+:-op(1150,fx,(dynamic)).
+:-op(1150,fx,(public)).
+:-op(1150,fx,(module)).
+:-op(1150,fx,(mode)).
+
+:-op(1150,fx,(multifile)).
+:-op(1150,fx,(discontiguous)).
+
+:-op(1200,xfx,(::-)).
+
+:-op(50,yfx,(:)).
+
+:-op(100,fx,(@)).
+
+:-op(50,fx,(^)).
+
+:-op(500,fx,(#&#62;)).
+:-op(500,fx,(#&lt;)).
+:-op(500,fx,(#:)).
+:-op(500,fx,(#+)).
+:-op(500,fx,(#*)).
+:-op(500,fx,(#=)).
+:-op(500,fx,(#-)).
+:-op(500,fx,(#?)).
+
+</pre>
+</font>
+
+<div class="p"><!----></div>
+ <h2><a name="tth_sEc15">
+15</a>&nbsp;&nbsp;Further readings</h2>
+
+<div class="p"><!----></div>
+Related BinProlog documentation is available at: 
+[<a href="#bp7user" name="CITEbp7user">4</a>,<a href="#bp7advanced" name="CITEbp7advanced">2</a>,<a href="#bp7interface" name="CITEbp7interface">3</a>,<a href="#bp7crossref" name="CITEbp7crossref">1</a>].
+
+<div class="p"><!----></div>
+
+<h2>References</h2>
+
+<dl compact="compact">
+ <dt><a href="#CITEbp7crossref" name="bp7crossref">[1]</a></dt><dd>
+P.&nbsp;Tarau.
+ BinProlog 7.0 Professional Edition: Predicate Cross-Reference Guide
+  .
+ Technical report, BinNet Corp., 1998.
+ Available from http://www.binnetcorp.com/BinProlog.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITEbp7advanced" name="bp7advanced">[2]</a></dt><dd>
+P.&nbsp;Tarau.
+ BinProlog 9.x Professional Edition: Advanced BinProlog Programming
+  and Extensions Guide.
+ Technical report, BinNet Corp., 2002.
+ Available from http://www.binnetcorp.com/BinProlog.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITEbp7interface" name="bp7interface">[3]</a></dt><dd>
+P.&nbsp;Tarau.
+ BinProlog 9.x Professional Edition: BinProlog Interfaces Guide.
+ Technical report, BinNet Corp., 2002.
+ Available from http://www.binnetcorp.com/BinProlog.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITEbp7user" name="bp7user">[4]</a></dt><dd>
+P.&nbsp;Tarau.
+ BinProlog 9.x Professional Edition: User Guide.
+ Technical report, BinNet Corp., 2002.
+ Available from http://www.binnetcorp.com/BinProlog.</dd>
+</dl>
+
+
+<div class="p"><!----></div>
+<hr /><h3>Footnotes:</h3>
+
+<div class="p"><!----></div>
+<a name="tthFtNtAAB"></a><a href="#tthFrefAAB"><sup>1</sup></a>BinProlog Copyright &#169;  Paul Tarau 1992-98 and BinNet Corp. 1998-2006. All rights reserved
+<div class="p"><!----></div>
+<a name="tthFtNtAAC"></a><a href="#tthFrefAAC"><sup>2</sup></a>This is usually better to
+be left to a system person who 	also can ensure that users
+inherit the <tt>BP_PATH</tt> environment variable. An individual user
+can also put something like <em>setenv BP_PATH /usr/local/BinProlog</em>
+his or her <tt>.cshrc</tt> or <tt>.login</tt> file, to access the shared
+BinProlog programs.
+<div class="p"><!----></div>
+<a name="tthFtNtAAD"></a><a href="#tthFrefAAD"><sup>3</sup></a>This overcomes the limitation of previous versions of
+having only one top-level file.
+<br /><br /><hr /><small>File translated from
+T<sub><font size="-1">E</font></sub>X
+by <a href="http://hutchinson.belmont.ma.us/tth/">
+T<sub><font size="-1">T</font></sub>H</a>,
+version 3.81.<br />On 07 Jul 2008, 12:10.</small>
+</html>

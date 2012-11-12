@@ -1,0 +1,27 @@
+This is pdfeTeX, Version 3.141592-1.20a-2.2 (MiKTeX 2.4) (preloaded format=latex 2004.10.3)  25 SEP 2005 22:34
+entering extended mode
+**.tex
+(C:\texmf\tex\latex\tools\.tex
+LaTeX2e <2003/12/01>
+Babel <v3.8a> and hyphenation patterns for english, french, german, ngerman, du
+mylang, nohyphenation, loaded.
+File ignored)
+*
+! Emergency stop.
+<*> .tex
+        
+End of file on the terminal!
+
+ 
+Here is how much of TeX's memory you used:
+ 7 strings out of 95518
+ 102 string characters out of 1189590
+ 44801 words of memory out of 1048577
+ 3206 multiletter control sequences out of 35000
+ 3640 words of font info for 14 fonts, out of 500000 for 1000
+ 14 hyphenation exceptions out of 607
+ 5i,0n,1p,85b,8s stack positions out of 1500i,500n,5000p,200000b,32768s
+ 0 PDF objects out of 300000
+ 0 named destinations out of 300000
+ 1 words of extra memory for PDF output out of 65536
+No pages of output.

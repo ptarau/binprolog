@@ -1,0 +1,100 @@
+
+BMARK_brev_3000_times_300_elem_nrev: = [klips = 270541.66666667,time = 0.504,length = 300,iterations = 3000,heap = 378028,trail = 0,stack = 0]
+dec 1, 1992 is: tue
+BMARK_cal = [fools_days = 100000,time(45 = 141-89-(89-82))]
+rewriting...
+proving...
+BMARK_boyer time : time(40)+heap(4774920)
+time(31)+route([1,5,6,3,4,7,2,1])
+tak(18,12,6) = 7
+
+BMARK_tak: = [time = 6,heap = 1017852]
+execute with -h20000 option
+[BMARK_allperms,nondet] = [time = 4,heap = 60]
+[BMARK_allperms,determ] = [time = 10,heap = 4626860]
+[BMARK_allperms,with_fast_findall] = [time = 53,heap = 5000040]
+[BMARK_allperms,with_findall] = [time = 46,heap = 5000032]
+[BMARK_allperms,with_engine] = [time = 22,heap = 3387248]
+runtime=[47,0]
+global_stack=[273916,8048932]
+local_stack=[104,1047436]
+trail=[6228,1041320]
+code=[265644,782916]
+strings=[577,4193727]
+symbols=[13364,1035212]
+htable=[118008,3027720]
+bboard=[142536,903988]
+gctime=[0,0]
+realtime=[0,426499293]
+time-9+lips-25666
+runtime=[122,88]
+global_stack=[20027044,387452]
+local_stack=[124,1047416]
+trail=[684,2046288]
+code=[264340,784220]
+strings=[427,4193877]
+symbols=[13200,1035376]
+htable=[115224,3030504]
+bboard=[9508,1037016]
+gctime=[0,0]
+realtime=[0,426499293]
+runtime=[244,122]
+global_stack=[10232376,10182120]
+local_stack=[148,1047392]
+trail=[8,2046964]
+code=[264340,784220]
+strings=[427,4193877]
+symbols=[13200,1035376]
+htable=[115224,3030504]
+bboard=[9508,1037016]
+gctime=[37,37]
+realtime=[0,426499293]
+time(1)
+runtime=[246,0]
+global_stack=[10232392,10182104]
+local_stack=[148,1047392]
+trail=[8,2046964]
+code=[264340,784220]
+strings=[427,4193877]
+symbols=[13200,1035376]
+htable=[115224,3030504]
+bboard=[9508,1037016]
+gctime=[37,0]
+realtime=[0,426499293]
+T overall loop:   7
+T compens loop:   1
+T net:            6
+Lips:            33333333
+
+T overall loop:   6
+T compens loop:   1
+T net:            5
+Lips:            40000000
+
+T overall loop:   6
+T compens loop:   0
+T net:            6
+Lips:            33333333
+
+BMARK_choice: = [time = 21,stack = 5600120,heap = 841084,trail = 72]
+
+start;
+goto2(box(3),room(1));
+pushto(box(3),door(1),room(1));
+goto2(box(2),room(1));
+pushto(box(2),box(3),room(1));
+goto2(box(1),room(1));
+pushto(box(1),lightswitch(1),room(1));
+climbon(box(1));
+turnon(lightswitch(1));
+climboff(box(1));
+goto2(box(1),room(1));
+pushto(box(1),box(2),room(1));
+goto2(door(1),room(1));
+gothru(door(1),room(1),room(5));
+goto2(door(2),room(5));
+gothru(door(2),room(5),room(2)).
+
+5 microsecs.
+
+BMARK_chat: = [time-12]

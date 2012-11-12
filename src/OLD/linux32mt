@@ -1,0 +1,7 @@
+rm -f wam.c binpro.c *.o bp binpro
+gcc -o ru -lpthread -lm *.c 
+./ru remake
+./ru "and(cboot,halt)"
+mv -f stub.c stub.txt
+gcc -g -O3 -DTHREADS=1 -o bp -fomit-frame-pointer -lpthread -lm *.c
+mv -f stub.txt stub.c

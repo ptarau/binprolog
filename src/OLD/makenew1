@@ -1,0 +1,37 @@
+# generates BinProlog
+
+mv -f wam.c wam_c.txt
+mv -f wam.h wam_h.txt
+mv -f binpro.c binpro_c.txt
+mv -f binpro.h binpro_h.txt
+cc -DAIX -o ru *.c -lm
+ru remake
+ru "and(cboot,halt)"
+mv -f stub.c stub.txt
+cc -DAIX -g -O4 -c *.c -lm
+
+# makes static library in ../lib
+cc -g -O4 -o bp *.o -lm
+cc -DAIX -DEXTERNAL_TSTORE -g -O4 -c builtins.c c.c -lm
+ar -q libbps.a *.o
+mv -f bp ../bin
+mv -f libbps.a ../lib
+
+# makes dynamic lib in ../lib - AIX specific
+
+rm -f *.o
+cc -g -O4 -brtl -G -DEXTERNAL_TSTORE -DAIX -c -lm *.c
+ar -q libbp.so *.o
+cp libbp.so ../lib
+cp c_defs.h global.h ../lib
+
+# clean up
+mv -f stub.txt stub.c
+rm -f wam_c.txt
+rm -f wam_h.txt
+rm -f binpro_c.txt
+rm -f binpro_h.txt
+rm -f *.o
+rm -f *.a
+rm -f *.so
+

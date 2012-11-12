@@ -1,0 +1,3037 @@
+<html>
+<head>
+<title>The BinProlog API: Prolog built-ins and their descriptions
+</title>
+</head>
+
+<body>
+
+<font color="blue"><center><h1>
+The BinProlog API: Prolog built-ins and their descriptions
+</h1></center>
+<ol>
+<center><h2><b>Total number of documented built-ins:</b> <b>825</b> </h2></center>
+
+<li>
+<font color="black"><b>!/0</b> <b>: </b> 
+</font><i>succeeds like true/0, but removes pending choices in calls at its LEFT and makes things look as if this were the LAST clause of the predicate</i> </li><li>
+<font color="black"><b># /3</b> <b>: </b> 
+</font><i>bitwise XOR</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-#(1,2,_A).
+_A = 3;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>(##)/1</b> <b>: </b> 
+</font><i>executes arg 1 at compile time - make sure the executed code terminates</i> </li><li>
+<font color="black"><b>(#*)/3</b> <b>: </b> 
+</font><i>(X): adds intuitionisic assumption *(X) to be used indefinitely by #- operation</i> </li><li>
+<font color="black"><b>(#+)/3</b> <b>: </b> 
+</font><i>(X): adds linear assumption +(X) to be consumed at most once, by a #- operation</i> </li><li>
+<font color="black"><b>(#-)/3</b> <b>: </b> 
+</font><i>(X): consumes +(X) linear assumption or matches *(X) intuitionistic assumption</i> </li><li>
+<font color="black"><b>(#:)/3</b> <b>: </b> 
+</font><i>(X): matches X against current dcg token</i> </li><li>
+<font color="black"><b>(#<)/3</b> <b>: </b> 
+</font><i>(Xs): sets the dcg token list to be Xs</i> </li><li>
+<font color="black"><b>(#=)/3</b> <b>: </b> 
+</font><i>(X): unifies X with any matching existing or future +(X) linear assumptions</i> </li><li>
+<font color="black"><b>(#>)/3</b> <b>: </b> 
+</font><i>(Xs): unifies current dcg token list with Xs</i> </li><li>
+<font color="black"><b>(#?)/3</b> <b>: </b> 
+</font><i>(X): matches +(X) or *(X) assumptions without any binding</i> </li><li>
+<font color="black"><b>$catch_looking_for_throw/1</b> <b>: </b> 
+</font><i>(CatchThrowData): continuation marker used by catch/throw</i> </li><li>
+<font color="black"><b>$hx/3</b> <b>: </b> 
+</font><i>hidden compiled hashed database predicate</i> </li><li>
+<font color="black"><b>$process_catch/3</b> <b>: </b> 
+</font><i>processes data sent by catch for throw</i> </li><li>
+<font color="black"><b>* /3</b> <b>: </b> 
+</font><i>multiply</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-*(10,3,_A).
+_A = 30;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>** /3</b> <b>: </b> 
+</font><i>returns arg 1 at power arg 2, a float</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-**(2,3,_A).
+_A = 8;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>(+)/2</b> <b>: </b> 
+</font><i>returns 0 + arg 1</i> </li><li>
+<font color="black"><b>(+)/3</b> <b>: </b> 
+</font><i>add</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-+(10,3,_A).
+_A = 13;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>(++)/3</b> <b>: </b> 
+</font><i>concatenates N lists, usable in is/2</i> </li><li>
+<font color="black"><b>(,)/2</b> <b>: </b> 
+</font><i>A,B succeeds if A suceeds and B, called after A, succeeds</i> </li><li>
+<font color="black"><b>(-)/2</b> <b>: </b> 
+</font><i>returns 0 - arg 1</i> </li><li>
+<font color="black"><b>(-)/3</b> <b>: </b> 
+</font><i>subtract</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?--(10,3,_A).
+_A = 7;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>(->)/2</b> <b>: </b> 
+</font><i>Cond->Then executes Cond once; if it succeeds it also executes Then</i> </li><li>
+<font color="black"><b>(.)/3</b> <b>: </b> 
+</font><i>(Head,Tail,List) builds List=[Head|Tail]</i> </li><li>
+<font color="black"><b>/ /3</b> <b>: </b> 
+</font><i>division</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-/(10,3,_A).
+_A = 3.33333333;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>// /3</b> <b>: </b> 
+</font><i>integer division</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-//(10,3,_A).
+_A = 3;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>/\ /3</b> <b>: </b> 
+</font><i>bitwise AND</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-/\(1,2,_A).
+_A = 0;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>: /2</b> <b>: </b> 
+</font><i>M:P calls predicate P hidden in module M</i> </li><li>
+<font color="black"><b>(::-)/2</b> <b>: </b> 
+</font><i>variant of :- for hand transformed binary clauses - use with care</i> </li><li>
+<font color="black"><b>(;)/2</b> <b>: </b> 
+</font><i>A;B succeeds if A succeeds or B, called after A, succeeds</i> </li><li>
+<font color="black"><b>(<)/2</b> <b>: </b> 
+</font><i>numeric comparison</i> </li><li>
+<font color="black"><b><< /3</b> <b>: </b> 
+</font><i>left shifts arg 1 by arg 2 bits</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-<<(1,5,_A).
+_A = 32;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>(=)/2</b> <b>: </b> 
+</font><i>(X,Y) true if (possibly cyclic) terms X and Y unify - cyclic terms can result from =/2, as occur check is not performed</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-f(_A,s(a)) = f(_B,_B).
+_A = s(a);
+_B = s(a);
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>(=..)/2</b> <b>: </b> 
+</font><i>called univ -this is bidirectional- it converts between a term and its view as a alist of components</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-f(a,b) =.. _A.
+_A = [f,a,b];
+
+no
+?-_A =.. [f,a,b].
+_A = f(a,b);
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>(=:=)/2</b> <b>: </b> 
+</font><i>numeric comparison</i> </li><li>
+<font color="black"><b>(=<)/2</b> <b>: </b> 
+</font><i>numeric comparison</i> </li><li>
+<font color="black"><b>(==)/2</b> <b>: </b> 
+</font><i>true if args are identical terms</i> </li><li>
+<font color="black"><b>(=\=)/2</b> <b>: </b> 
+</font><i>numeric comparison</i> </li><li>
+<font color="black"><b>(>)/2</b> <b>: </b> 
+</font><i>numeric comparison</i> </li><li>
+<font color="black"><b>(>=)/2</b> <b>: </b> 
+</font><i>numeric comparison</i> </li><li>
+<font color="black"><b>>> /3</b> <b>: </b> 
+</font><i>right shifts arg 1 by arg 2 bits</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?->>(16,2,_A).
+_A = 4;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>? /1</b> <b>: </b> 
+</font><i>simple call tracer</i> </li><li>
+<font color="black"><b>@ /2</b> <b>: </b> 
+</font><i>Hilog call predicate</i> </li><li>
+<font color="black"><b>@ /3</b> <b>: </b> 
+</font><i>alternative form for C/3 DCG connect relation</i> </li><li>
+<font color="black"><b>(@<)/2</b> <b>: </b> 
+</font><i>instance of compare/3 with arg 1: <</i> </li><li>
+<font color="black"><b>(@=<)/2</b> <b>: </b> 
+</font><i>instance of compare/3 with arg 1: = or <</i> </li><li>
+<font color="black"><b>(@>)/2</b> <b>: </b> 
+</font><i>instance of compare/3 with arg 1: ></i> </li><li>
+<font color="black"><b>(@>=)/2</b> <b>: </b> 
+</font><i>instance of compare/3 with arg 1: > or =</i> </li><li>
+<font color="black"><b>C/3</b> <b>: </b> 
+</font><i>DCG connect predicate</i> </li><li>
+<font color="black"><b>\ /2</b> <b>: </b> 
+</font><i>complement</i> </li><li>
+<font color="black"><b>\ /3</b> <b>: </b> 
+</font><i>bitwise or of first arg with bitwise complement of second</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-\(0,2,_A).
+_A = -3;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>(\+)/1</b> <b>: </b> 
+</font><i>succeeds if its argument is executed and fails</i> </li><li>
+<font color="black"><b>\/ /3</b> <b>: </b> 
+</font><i>bitwise OR</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-\/(1,2,_A).
+_A = 3;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>(\=)/2</b> <b>: </b> 
+</font><i>true if args fail to unify</i> </li><li>
+<font color="black"><b>(\==)/2</b> <b>: </b> 
+</font><i>true if arg 1 is not identical to arg 2</i> </li><li>
+<font color="black"><b>^ /2</b> <b>: </b> 
+</font><i>calls arg 2 and binds arg 1</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-_A^eq(_A,1).
+_A = 1;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>abolish/1</b> <b>: </b> 
+</font><i>abolish(F/N) deletes predicate F/N</i> </li><li>
+<font color="black"><b>abort/0</b> <b>: </b> 
+</font><i>returns to toplevel</i> </li><li>
+<font color="black"><b>abs/2</b> <b>: </b> 
+</font><i>int function</i> </li><li>
+<font color="black"><b>abstime/1</b> <b>: </b> 
+</font><i>gets time in secs since arbitrary origin</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-abstime(_A).
+_A = 426532223;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>acos/2</b> <b>: </b> 
+</font><i>float function</i> </li><li>
+<font color="black"><b>addq/3</b> <b>: </b> 
+</font><i>adds to end of persistent queeue</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-addq(key1,key2,33).
+
+yes
+</pre>
+
+</font></li><li>
+<font color="black"><b>all/2</b> <b>: </b> 
+</font><i>gets the list of terms matching arg 1 from Linda blackboard</i> </li><li>
+<font color="black"><b>all/3</b> <b>: </b> 
+</font><i>gets a selection arg 1 of terms matching arg 2 from Linda blackboard</i> </li><li>
+<font color="black"><b>all_answers/3</b> <b>: </b> 
+</font><i>(X,G,Xs): like findall/3, but such that if V is not common to X and G then V cannot be bound by execution of G</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-all_answers(_A,member(s(_A),[_B,_C,_C,_D]),_E).
+_A = _x61888;
+_B = s(_x63039);
+_C = s(_x63066);
+_D = s(_x63120);
+_E = [_x63039,_x63066,_x63066,_x63120];
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>all_but_at_least/4</b> <b>: </b> 
+</font><i>(N,X,G,Xs) findall variant, computing all but the first N answers X of G</i> </li><li>
+<font color="black"><b>all_for/2</b> <b>: </b> 
+</font><i>all_for(X,Xs) collects all constrained terms X on the blackboard to list Xs</i> </li><li>
+<font color="black"><b>and/2</b> <b>: </b> 
+</font><i>conjunction, like comma</i> </li><li>
+<font color="black"><b>answer_of/2</b> <b>: </b> 
+</font><i>(X,G): X is an answer for G, after finding all, sorting and removing duplicates</i> </li><li>
+<font color="black"><b>answer_one_query/2</b> <b>: </b> 
+</font><i>handles a Jinni service S with password P</i> </li><li>
+<font color="black"><b>append/3</b> <b>: </b> 
+</font><i>concatenates/decomposes lists</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-append([1,2],[3,4],_A).
+_A = [1,2,3,4];
+
+no
+?-append(_A,_B,[1,2]).
+_A = [];
+_B = [1,2];
+
+_A = [1];
+_B = [2];
+
+_A = [1,2];
+_B = [];
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>appendN/2</b> <b>: </b> 
+</font><i>concatenates N lists</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-appendN([[a,b],[],[c]],_A).
+_A = [a,b,c];
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>append_conj/3</b> <b>: </b> 
+</font><i>concatenates 2 conjunctions</i> </li><li>
+<font color="black"><b>append_disj/3</b> <b>: </b> 
+</font><i>concatenates 2 disjunctions</i> </li><li>
+<font color="black"><b>apropos/1</b> <b>: </b> 
+</font><i>prints names of predicates defined in the system</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-apropos(garbage).
+use info/1 to get a description of a predicate
+garbage_collect/0-[built_in,performs heap gc now]
+
+yes
+</pre>
+
+</font></li><li>
+<font color="black"><b>apropos/2</b> <b>: </b> 
+</font><i>returns names of predicates defined in the system</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-apropos(retract,_A).
+_A = retract/1-[built_in,backtracks over deleting matching clauses];
+
+_A = retract1/1-[built_in,deletes first matching clause in the current database];
+
+_A = retractall/1-[built_in,deletes all matching clauses];
+
+_A = x_retract/1-[built_in,db hook, backtracks over deleting matching clauses];
+
+_A = x_retractall/1-[built_in,db hook, deletes all matching clauses];
+
+_A = db_retract/2-[built_in,does retract/1 arg 2 from database given as arg 1];
+
+_A = db_retract/3-[built_in,db_retract(Db,H,B) retracts clause with head H and body B from database Db];
+
+_A = db_retract1/2-[built_in,deletes from database given as arg 1 a matching clause];
+
+_A = db_retractall/2-[built_in,removes from database given as arg 1, all matching clauses];
+
+_A = db_retractall/3-[built_in,removes from database given as arg 1, all matching clauses seen as head + body];
+
+_A = prolog:x_retract_each/1-[compiled];
+
+_A = prolog:x_retract/2-[compiled];
+
+_A = prolog:db_retractall0/3-[compiled];
+
+_A = prolog:x_retract_args/5-[compiled];
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>arg/3</b> <b>: </b> 
+</font><i>arg(I,T,X) extracts arg I of term T to be unified with X</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-arg(2,f(a,b),_A).
+_A = b;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>argn/3</b> <b>: </b> 
+</font><i>generates all n args of term</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-argn(_A,f(a,b),_B).
+_A = 1;
+_B = a;
+
+_A = 2;
+_B = b;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>arith_dif/2</b> <b>: </b> 
+</font><i>arithmetic comparison</i> </li><li>
+<font color="black"><b>arith_eq/2</b> <b>: </b> 
+</font><i>arithmetic comparison</i> </li><li>
+<font color="black"><b>array_get/3</b> <b>: </b> 
+</font><i>gets and dereferences array element</i> </li><li>
+<font color="black"><b>array_get0/3</b> <b>: </b> 
+</font><i>gets  array element</i> </li><li>
+<font color="black"><b>array_set/3</b> <b>: </b> 
+</font><i>sets array element</i> </li><li>
+<font color="black"><b>asin/2</b> <b>: </b> 
+</font><i>float function</i> </li><li>
+<font color="black"><b>ask/5</b> <b>: </b> 
+</font><i>ask(ClientSocket,X,G,W,R): calls rpc server on on ClientSocket with query X goal G password W and gets result R back - supports socket reuse</i> </li><li>
+<font color="black"><b>ask_engine/2</b> <b>: </b> 
+</font><i>ask_engine(E,X) retrieves from engine E (a copy of) answer X</i> </li><li>
+<font color="black"><b>ask_thread/2</b> <b>: </b> 
+</font><i>(E,R): asks an answer of engine E on a new thread R</i> </li><li>
+<font color="black"><b>asm/0</b> <b>: </b> 
+</font><i>shows transformations and readable BinWAM assembler for Prolog code entered at terminal</i> </li><li>
+<font color="black"><b>asm/1</b> <b>: </b> 
+</font><i>generates readable binarized form and BinWAM assembler to a file</i> </li><li>
+<font color="black"><b>assert/1</b> <b>: </b> 
+</font><i>adds a clause</i> </li><li>
+<font color="black"><b>assert_from_chars/1</b> <b>: </b> 
+</font><i>asserts a program from clauses in list of chars</i> </li><li>
+<font color="black"><b>assert_from_chars/2</b> <b>: </b> 
+</font><i>(Db,Cs) asserts to database Db, a set of clauses parsed from list of char codes Cs</i> </li><li>
+<font color="black"><b>asserta/1</b> <b>: </b> 
+</font><i>adds a clause to be first in a predicate definition</i> </li><li>
+<font color="black"><b>asserted/1</b> <b>: </b> 
+</font><i>runs a predicated if asserted</i> </li><li>
+<font color="black"><b>assertz/1</b> <b>: </b> 
+</font><i>adds a clause to be last in a predicate definition</i> </li><li>
+<font color="black"><b>atan/2</b> <b>: </b> 
+</font><i>float function</i> </li><li>
+<font color="black"><b>atan2/3</b> <b>: </b> 
+</font><i>float function</i> </li><li>
+<font color="black"><b>atom/1</b> <b>: </b> 
+</font><i>true if symbol (functor of arity 0)</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-atom(a).
+
+yes
+</pre>
+
+</font></li><li>
+<font color="black"><b>atom_chars/2</b> <b>: </b> 
+</font><i>(Atom,CharAtoms): converts between an atom and its list of char atoms representation</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-atom_chars(hello,_A).
+_A = [h,e,l,l,o];
+
+no
+?-atom_chars(_A,[104,101,108,108,111]).
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>atom_codes/2</b> <b>: </b> 
+</font><i>(Atom,CharCodes): converts between an atom and its list of char code representation</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-atom_codes(hello,_A).
+_A = [104,101,108,108,111];
+
+no
+?-atom_codes(_A,[104,101,108,108,111]).
+_A = hello;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>atomic/1</b> <b>: </b> 
+</font><i>true if an integer or symbolic constant</i> </li><li>
+<font color="black"><b>bagof/3</b> <b>: </b> 
+</font><i>all solutions predicate generating unsorted bags of possibly dupplicated answers</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-bagof(_A,member(_A,[3,2,2,1]),_B).
+_A = _x61888;
+_B = [3,2,2,1];
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>bb/0</b> <b>: </b> 
+</font><i>lists (bp_long!) content of the blackboard</i> </li><li>
+<font color="black"><b>bb_def/3</b> <b>: </b> 
+</font><i>bb_def(K1,K2,T) associates to K1 and K2 (a copy of) T on the blackboard</i> </li><li>
+<font color="black"><b>bb_gc/0</b> <b>: </b> 
+</font><i>performs blackboard gc now, if enabled</i> </li><li>
+<font color="black"><b>bb_gc0/0</b> <b>: </b> 
+</font><i>performs blackboard gc now, in this engine</i> </li><li>
+<font color="black"><b>bb_get/3</b> <b>: </b> 
+</font><i>bb_get(K1,K2,T) consumes the term T associated with K1 and K2</i> </li><li>
+<font color="black"><b>bb_let/3</b> <b>: </b> 
+</font><i>bb_let(K1,K2,T) updates or defines the term associated with K1 and K2 to be T</i> </li><li>
+<font color="black"><b>bb_reset/1</b> <b>: </b> 
+</font><i>cleans up and resizes to at least arg 1 bytes compound term area of the blackboard</i> </li><li>
+<font color="black"><b>bb_rm/2</b> <b>: </b> 
+</font><i>removes the term associated with K1 and K2 from the blackboard</i> </li><li>
+<font color="black"><b>bb_set/3</b> <b>: </b> 
+</font><i>bb_set(K1,K2,T) updates the term associated with K1 and K2 to be a copy of T</i> </li><li>
+<font color="black"><b>bb_val/3</b> <b>: </b> 
+</font><i>bb_val(K1,K2,T) T is (a copy of) the term associated with keys K1 and K2</i> </li><li>
+<font color="black"><b>bbgc/0</b> <b>: </b> 
+</font><i>enables blackboard gc </i> </li><li>
+<font color="black"><b>bbgc_status/1</b> <b>: </b> 
+</font><i>shows if blackboard gc is enabled or not</i> </li><li>
+<font color="black"><b>begin_critical/0</b> <b>: </b> 
+</font><i>begin serialized execution - enters critical region</i> </li><li>
+<font color="black"><b>between/3</b> <b>: </b> 
+</font><i>generates an integer between Min and Max</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-between(1,3,_A).
+_A = 1;
+
+_A = 2;
+
+_A = 3;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>bg/1</b> <b>: </b> 
+</font><i>runs Goal in background thread - you can set engine size like in heap(500)=>bg(...)</i> </li><li>
+<font color="black"><b>bg/2</b> <b>: </b> 
+</font><i>runs Goal in new background thread, which is returned in second arg </i> </li><li>
+<font color="black"><b>bg/3</b> <b>: </b> 
+</font><i>bg(Goal,Thread,EngineAddr): runs goal in background if threads are available</i> </li><li>
+<font color="black"><b>bg/4</b> <b>: </b> 
+</font><i>bg(Goal,Thread,EngineAddr,EngineID): runs goal in background on new engine - with unique EngineID</i> </li><li>
+<font color="black"><b>bg/7</b> <b>: </b> 
+</font><i>bg(Goal,H,S,T,-Thread,-EngineAddr,-EngineID): runs goal in background on engine with given heap,stack,trail</i> </li><li>
+<font color="black"><b>bincall/2</b> <b>: </b> 
+</font><i>call binary predicate with given continuation</i> </li><li>
+<font color="black"><b>boot/0</b> <b>: </b> 
+</font><i>regenerates file wam.bp in BinProlog src directory</i> </li><li>
+<font color="black"><b>bp_info/2</b> <b>: </b> 
+</font><i>keeps basic help info on BinProlog builtins</i> </li><li>
+<font color="black"><b>bp_only/1</b> <b>: </b> 
+</font><i>runs goal only if is_prolog(binprolog) is true</i> </li><li>
+<font color="black"><b>bp_only/2</b> <b>: </b> 
+</font><i>(Goal,Alternative): runs goal only if is_prolog(binprolog) is true otherwise runs Alternative</i> </li><li>
+<font color="black"><b>bp_val/3</b> <b>: </b> 
+</font><i>unifies with 2 key indexed global logical variable</i> </li><li>
+<font color="black"><b>call/1</b> <b>: </b> 
+</font><i>executes (atomic!) arg 1</i> </li><li>
+<font color="black"><b>call/2</b> <b>: </b> 
+</font><i>efficient call/N variant</i> </li><li>
+<font color="black"><b>call/3</b> <b>: </b> 
+</font><i>efficient call/N variant</i> </li><li>
+<font color="black"><b>call/4</b> <b>: </b> 
+</font><i>efficient call/N variant</i> </li><li>
+<font color="black"><b>call/5</b> <b>: </b> 
+</font><i>efficient call/N variant</i> </li><li>
+<font color="black"><b>call/6</b> <b>: </b> 
+</font><i>efficient call/N variant</i> </li><li>
+<font color="black"><b>call/7</b> <b>: </b> 
+</font><i>efficient call/N variant</i> </li><li>
+<font color="black"><b>call_cont/1</b> <b>: </b> 
+</font><i>calls arg 1 as current continuation</i> </li><li>
+<font color="black"><b>call_external/3</b> <b>: </b> 
+</font><i>args: StringToStringFunctionAddress,InputChars,OuputChars - calls a C function</i> </li><li>
+<font color="black"><b>call_ifdef/2</b> <b>: </b> 
+</font><i>calls if predicate head is defined, calls arg 2 if not</i> </li><li>
+<font color="black"><b>callable/1</b> <b>: </b> 
+</font><i>checks if predicate head is defined (callable)</i> </li><li>
+<font color="black"><b>callj/1</b> <b>: </b> 
+</font><i>callj(G) calls Jinni in Twin Prolog with first answer binding G and fails if no answers are found</i> </li><li>
+<font color="black"><b>callj/2</b> <b>: </b> 
+</font><i>callj(G,R) calls Jinni in Twin Prolog with first answer R=the(G) or R=no, without binding G</i> </li><li>
+<font color="black"><b>callj/3</b> <b>: </b> 
+</font><i>callj(X,G,R) calls Jinni in Twin Prolog with first answer R=the(X) or R=no, without binding G</i> </li><li>
+<font color="black"><b>catch/3</b> <b>: </b> 
+</font><i>ISO Prolog exception operator: executes arg 1 and if it catches arg 2, it executes arg 3</i> </li><li>
+<font color="black"><b>cd/0</b> <b>: </b> 
+</font><i>changes local dir to HOME directory or / if no such env var</i> </li><li>
+<font color="black"><b>cd/1</b> <b>: </b> 
+</font><i>changes local dir to arg 1</i> </li><li>
+<font color="black"><b>cdelq/4</b> <b>: </b> 
+</font><i>deletes first matching element from a queue</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-cdelq(key1,key2,_A,_B).
+_A = _x61892;
+_B = 33;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>cdelq_any/3</b> <b>: </b> 
+</font><i>deletes any matching element from a queue</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-cdelq_any(key1,key2,_A).
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>ceiling/2</b> <b>: </b> 
+</font><i>float to int function</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-ceiling(1.3,_A).
+_A = 2;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>change_arg/3</b> <b>: </b> 
+</font><i>destructive: change_arg(I,T,X) replaces arg I of T with X</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-change_arg(2,f(a,b),c).
+
+yes
+</pre>
+
+</font></li><li>
+<font color="black"><b>char_of/2</b> <b>: </b> 
+</font><i>reads a Prolog file to a set of ascii codes - on backtracking</i> </li><li>
+<font color="black"><b>check_password/1</b> <b>: </b> 
+</font><i>checks that password matches default password</i> </li><li>
+<font color="black"><b>cin/1</b> <b>: </b> 
+</font><i>tries to get and remove a term from Linda blackboard</i> </li><li>
+<font color="black"><b>clause/2</b> <b>: </b> 
+</font><i>clause(H,B) generates a clause with head matching H and body B</i> </li><li>
+<font color="black"><b>clause_of/2</b> <b>: </b> 
+</font><i>reads a Prolog file to a set of clauses - on backtracking</i> </li><li>
+<font color="black"><b>clean_up_dead_engines/0</b> <b>: </b> 
+</font><i>frees resources used by dead engines</i> </li><li>
+<font color="black"><b>clean_up_engines/0</b> <b>: </b> 
+</font><i>frees resources used by all engines except main</i> </li><li>
+<font color="black"><b>clean_up_engines/1</b> <b>: </b> 
+</font><i>internal predicate</i> </li><li>
+<font color="black"><b>clear_bp_error/0</b> <b>: </b> 
+</font><i>clears errors set by various conditions</i> </li><li>
+<font color="black"><b>clone_term/3</b> <b>: </b> 
+</font><i>clone_term(Vs,T,CT) does copy_term(T,C) while keeping unchanged variables Vs - useful if doing things like setarg/3 on the new copy</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-clone_term([_A,_C],f(_A,_B,_B,_C),_D).
+_A = _x62580;
+_B = _x61898;
+_C = _x62583;
+_D = f(_x62580,_x62581,_x62581,_x62583);
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>close/1</b> <b>: </b> 
+</font><i>closes a stream opened by open/3</i> </li><li>
+<font color="black"><b>close_iterator/1</b> <b>: </b> 
+</font><i>(Iterator) closes an iterator</i> </li><li>
+<font color="black"><b>close_socket/1</b> <b>: </b> 
+</font><i>closes a server, service or client</i> </li><li>
+<font color="black"><b>close_stream/2</b> <b>: </b> 
+</font><i>(Type,StreamID) closes various streams</i> </li><li>
+<font color="black"><b>cmake/0</b> <b>: </b> 
+</font><i>compiles BinProlog's Prolog components to compact C code - for packaging as standalone executable</i> </li><li>
+<font color="black"><b>cmake/1</b> <b>: </b> 
+</font><i>compiles a Project to compact C code - for packaging as standalone executable</i> </li><li>
+<font color="black"><b>cmake/2</b> <b>: </b> 
+</font><i>(Project,Module): compiles to C a project with all clauses belonging to Module</i> </li><li>
+<font color="black"><b>cmembq/3</b> <b>: </b> 
+</font><i>generates (copies of) members of a queue</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-cmembq(key1,key2,_A).
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>cnl/0</b> <b>: </b> 
+</font><i>writes a new line</i> </li><li>
+<font color="black"><b>co/0</b> <b>: </b> 
+</font><i>reconsults/recompiles last file</i> </li><li>
+<font color="black"><b>co/1</b> <b>: </b> 
+</font><i>reconsults using fast reader</i> </li><li>
+<font color="black"><b>codes_words/2</b> <b>: </b> 
+</font><i>converts a list of character codes to a list of words and back</i> </li><li>
+<font color="black"><b>compare/3</b> <b>: </b> 
+</font><i>returns <,=,> in arg 1 after comparing arg 2 with arg 3</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-compare(_A,1,2).
+_A = (<);
+
+no
+?-compare(_A,f(b),f(a)).
+_A = (>);
+
+no
+?-compare(_A,s(_B),s(_B)).
+_A = (=);
+_B = _x61898;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>compile/1</b> <b>: </b> 
+</font><i>applies current compilation method to the file arg 1</i> </li><li>
+<font color="black"><b>compound/1</b> <b>: </b> 
+</font><i>true if it has arity > 0</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-compound(f(a)).
+
+yes
+</pre>
+
+</font></li><li>
+<font color="black"><b>compute/4</b> <b>: </b> 
+</font><i>applies Op to arg 2 and arg 3 giving a result</i> </li><li>
+<font color="black"><b>consult/1</b> <b>: </b> 
+</font><i>consults with possible duplication of clauses, allows later dynamic recompilation depending on db_ratio/1</i> </li><li>
+<font color="black"><b>consult/2</b> <b>: </b> 
+</font><i>consult(File,DB) consults File into DB)</i> </li><li>
+<font color="black"><b>copy_term/2</b> <b>: </b> 
+</font><i>returns a copy of arg 1 with fresh variables</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-copy_term(f(_A,_A,_B,_B),_C).
+_A = _x61889;
+_B = _x61891;
+_C = f(_x62377,_x62377,_x62379,_x62379);
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>cos/2</b> <b>: </b> 
+</font><i>float function</i> </li><li>
+<font color="black"><b>count_answers/2</b> <b>: </b> 
+</font><i>counts answers to a goal</i> </li><li>
+<font color="black"><b>count_terms/2</b> <b>: </b> 
+</font><i>returns the number of terms attached to a key</i> </li><li>
+<font color="black"><b>cout/1</b> <b>: </b> 
+</font><i>adds a term to the blackboard, unless already a matching one is there</i> </li><li>
+<font color="black"><b>cpopq/3</b> <b>: </b> 
+</font><i>pops (copy of) first element of persistent queue</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-cpopq(key1,key2,_A).
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>create_engine/1</b> <b>: </b> 
+</font><i>makes a new engine or reuses a dead one</i> </li><li>
+<font color="black"><b>create_engine/4</b> <b>: </b> 
+</font><i>create_engine(Heap,Stack,Trail,IntHandle) creates an engine IntHandle</i> </li><li>
+<font color="black"><b>create_new_engine/1</b> <b>: </b> 
+</font><i>creates an engine as big as the current one</i> </li><li>
+<font color="black"><b>ctime/1</b> <b>: </b> 
+</font><i>gets elapsed cpu time in ms</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-ctime(_A).
+_A = 268;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>current_db/1</b> <b>: </b> 
+</font><i>gets the name of currently active database</i> </li><li>
+<font color="black"><b>current_engine/1</b> <b>: </b> 
+</font><i>gets the unique id of the current engine</i> </li><li>
+<font color="black"><b>current_engine_addr/1</b> <b>: </b> 
+</font><i>returns current engine handle</i> </li><li>
+<font color="black"><b>current_engine_id/1</b> <b>: </b> 
+</font><i>returns a unique id associated to an engine at creation time</i> </li><li>
+<font color="black"><b>current_engine_thread/1</b> <b>: </b> 
+</font><i>gets from the current Engine the thread it is running on</i> </li><li>
+<font color="black"><b>current_input/1</b> <b>: </b> 
+</font><i>gets current input stream</i> </li><li>
+<font color="black"><b>current_module/1</b> <b>: </b> 
+</font><i>gets name of current module</i> </li><li>
+<font color="black"><b>current_op/3</b> <b>: </b> 
+</font><i>generates/check current op/3 operator definition(s)</i> </li><li>
+<font color="black"><b>current_output/1</b> <b>: </b> 
+</font><i>gets current output stream</i> </li><li>
+<font color="black"><b>current_predicate/1</b> <b>: </b> 
+</font><i>generates/checks the head of an existing predicate</i> </li><li>
+<font color="black"><b>current_predicate/2</b> <b>: </b> 
+</font><i>generates/checks name and head of a currently defined predicate</i> </li><li>
+<font color="black"><b>current_thread/1</b> <b>: </b> 
+</font><i>gets thread id number of current thread</i> </li><li>
+<font color="black"><b>cut_to/1</b> <b>: </b> 
+</font><i>cuts to an int in arg 1, a choicepoint address</i> </li><li>
+<font color="black"><b>cwrite/1</b> <b>: </b> 
+</font><i>basic but quick C-version of write/1</i> </li><li>
+<font color="black"><b>db_abolish/2</b> <b>: </b> 
+</font><i>db_abolish(DB,F/N) removes predicate F/N from DB</i> </li><li>
+<font color="black"><b>db_assert/2</b> <b>: </b> 
+</font><i>does assert/1 arg 2 into database given as arg 1</i> </li><li>
+<font color="black"><b>db_asserta/2</b> <b>: </b> 
+</font><i>does asserta/1 arg 2 into database given as arg 1</i> </li><li>
+<font color="black"><b>db_asserted/2</b> <b>: </b> 
+</font><i>runs predicate arg 2 if asserted in database arg 1</i> </li><li>
+<font color="black"><b>db_assertz/2</b> <b>: </b> 
+</font><i>does assertz/1 arg 2 into database given as arg 1</i> </li><li>
+<font color="black"><b>db_clause/3</b> <b>: </b> 
+</font><i>clause(DB,H,B) generates a clause found in database DB with head matching H and body B</i> </li><li>
+<font color="black"><b>db_clean/0</b> <b>: </b> 
+</font><i>abolishes all predicates in currently active database</i> </li><li>
+<font color="black"><b>db_clean/1</b> <b>: </b> 
+</font><i>db_clean(DB) abolishes all predicates in DB</i> </li><li>
+<font color="black"><b>db_consult/2</b> <b>: </b> 
+</font><i>db_consult(File,Db) consults a file to a database Db</i> </li><li>
+<font color="black"><b>db_head/2</b> <b>: </b> 
+</font><i>generates/checks a predicate head in database (arg 1)</i> </li><li>
+<font color="black"><b>db_is_dynamic/2</b> <b>: </b> 
+</font><i>checks if dynamic in a given database</i> </li><li>
+<font color="black"><b>db_listing/1</b> <b>: </b> 
+</font><i>lists caluses given database</i> </li><li>
+<font color="black"><b>db_listing/2</b> <b>: </b> 
+</font><i>lists predicate F/N in given database</i> </li><li>
+<font color="black"><b>db_move/2</b> <b>: </b> 
+</font><i>db_move(FromDB,ToDB) moves the content of database FromDB over database ToDB while replacing similar predicates</i> </li><li>
+<font color="black"><b>db_ratio/1</b> <b>: </b> 
+</font><i>sets/gets call/assert ratio which triggers dynamic recompilation</i> </li><li>
+<font color="black"><b>db_retract/2</b> <b>: </b> 
+</font><i>does retract/1 arg 2 from database given as arg 1</i> </li><li>
+<font color="black"><b>db_retract/3</b> <b>: </b> 
+</font><i>db_retract(Db,H,B) retracts clause with head H and body B from database Db</i> </li><li>
+<font color="black"><b>db_retract1/2</b> <b>: </b> 
+</font><i>deletes from database given as arg 1 a matching clause</i> </li><li>
+<font color="black"><b>db_retractall/2</b> <b>: </b> 
+</font><i>removes from database given as arg 1, all matching clauses</i> </li><li>
+<font color="black"><b>db_retractall/3</b> <b>: </b> 
+</font><i>removes from database given as arg 1, all matching clauses seen as head + body</i> </li><li>
+<font color="black"><b>db_save/1</b> <b>: </b> 
+</font><i>db_save(File) saves all the clauses of the current database to File</i> </li><li>
+<font color="black"><b>db_save/2</b> <b>: </b> 
+</font><i>db_save(Db,File) saves using qprint/1 all the clauses of Db to File</i> </li><li>
+<font color="black"><b>dcg_call/4</b> <b>: </b> 
+</font><i>(F,X,I,O): DCG metacall for star,plus,one</i> </li><li>
+<font color="black"><b>dcg_call/5</b> <b>: </b> 
+</font><i>(F,X,Y,I,O): DCG metacall for star,plus,one</i> </li><li>
+<font color="black"><b>dcg_connect/1</b> <b>: </b> 
+</font><i>handles a terminal symbol in HAGs, as [a] in DCGs</i> </li><li>
+<font color="black"><b>dcg_def/1</b> <b>: </b> 
+</font><i>backtrackable: sets current Assumption Grammar stream - usually a hidden DCG list</i> </li><li>
+<font color="black"><b>dcg_tell/1</b> <b>: </b> 
+</font><i>switches to hidden DCG-stream number K (form 0 to MAXDCG=255)</i> </li><li>
+<font color="black"><b>dcg_telling/1</b> <b>: </b> 
+</font><i>retrieves which hidden DCG-stream we a re processing</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-dcg_telling(_A).
+_A = 1;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>dcg_val/1</b> <b>: </b> 
+</font><i>backtrackable: retrieves current Assumption Grammar stream - usually a hidden DCG list</i> </li><li>
+<font color="black"><b>dconsult/1</b> <b>: </b> 
+</font><i>reconsult/1 variant: cleans up data areas, consults/compiles based on db_ratio/1</i> </li><li>
+<font color="black"><b>debugmes/1</b> <b>: </b> 
+</font><i>writes message in debug mode (low quietness)</i> </li><li>
+<font color="black"><b>deep_hash/4</b> <b>: </b> 
+</font><i>(Key,Depth,Mod) computes hashvalue of Key modulo Mod, up to max recursion Depth</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-deep_hash(f(a),5,0,_A).
+_A = 23114257;
+
+no
+?-deep_hash(f(b),1,32,_A).
+_A = 18;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>default/2</b> <b>: </b> 
+</font><i>default that can be overriden if asserted</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-default(host(_A),_A = localhost).
+_A = localhost;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>default_host/1</b> <b>: </b> 
+</font><i>returns default host for remote Linda server</i> </li><li>
+<font color="black"><b>default_login/1</b> <b>: </b> 
+</font><i>returns default (nick)name for user</i> </li><li>
+<font color="black"><b>default_password/1</b> <b>: </b> 
+</font><i>returns default password for user</i> </li><li>
+<font color="black"><b>default_port/1</b> <b>: </b> 
+</font><i>returns default port for remote Linda server</i> </li><li>
+<font color="black"><b>default_this_host/1</b> <b>: </b> 
+</font><i>returns default IP address or hostname this machine</i> </li><li>
+<font color="black"><b>default_this_port/1</b> <b>: </b> 
+</font><i>returns default port to work as a server on</i> </li><li>
+<font color="black"><b>default_timeout/1</b> <b>: </b> 
+</font><i>returns default timeout</i> </li><li>
+<font color="black"><b>delete_all_terms/1</b> <b>: </b> 
+</font><i>(GroundKey) removes all terms attached to a key</i> </li><li>
+<font color="black"><b>destroy_array/1</b> <b>: </b> 
+</font><i>frees an array</i> </li><li>
+<font color="black"><b>destroy_engine/1</b> <b>: </b> 
+</font><i>destroy_engine(E) frees memory of engine E (an integer)</i> </li><li>
+<font color="black"><b>det_call/1</b> <b>: </b> 
+</font><i>calls a Goal and warns if it was not deterministic</i> </li><li>
+<font color="black"><b>detect_ip_addr/1</b> <b>: </b> 
+</font><i>the ip address of current host, if detected, that of localhost if not</i> </li><li>
+<font color="black"><b>detect_user/1</b> <b>: </b> 
+</font><i>guesses the user from environment information</i> </li><li>
+<font color="black"><b>dir/0</b> <b>: </b> 
+</font><i>lists files under DOS</i> </li><li>
+<font color="black"><b>dir2dirs/2</b> <b>: </b> 
+</font><i>(Dir,Dirs): converts dir cmd output to list of sub directories of Dir</i> </li><li>
+<font color="black"><b>dir2files/2</b> <b>: </b> 
+</font><i>(Dir,Files): converts dir cmd output to list of files (which are not dirs) contained in Dir</i> </li><li>
+<font color="black"><b>dir2list/3</b> <b>: </b> 
+</font><i>(DirListerCmd,DirName,Files): converts OS specific DirLister output to list of files and/or directories</i> </li><li>
+<font color="black"><b>(discontiguous)/1</b> <b>: </b> 
+</font><i>states that clauses of a predicate can be in different places</i> </li><li>
+<font color="black"><b>display/1</b> <b>: </b> 
+</font><i>writes to terminal while ignoring operator definitions</i> </li><li>
+<font color="black"><b>drop_at_least/2</b> <b>: </b> 
+</font><i>(N,Goal) drops at least N answers of Goal G</i> </li><li>
+<font color="black"><b>dyn2stat/1</b> <b>: </b> 
+</font><i>dyn2stat(H): compiles at runtime a predicate with head H</i> </li><li>
+<font color="black"><b>dyn2stat/2</b> <b>: </b> 
+</font><i>dyn2stat(Db,H): compiles at a predicate from database Db with head H</i> </li><li>
+<font color="black"><b>(dynamic)/1</b> <b>: </b> 
+</font><i>states that a predicate can be updated</i> </li><li>
+<font color="black"><b>dynbbgc/0</b> <b>: </b> 
+</font><i>makes blackboard dynamic with gc on</i> </li><li>
+<font color="black"><b>dynco/1</b> <b>: </b> 
+</font><i>yes/no: activates/desactivates dynamic recompilation</i> </li><li>
+<font color="black"><b>ed/0</b> <b>: </b> 
+</font><i>edits last compiled/consulted file with default editor and refreshes it in memory</i> </li><li>
+<font color="black"><b>edit/0</b> <b>: </b> 
+</font><i>calls DOS editor edit on last compiled file</i> </li><li>
+<font color="black"><b>edit/2</b> <b>: </b> 
+</font><i>edit(E,F) edits with editor E, file F</i> </li><li>
+<font color="black"><b>element_of/2</b> <b>: </b> 
+</font><i>(Engine,Answer: backtracks over the answers of a fluent (usually an engine)</i> </li><li>
+<font color="black"><b>emacs/0</b> <b>: </b> 
+</font><i>calls emacs editor on last compiled file</i> </li><li>
+<font color="black"><b>end_critical/0</b> <b>: </b> 
+</font><i>ends serialized execution - exits critical region</i> </li><li>
+<font color="black"><b>end_module/0</b> <b>: </b> 
+</font><i>ends current module</i> </li><li>
+<font color="black"><b>end_module/1</b> <b>: </b> 
+</font><i>ends module if current, signals erro if not</i> </li><li>
+<font color="black"><b>end_of_file/0</b> <b>: </b> 
+</font><i>Prolog atom returned by read when at the end of a file</i> </li><li>
+<font color="black"><b>eq/2</b> <b>: </b> 
+</font><i>unifies arg 1 and arg 2, like =</i> </li><li>
+<font color="black"><b>errmes/2</b> <b>: </b> 
+</font><i>writes error message and fails</i> </li><li>
+<font color="black"><b>exists_file/1</b> <b>: </b> 
+</font><i>true if file exists</i> </li><li>
+<font color="black"><b>exit/0</b> <b>: </b> 
+</font><i>same as halt</i> </li><li>
+<font color="black"><b>exp/2</b> <b>: </b> 
+</font><i>float function</i> </li><li>
+<font color="black"><b>expand_term/2</b> <b>: </b> 
+</font><i>expands a term according to DCG expansion rules</i> </li><li>
+<font color="black"><b>fail/0</b> <b>: </b> 
+</font><i>always fails</i> </li><li>
+<font color="black"><b>false/0</b> <b>: </b> 
+</font><i>always fails</i> </li><li>
+<font color="black"><b>fatal_error/2</b> <b>: </b> 
+</font><i>writes error message and aborts</i> </li><li>
+<font color="black"><b>fcall/3</b> <b>: </b> 
+</font><i>calls a list to list function: to be implemented</i> </li><li>
+<font color="black"><b>fclose/1</b> <b>: </b> 
+</font><i>closes the C-stream specifiend as an integer handle</i> </li><li>
+<font color="black"><b>fcompile/1</b> <b>: </b> 
+</font><i>compiles a *.pl file to a *.wam bytecode file</i> </li><li>
+<font color="black"><b>fflush/1</b> <b>: </b> 
+</font><i>fflush(IntegerStreamNo) flushes a C-stream</i> </li><li>
+<font color="black"><b>fgetc/2</b> <b>: </b> 
+</font><i>fgetc(IntegerStreamNo,CharCode) inputs a char code from a C stream</i> </li><li>
+<font color="black"><b>file2chars/2</b> <b>: </b> 
+</font><i>reads a file to a list of ascii codes</i> </li><li>
+<font color="black"><b>file2sock/2</b> <b>: </b> 
+</font><i>writes to a socket, from a file</i> </li><li>
+<font color="black"><b>file_cmd_hook/2</b> <b>: </b> 
+</font><i>file_cmd_hook(Cmd,Db): allows defining user actions on commands read from files</i> </li><li>
+<font color="black"><b>file_extension_list/1</b> <b>: </b> 
+</font><i>defines default file extensions for find_file</i> </li><li>
+<font color="black"><b>file_search_path/1</b> <b>: </b> 
+</font><i>defines search path relative to BP_PATH (home of BinProlog) and PROLOG_PATH (home of user files)</i> </li><li>
+<font color="black"><b>file_size/2</b> <b>: </b> 
+</font><i>returns the size of a file, in bytes</i> </li><li>
+<font color="black"><b>find_at_most/4</b> <b>: </b> 
+</font><i>(N,X,G,Xs) findall variant, computing at most N answers X of G</i> </li><li>
+<font color="black"><b>find_file/2</b> <b>: </b> 
+</font><i>finds a file name on search path</i> </li><li>
+<font color="black"><b>find_while/4</b> <b>: </b> 
+</font><i>findall variant</i> </li><li>
+<font color="black"><b>findall/3</b> <b>: </b> 
+</font><i>findall(X,G,Xs) collects copies of all answers X of G to Xs. If less then half of the heap is free, it allocates new engine for running G</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-findall(s(_A),(member(_A,[1,2,3]),_A > 1),_B).
+_A = _x61892;
+_B = [s(2),s(3)];
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>findall/4</b> <b>: </b> 
+</font><i>findall(X,G,Xs,Ys) appends the list of answers X of G to Ys to obtain Xs</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-findall(s(_A),(_A = 1 ; _A = 2),_B,[3,4]).
+_A = _x61899;
+_B = [s(1),s(2),3,4];
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>float/1</b> <b>: </b> 
+</font><i>true if represented as a 64 bit float number (C-double)</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-float(3.14).
+
+yes
+</pre>
+
+</font></li><li>
+<font color="black"><b>float/2</b> <b>: </b> 
+</font><i>float function</i> </li><li>
+<font color="black"><b>floor/2</b> <b>: </b> 
+</font><i>float to int function</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-floor(1.3,_A).
+_A = 1;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>flush_output/0</b> <b>: </b> 
+</font><i>flushes current output stream</i> </li><li>
+<font color="black"><b>flush_output/1</b> <b>: </b> 
+</font><i>flushes a stream</i> </li><li>
+<font color="black"><b>foldl/4</b> <b>: </b> 
+</font><i>(Op,InitialValue,List,?Result) accumulates values interating over List with binary Op</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-foldl(+,0,[10,20,30],_A).
+_A = 60;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>foldr/4</b> <b>: </b> 
+</font><i>(Op,InitialValue,List,?Result) accumulates values interating over List with binary Op</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-foldr(+,0,[10,20,30],_A).
+_A = 60;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>fopen/3</b> <b>: </b> 
+</font><i>Prolog equivalent of C-function: opens a stream in a given mode and returns an integer handle to it</i> </li><li>
+<font color="black"><b>for/3</b> <b>: </b> 
+</font><i>generates an integer in a range</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-for(_A,1,3).
+_A = 1;
+
+_A = 2;
+
+_A = 3;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>for_all/2</b> <b>: </b> 
+</font><i>foreach(A,B) fails for all cases when A succeeds and B fails</i> </li><li>
+<font color="black"><b>forall/1</b> <b>: </b> 
+</font><i>forall(G) backtracks over all answers to G and succeeds</i> </li><li>
+<font color="black"><b>forall/2</b> <b>: </b> 
+</font><i>forall(G,D) executes D once for each answer of generator G</i> </li><li>
+<font color="black"><b>foreach/1</b> <b>: </b> 
+</font><i>foreach(G) backtracks over all answers to G and succeeds</i> </li><li>
+<font color="black"><b>foreach/2</b> <b>: </b> 
+</font><i>foreach(G,D) executes D once for each answer of generator G</i> </li><li>
+<font color="black"><b>fputc/2</b> <b>: </b> 
+</font><i>fputc(IntegerStreamNo,CharCode) outputs a char code to a C stream</i> </li><li>
+<font color="black"><b>free_term/1</b> <b>: </b> 
+</font><i>(Handle): frees external term given as a Handle</i> </li><li>
+<font color="black"><b>free_thread_guard/1</b> <b>: </b> 
+</font><i>gives back to pool thread guard in arg 1</i> </li><li>
+<font color="black"><b>from_engine/1</b> <b>: </b> 
+</font><i>(T) tries to take a term T from the message box of this engine and sets the message box empty</i> </li><li>
+<font color="black"><b>fsize/2</b> <b>: </b> 
+</font><i>returns the size of the file associated to a C stream, in bytes</i> </li><li>
+<font color="black"><b>functor/3</b> <b>: </b> 
+</font><i>builds or decomposes a coumpound term</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-functor(f(a,b),_A,_B).
+_A = f;
+_B = 2;
+
+no
+?-functor(_A,f,3).
+_A = f(_x62507,_x62508,_x62509);
+
+no
+?-functor(f(a),f,1).
+
+yes
+</pre>
+
+</font></li><li>
+<font color="black"><b>garbage_collect/0</b> <b>: </b> 
+</font><i>performs heap gc now</i> </li><li>
+<font color="black"><b>gc/0</b> <b>: </b> 
+</font><i>enables heap gc</i> </li><li>
+<font color="black"><b>gc_call/1</b> <b>: </b> 
+</font><i>G: executes G and ensures that no more space is consumed than the total size of the terms bound to its variables</i> </li><li>
+<font color="black"><b>gc_status/1</b> <b>: </b> 
+</font><i>shows if heap gc is enabled or not</i> </li><li>
+<font color="black"><b>generic_write/1</b> <b>: </b> 
+</font><i>overridable write/1, style (writeq, write, display) given with write_style/1 assumption</i> </li><li>
+<font color="black"><b>gensym/2</b> <b>: </b> 
+</font><i>generates a new name based on arg 1</i> </li><li>
+<font color="black"><b>gensym_no/2</b> <b>: </b> 
+</font><i>generates a new number based on arg 1</i> </li><li>
+<font color="black"><b>get/1</b> <b>: </b> 
+</font><i>inputs the next char code after skiping over white space</i> </li><li>
+<font color="black"><b>get/2</b> <b>: </b> 
+</font><i>get(E,A) returns a new answer A=the(...) from engine E or returns no if no (more) answers exist</i> </li><li>
+<font color="black"><b>get0/1</b> <b>: </b> 
+</font><i>reads a char as an ascii code</i> </li><li>
+<font color="black"><b>get_all_terms/2</b> <b>: </b> 
+</font><i>(GroundKey,Ts) collects to alist all terms attached to a key</i> </li><li>
+<font color="black"><b>get_bp_error/4</b> <b>: </b> 
+</font><i>(Id,Mes,Arg1,Arg2): gets error sate from emulator</i> </li><li>
+<font color="black"><b>get_char/2</b> <b>: </b> 
+</font><i>(Stream,CharAsOneLetterConstant): inputs a char from a stream -ISO Prolog</i> </li><li>
+<font color="black"><b>get_code/1</b> <b>: </b> 
+</font><i>ISO char code reader</i> </li><li>
+<font color="black"><b>get_code/2</b> <b>: </b> 
+</font><i>inputs a char code from a stream - ISO</i> </li><li>
+<font color="black"><b>get_cont/1</b> <b>: </b> 
+</font><i>captures current continuation, usually an cyclic term</i> </li><li>
+<font color="black"><b>get_critical/2</b> <b>: </b> 
+</font><i>(Guard,Data): accesses mutex Guard protected Data on blackboard</i> </li><li>
+<font color="black"><b>get_deep_cut/2</b> <b>: </b> 
+</font><i>gets a choice point address, used with 1 arg only</i> </li><li>
+<font color="black"><b>get_engine_id/2</b> <b>: </b> 
+</font><i>(+Engine,-Id) gets the unique id associated to an engine at creation time</i> </li><li>
+<font color="black"><b>get_engine_prop/3</b> <b>: </b> 
+</font><i>args: Engine,PropertyNo,Val</i> </li><li>
+<font color="black"><b>get_engine_thread/2</b> <b>: </b> 
+</font><i>gets from an Engine the thread it is running on</i> </li><li>
+<font color="black"><b>get_lineno/1</b> <b>: </b> 
+</font><i>gets line number counter in current file</i> </li><li>
+<font color="black"><b>get_load_method/1</b> <b>: </b> 
+</font><i>gets the current load method by name</i> </li><li>
+<font color="black"><b>get_neck_cut/1</b> <b>: </b> 
+</font><i>gets the choice point as an integer</i> </li><li>
+<font color="black"><b>get_next_term/2</b> <b>: </b> 
+</font><i>(Iterator,Term) returns the next term attached to an iterator, fails if no more left</i> </li><li>
+<font color="black"><b>get_password/1</b> <b>: </b> 
+</font><i>gets default password for user</i> </li><li>
+<font color="black"><b>get_term/2</b> <b>: </b> 
+</font><i>(Iterator,Term): backtracks over terms associated to a key</i> </li><li>
+<font color="black"><b>global_get/3</b> <b>: </b> 
+</font><i>(A,B,X): retrieves X associated to ground keys A,B</i> </li><li>
+<font color="black"><b>global_rm/2</b> <b>: </b> 
+</font><i>(A,B): removes value associated to ground keys A,B</i> </li><li>
+<font color="black"><b>global_set/3</b> <b>: </b> 
+</font><i>(A,B,X): associates X to ground keys A,B</i> </li><li>
+<font color="black"><b>greater/2</b> <b>: </b> 
+</font><i>arithmetic comparison</i> </li><li>
+<font color="black"><b>greater_eq/2</b> <b>: </b> 
+</font><i>arithmetic comparison</i> </li><li>
+<font color="black"><b>ground/1</b> <b>: </b> 
+</font><i>true if arg has no free variables</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-ground(f(a,b)).
+
+yes
+</pre>
+
+</font></li><li>
+<font color="black"><b>halt/0</b> <b>: </b> 
+</font><i>stops BinProlog</i> </li><li>
+<font color="black"><b>halt/1</b> <b>: </b> 
+</font><i>stops Prolog with given return code when used in main thread- or halts current thread</i> </li><li>
+<font color="black"><b>handle_service/2</b> <b>: </b> 
+</font><i>handles a Jinni service S with password P - always succedes</i> </li><li>
+<font color="black"><b>has_info/1</b> <b>: </b> 
+</font><i>checks/generates predicates Pred/Arity for which info is available</i> </li><li>
+<font color="black"><b>has_terms/1</b> <b>: </b> 
+</font><i>(GroundKey) succeds if at least on term is attached to GroundKey</i> </li><li>
+<font color="black"><b>has_threads/0</b> <b>: </b> 
+</font><i>succeeds if threads available on this platform</i> </li><li>
+<font color="black"><b>hash_clear/0</b> <b>: </b> 
+</font><i>removes all terms from all hash keys</i> </li><li>
+<font color="black"><b>hash_clear/1</b> <b>: </b> 
+</font><i>(GroundKey) removes all terms attached to a key</i> </li><li>
+<font color="black"><b>hash_clear/2</b> <b>: </b> 
+</font><i>(GroundKey,Term) removes all matching terms attached to a key</i> </li><li>
+<font color="black"><b>hash_compile/0</b> <b>: </b> 
+</font><i>compiles the hashed map to a predicate benefiting from 1-arg indexing</i> </li><li>
+<font color="black"><b>hash_find_unique/3</b> <b>: </b> 
+</font><i>like findall(X,G,Xs) but uses hashing on ground term X to collect unique answers</i> </li><li>
+<font color="black"><b>hash_gc/0</b> <b>: </b> 
+</font><i>frees space used by hash keys and values</i> </li><li>
+<font color="black"><b>hash_get/2</b> <b>: </b> 
+</font><i>(GroundKey,Term) retrieves in constant time a term attached to a ground key</i> </li><li>
+<font color="black"><b>hash_key/1</b> <b>: </b> 
+</font><i>(IntKey) backtrack over hash keys</i> </li><li>
+<font color="black"><b>hash_load/1</b> <b>: </b> 
+</font><i>(File) loads the hashed map to a database</i> </li><li>
+<font color="black"><b>hash_push/2</b> <b>: </b> 
+</font><i>(GroundKey,Term): attaches a term to a ground key in constant time as a the first element</i> </li><li>
+<font color="black"><b>hash_put/2</b> <b>: </b> 
+</font><i>(GroundKey,Term): attaches a term to a ground key in constant time as the last element</i> </li><li>
+<font color="black"><b>hash_rm/2</b> <b>: </b> 
+</font><i>(GroundKey) removes a term attached to a key and returns it - backtracks</i> </li><li>
+<font color="black"><b>hash_rm_one/2</b> <b>: </b> 
+</font><i>(GroundKey) removes a term attached to a key and returns it</i> </li><li>
+<font color="black"><b>hash_save/1</b> <b>: </b> 
+</font><i>(File) saves the hashed map to a database ready for 1-arg indexing if compiled</i> </li><li>
+<font color="black"><b>hash_save/2</b> <b>: </b> 
+</font><i>(File,PredNMame) saves the hashed map to a database in predicate PredName ready for 1-arg indexing if compiled</i> </li><li>
+<font color="black"><b>hash_trace/2</b> <b>: </b> 
+</font><i>tracer for hash maps</i> </li><li>
+<font color="black"><b>help/0</b> <b>: </b> 
+</font><i>generates file help.txt with info and examples</i> </li><li>
+<font color="black"><b>help/1</b> <b>: </b> 
+</font><i>same as apropos/1</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-help(assert).
+use info/1 to get a description of a predicate
+assert/1-[built_in,adds a clause]
+assert_from_chars/1-[built_in,asserts a program from clauses in list of chars]
+assert_from_chars/2-[built_in,(Db,Cs) asserts to database Db, a set of clauses parsed from list of char codes Cs]
+asserta/1-[built_in,adds a clause to be first in a predicate definition]
+asserted/1-[built_in,runs a predicated if asserted]
+assertz/1-[built_in,adds a clause to be last in a predicate definition]
+db_assert/2-[built_in,does assert/1 arg 2 into database given as arg 1]
+db_asserta/2-[built_in,does asserta/1 arg 2 into database given as arg 1]
+db_asserted/2-[built_in,runs predicate arg 2 if asserted in database arg 1]
+db_assertz/2-[built_in,does assertz/1 arg 2 into database given as arg 1]
+get_asserted/2-[built_in]
+is_asserted/1-[built_in,checks if currently asserted]
+prolog:assert_it/2-[compiled]
+prolog:db_is_asserted/2-[compiled]
+prolog:is_asserted_clause/1-[compiled]
+prolog:x_assert/2-[compiled]
+prolog:x_assert_op/3-[compiled]
+x_asserta/1-[built_in,db hook, adds a clause to be first in a predicate definition]
+x_assertz/1-[built_in,db hook, adds a clause to be last in a predicate definition]
+
+yes
+</pre>
+
+</font></li><li>
+<font color="black"><b>hide_default/1</b> <b>: </b> 
+</font><i>makes unavailable a default value</i> </li><li>
+<font color="black"><b>hkey/2</b> <b>: </b> 
+</font><i>computes hash code on atomic argument; fails on variables and compound terms</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-hkey(t(a,b),_A).
+_A = 2984279846;
+
+no
+?-hkey(t(a,c),_A).
+_A = 2984279847;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>host/1</b> <b>: </b> 
+</font><i>assumes default host for Linda server</i> </li><li>
+<font color="black"><b>host2ip/2</b> <b>: </b> 
+</font><i>converts a host name to an IP address</i> </li><li>
+<font color="black"><b>hostname/1</b> <b>: </b> 
+</font><i>the name of current host, if detected, localhost if not</i> </li><li>
+<font color="black"><b>hypot/3</b> <b>: </b> 
+</font><i>float function</i> </li><li>
+<font color="black"><b>if_any/3</b> <b>: </b> 
+</font><i>(Cond,Then,Else): executes Cond; each time when Cond succeeds it also executes Then; if Cond never succeds it executes Else</i> </li><li>
+<font color="black"><b>in/1</b> <b>: </b> 
+</font><i>waits to remove a term from Linda blackboard</i> </li><li>
+<font color="black"><b>include/1</b> <b>: </b> 
+</font><i>includes/loads a file with current load method, unless it has already been included by the same method</i> </li><li>
+<font color="black"><b>info/0</b> <b>: </b> 
+</font><i>generates info on predicates with examples</i> </li><li>
+<font color="black"><b>info/1</b> <b>: </b> 
+</font><i>generates info and examples of use for predicate Pred/Arity</i> </li><li>
+<font color="black"><b>init_gensym/1</b> <b>: </b> 
+</font><i>resets gensym for names based on arg 1</i> </li><li>
+<font color="black"><b>init_io/0</b> <b>: </b> 
+</font><i>intialises fast C-based IO routines</i> </li><li>
+<font color="black"><b>instance_of/2</b> <b>: </b> 
+</font><i>(Handle,Term): creates an internal instance of an external term given as a Handle</i> </li><li>
+<font color="black"><b>integer/1</b> <b>: </b> 
+</font><i>true if an integer</i> </li><li>
+<font color="black"><b>integer/2</b> <b>: </b> 
+</font><i>float to int cast</i> </li><li>
+<font color="black"><b>interactive/1</b> <b>: </b> 
+</font><i>toggles interactive query answering/tracing with arg 1 = yes or no</i> </li><li>
+<font color="black"><b>(is)/2</b> <b>: </b> 
+</font><i>calls the function evaluator, mostly for arithmetics</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-_A is 3+4*2.
+_A = 11;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>is_an/1</b> <b>: </b> 
+</font><i>true if an alphanumerical char code</i> </li><li>
+<font color="black"><b>is_asserted/1</b> <b>: </b> 
+</font><i>checks if currently asserted</i> </li><li>
+<font color="black"><b>is_builtin/1</b> <b>: </b> 
+</font><i>recognizes a predicate head as a builtin</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-is_builtin(var(_A)).
+_A = _x61885;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>is_compiled/1</b> <b>: </b> 
+</font><i>true if head of a compiled predicate</i> </li><li>
+<font color="black"><b>is_discontiguous/1</b> <b>: </b> 
+</font><i>checks if a predicate has been declared as discontiguous</i> </li><li>
+<font color="black"><b>is_dynamic/1</b> <b>: </b> 
+</font><i>checks if dynamic</i> </li><li>
+<font color="black"><b>is_engine/1</b> <b>: </b> 
+</font><i>recognizes and integer as an engine handle</i> </li><li>
+<font color="black"><b>is_interactive/0</b> <b>: </b> 
+</font><i>checks if toplevel is interactive - use interactive/1 with yes/no to set it the way you want it</i> </li><li>
+<font color="black"><b>is_maj/1</b> <b>: </b> 
+</font><i>true if is an upper case char code</i> </li><li>
+<font color="black"><b>is_min/1</b> <b>: </b> 
+</font><i>true if a lower case char code</i> </li><li>
+<font color="black"><b>is_module/1</b> <b>: </b> 
+</font><i>recognizes/generates a module name</i> </li><li>
+<font color="black"><b>is_num/1</b> <b>: </b> 
+</font><i>true if a digit char code</i> </li><li>
+<font color="black"><b>is_prolog/1</b> <b>: </b> 
+</font><i>recognizes binprolog - useful for portability</i> </li><li>
+<font color="black"><b>is_public/1</b> <b>: </b> 
+</font><i>checks predicate head if globally visible</i> </li><li>
+<font color="black"><b>is_spec/1</b> <b>: </b> 
+</font><i>true if a spacial character code</i> </li><li>
+<font color="black"><b>is_terminator/1</b> <b>: </b> 
+</font><i>true if a terminator character code</i> </li><li>
+<font color="black"><b>keygroup/3</b> <b>: </b> 
+</font><i>sorts while grouping similar keys</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-keygroup([3-a,1-a,2-b,1-c,2-d],_A,_B).
+_A = 1;
+_B = [a,c];
+
+_A = 2;
+_B = [b,d];
+
+_A = 3;
+_B = [a];
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>keysort/2</b> <b>: </b> 
+</font><i>sorts while putting similar keys one after the other in a list</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-keysort([3-a,1-a,2-b,1-c,2-d],_A).
+_A = [1-a,1-c,2-b,2-d,3-a];
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>length/2</b> <b>: </b> 
+</font><i>generates/mesures length of a list</i> </li><li>
+<font color="black"><b>less/2</b> <b>: </b> 
+</font><i>arithmetic comparison</i> </li><li>
+<font color="black"><b>less_eq/2</b> <b>: </b> 
+</font><i>arithmetic comparison</i> </li><li>
+<font color="black"><b>line_of/2</b> <b>: </b> 
+</font><i>(File,Line) reads a file to lines ending with eol - on backtracking</i> </li><li>
+<font color="black"><b>list_engines/0</b> <b>: </b> 
+</font><i>prints out the list of active engines</i> </li><li>
+<font color="black"><b>list_engines/1</b> <b>: </b> 
+</font><i>lists available engine handles</i> </li><li>
+<font color="black"><b>listify/2</b> <b>: </b> 
+</font><i>(T,Cs): transforms T, unless it is already such, to list of chars</i> </li><li>
+<font color="black"><b>listing/0</b> <b>: </b> 
+</font><i>lists current database</i> </li><li>
+<font color="black"><b>listing/1</b> <b>: </b> 
+</font><i>lists given predicate if in current database</i> </li><li>
+<font color="black"><b>listing/2</b> <b>: </b> 
+</font><i>lists predicate F of arity N if in current database</i> </li><li>
+<font color="black"><b>load/1</b> <b>: </b> 
+</font><i>clean loads from a bytecode *.wam file</i> </li><li>
+<font color="black"><b>load_engine/3</b> <b>: </b> 
+</font><i>load_engine(E,Goal,Answer) prepares engine E to execute Goal/Answer</i> </li><li>
+<font color="black"><b>load_method/2</b> <b>: </b> 
+</font><i>args: Number, Name</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-load_method(_A,_B).
+_A = 1;
+_B = mcompile;
+
+_A = 2;
+_B = scompile;
+
+_A = 3;
+_B = oconsult;
+
+_A = 4;
+_B = dconsult;
+
+_A = 5;
+_B = sconsult;
+
+_A = 6;
+_B = load;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>local_all/2</b> <b>: </b> 
+</font><i>local_all(X,Xs) collects all facts matching X on the blackboard</i> </li><li>
+<font color="black"><b>local_all/3</b> <b>: </b> 
+</font><i>local_all(X,G,Xs) collects facts X such that G on the blackboard</i> </li><li>
+<font color="black"><b>local_cin/1</b> <b>: </b> 
+</font><i>removes a term if available on the local blackboard</i> </li><li>
+<font color="black"><b>local_cout/1</b> <b>: </b> 
+</font><i>puts a term on local blackbord unless already there</i> </li><li>
+<font color="black"><b>local_in/1</b> <b>: </b> 
+</font><i>waits for a term produced by a matching local_out/1</i> </li><li>
+<font color="black"><b>local_out/1</b> <b>: </b> 
+</font><i>produces a term and possibly wakes up the thread at a matching local_in/1</i> </li><li>
+<font color="black"><b>local_rd/1</b> <b>: </b> 
+</font><i>tests if a term is available on the local blackboard</i> </li><li>
+<font color="black"><b>local_when/1</b> <b>: </b> 
+</font><i>waits until a term is available on the local blackboard</i> </li><li>
+<font color="black"><b>lock_thread_guard/1</b> <b>: </b> 
+</font><i>locks thread guard created with new_thread_guard</i> </li><li>
+<font color="black"><b>log/2</b> <b>: </b> 
+</font><i>float function</i> </li><li>
+<font color="black"><b>log/3</b> <b>: </b> 
+</font><i>returns log in base arg 1 of arg 2, a float</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-log(2,8,_A).
+_A = 3;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>login/1</b> <b>: </b> 
+</font><i>assumes default (nick)name for user</i> </li><li>
+<font color="black"><b>ls/0</b> <b>: </b> 
+</font><i>list files under Unix</i> </li><li>
+<font color="black"><b>ls2list/2</b> <b>: </b> 
+</font><i>(Dir,Files): converts ls cmd output to list of files and dirs</i> </li><li>
+<font color="black"><b>lval/3</b> <b>: </b> 
+</font><i>backtrackable: lval(K1,K2,V) associates V to keys K1 and K2</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-lval(a,b,f(_A)).
+_A = _x61907;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>main/0</b> <b>: </b> 
+</font><i>user defined optional startup predicate</i> </li><li>
+<font color="black"><b>main/1</b> <b>: </b> 
+</font><i>default entry predicate, does both prolog_init/1 and prolog_run/1</i> </li><li>
+<font color="black"><b>make_array/2</b> <b>: </b> 
+</font><i>creates an array</i> </li><li>
+<font color="black"><b>make_cmd/2</b> <b>: </b> 
+</font><i>concatenates a list of strings and atomic elements into an atom</i> </li><li>
+<font color="black"><b>make_cmd0/2</b> <b>: </b> 
+</font><i>concatenates a list of strings and atomic elements into a string</i> </li><li>
+<font color="black"><b>make_compileable/2</b> <b>: </b> 
+</font><i>make_compilable(Files,File) rewrites Files as a canonical File with all predicates contiguous and no operators</i> </li><li>
+<font color="black"><b>make_spaced_cmd/2</b> <b>: </b> 
+</font><i>concatenates a list of elements with inserted space separtors into an atom</i> </li><li>
+<font color="black"><b>map/2</b> <b>: </b> 
+</font><i>maps a predicate with 1 arg to a list</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-map(println,[10,20,30]).
+10
+20
+30
+
+yes
+</pre>
+
+</font></li><li>
+<font color="black"><b>map/3</b> <b>: </b> 
+</font><i>maps a predicate with 2 args to a list</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-map(+1,[10,20],_A).
+_A = [11,21];
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>map_clear/1</b> <b>: </b> 
+</font><i>(D): empties and cleans up D</i> </li><li>
+<font color="black"><b>map_gc/1</b> <b>: </b> 
+</font><i>(D): frees unused memory in D</i> </li><li>
+<font color="black"><b>map_get/3</b> <b>: </b> 
+</font><i>(D,K,V): gets V, given K in map D, backtracks over K if K unbound</i> </li><li>
+<font color="black"><b>map_key/2</b> <b>: </b> 
+</font><i>(D,K): succeds if K is known, otherwise finds V backtracks over each key K in D</i> </li><li>
+<font color="black"><b>map_new/1</b> <b>: </b> 
+</font><i>(D): returns a new map handle D</i> </li><li>
+<font color="black"><b>map_put/3</b> <b>: </b> 
+</font><i>(D,K,V): adds K,V to map D</i> </li><li>
+<font color="black"><b>map_rm/2</b> <b>: </b> 
+</font><i>(D,K): removes key K from map D</i> </li><li>
+<font color="black"><b>map_show/1</b> <b>: </b> 
+</font><i>(D): lists the content of a map</i> </li><li>
+<font color="black"><b>maps_clean/0</b> <b>: </b> 
+</font><i>empties and cleans up all maps created with mmap_new</i> </li><li>
+<font color="black"><b>maps_gc/0</b> <b>: </b> 
+</font><i>frees memory for all maps created with mmap_new</i> </li><li>
+<font color="black"><b>maps_iterate/1</b> <b>: </b> 
+</font><i>(D): backtracks over map handles created with mmap_new D</i> </li><li>
+<font color="black"><b>maps_show/0</b> <b>: </b> 
+</font><i>lists the content of all maps created with mmap_new</i> </li><li>
+<font color="black"><b>match_before/4</b> <b>: </b> 
+</font><i>match_before(+Stop,-Word,I,O): matches a word with DCGs until a given delimiter is hit</i> </li><li>
+<font color="black"><b>match_before/5</b> <b>: </b> 
+</font><i>match_before(+Stops,-Word,-Stop,I,O): matches a word with DCGs until a given delimiter set is hit, one of which is also returned</i> </li><li>
+<font color="black"><b>match_word/3</b> <b>: </b> 
+</font><i>match_word(+Word,I,O): matches/consumes a word, in the conext of DCGs</i> </li><li>
+<font color="black"><b>max/3</b> <b>: </b> 
+</font><i>(X,Y,Max): Max is the max of 2 numbers X, Y</i> </li><li>
+<font color="black"><b>mcompile/1</b> <b>: </b> 
+</font><i>compile/1 variant: cleans up data areas and compiles to memory</i> </li><li>
+<font color="black"><b>member/2</b> <b>: </b> 
+</font><i>(X,Xs): checks if an element X unifies with an element on a list Xs or generates sucessively longer lists if Xs is unbound or open ended</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-member(2,[1,2]).
+
+yes
+?-member(_A,[1,2]).
+_A = 1;
+
+_A = 2;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>member_conj/2</b> <b>: </b> 
+</font><i>like member/2, for a comma separated conjunction, ending with true</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-member_conj(_A,(a,b,true)).
+_A = a;
+
+_A = b;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>member_scan/3</b> <b>: </b> 
+</font><i>finds first element without unifying to it</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-member_scan(s(_A),[1,s(s(_B)),2],_C).
+_A = _x61908;
+_B = _x61918;
+_C = [s(s(_x61918)),2];
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>memberchk/2</b> <b>: </b> 
+</font><i>(X,Xs) checks if an X is a the list Xs</i> </li><li>
+<font color="black"><b>merge_sort/3</b> <b>: </b> 
+</font><i>(Order,List,Sorted)</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-merge_sort(>,[1,3,2,2,4],_A).
+_A = [4,3,2,2,1];
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>metacall/1</b> <b>: </b> 
+</font><i>calls the interpreter</i> </li><li>
+<font color="black"><b>metatrue/0</b> <b>: </b> 
+</font><i>calls the interpreter on current continuation</i> </li><li>
+<font color="black"><b>min/3</b> <b>: </b> 
+</font><i>(X,Y,Min): Min is the min of 2 numbers X, Y</i> </li><li>
+<font color="black"><b>mmap_clear/1</b> <b>: </b> 
+</font><i>(D): empties and cleans up D</i> </li><li>
+<font color="black"><b>mmap_gc/1</b> <b>: </b> 
+</font><i>(D): frees unused memory in D</i> </li><li>
+<font color="black"><b>mmap_get/3</b> <b>: </b> 
+</font><i>(D,K,V): gets V, given K in mmap D,  backtracks over K if K unbound</i> </li><li>
+<font color="black"><b>mmap_key/2</b> <b>: </b> 
+</font><i>(D,K): succeds if K is known, otherwise finds V backtracks over each key K in D</i> </li><li>
+<font color="black"><b>mmap_new/1</b> <b>: </b> 
+</font><i>(D): returns a new mmap handle D - a mmap holds multiple elements for each key</i> </li><li>
+<font color="black"><b>mmap_push/3</b> <b>: </b> 
+</font><i>(D,K,V): adds K,V as the first element of mmap D</i> </li><li>
+<font color="black"><b>mmap_put/3</b> <b>: </b> 
+</font><i>(D,K,V): adds K,V as the last element of mmap D</i> </li><li>
+<font color="black"><b>mmap_rm/3</b> <b>: </b> 
+</font><i>(D,K,X): removes a term X attached to key K from mmap D and backtracks on each such term</i> </li><li>
+<font color="black"><b>mmap_rm_all/2</b> <b>: </b> 
+</font><i>(D,K): removes all terms X attached to key K from mmap D</i> </li><li>
+<font color="black"><b>mmap_rm_one/3</b> <b>: </b> 
+</font><i>(D,K,X): removes first term X attached to key K from mmap D</i> </li><li>
+<font color="black"><b>mmap_show/1</b> <b>: </b> 
+</font><i>(D): lists the content of a mmap</i> </li><li>
+<font color="black"><b>mmaps_clean/0</b> <b>: </b> 
+</font><i>empties and cleans up all mmaps created with mmap_new</i> </li><li>
+<font color="black"><b>mmaps_gc/0</b> <b>: </b> 
+</font><i>frees memory for all mmaps created with mmap_new</i> </li><li>
+<font color="black"><b>mmaps_iterate/1</b> <b>: </b> 
+</font><i>(D): backtracks over mmap handles created with mmap_new D</i> </li><li>
+<font color="black"><b>mmaps_show/0</b> <b>: </b> 
+</font><i>lists the content of all mmaps created with mmap_new</i> </li><li>
+<font color="black"><b>mod/3</b> <b>: </b> 
+</font><i>modulo</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-mod(10,3,_A).
+_A = 1;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>(mode)/1</b> <b>: </b> 
+</font><i>accepts mode declarations although we are not using them currently</i> </li><li>
+<font color="black"><b>(module)/1</b> <b>: </b> 
+</font><i>starts a module</i> </li><li>
+<font color="black"><b>(module)/2</b> <b>: </b> 
+</font><i>starts a module specifying a list of visible predicates</i> </li><li>
+<font color="black"><b>modules/1</b> <b>: </b> 
+</font><i>returns a list of existing modules</i> </li><li>
+<font color="black"><b>msort/2</b> <b>: </b> 
+</font><i>sorts and keeps duplicates</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-msort([2,1,3,1,4,4,2],_A).
+_A = [1,1,2,2,3,4,4];
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>(multifile)/1</b> <b>: </b> 
+</font><i>states that clauses of a predicate can be in different files</i> </li><li>
+<font color="black"><b>name/2</b> <b>: </b> 
+</font><i>bidirectional: converts atomic to/from list of chars</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-name(hello,_A).
+_A = [104,101,108,108,111];
+
+no
+?-name(_A,[98,121,101]).
+_A = bye;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>namecat/4</b> <b>: </b> 
+</font><i>concatenates 3 names</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-namecat(a,:,b,_A).
+_A = a:b;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>near_match/2</b> <b>: </b> 
+</font><i>matches 2 lists of chars</i> </li><li>
+<font color="black"><b>new_builtin/3</b> <b>: </b> 
+</font><i>sample 3 arg user added builtin - used for the C interface</i> </li><li>
+<font color="black"><b>new_client/3</b> <b>: </b> 
+</font><i>from a (host,port) to a client</i> </li><li>
+<font color="black"><b>new_engine/3</b> <b>: </b> 
+</font><i>new_engine(X,G,E) creates an engine E ready to execute goal G with answer X</i> </li><li>
+<font color="black"><b>new_iterator/2</b> <b>: </b> 
+</font><i>(GroundKey,Iterator) gets an iterator to terms attached to ground key</i> </li><li>
+<font color="black"><b>new_key_iterator/1</b> <b>: </b> 
+</font><i>(Iterator): returns an iterator over the set of external keys</i> </li><li>
+<font color="black"><b>new_name/2</b> <b>: </b> 
+</font><i>returns a new name based on arg 1</i> </li><li>
+<font color="black"><b>new_server/2</b> <b>: </b> 
+</font><i>opens on a port a new server</i> </li><li>
+<font color="black"><b>new_service/3</b> <b>: </b> 
+</font><i>from (server,timeout) to a service</i> </li><li>
+<font color="black"><b>new_term/2</b> <b>: </b> 
+</font><i>(Term,Handle): creates a new external Term and returns an integer Handle to it</i> </li><li>
+<font color="black"><b>new_thread_guard/1</b> <b>: </b> 
+</font><i>returns a new free thread guard from pool</i> </li><li>
+<font color="black"><b>nl/0</b> <b>: </b> 
+</font><i>writes a new line character</i> </li><li>
+<font color="black"><b>nobbgc/0</b> <b>: </b> 
+</font><i>disables blackboard gc</i> </li><li>
+<font color="black"><b>nogc/0</b> <b>: </b> 
+</font><i>disables heap gc</i> </li><li>
+<font color="black"><b>nonvar/1</b> <b>: </b> 
+</font><i>true if currently instantiated</i> </li><li>
+<font color="black"><b>(nospy)/1</b> <b>: </b> 
+</font><i>do not spy on Pred/Arity anymore</i> </li><li>
+<font color="black"><b>(not)/1</b> <b>: </b> 
+</font><i>sound negation</i> </li><li>
+<font color="black"><b>notepad/0</b> <b>: </b> 
+</font><i>calls notepad editor on last compiled file</i> </li><li>
+<font color="black"><b>notify_about/1</b> <b>: </b> 
+</font><i>notifies a suspended matching wait_for(Term,Contraint), if Constraint holds, that Term is available</i> </li><li>
+<font color="black"><b>notrace/0</b> <b>: </b> 
+</font><i>do not trace predicates when interpreted</i> </li><li>
+<font color="black"><b>nth_answer/2</b> <b>: </b> 
+</font><i>(N,Goal) returns only the nth answer of Goal, if such an anser exists</i> </li><li>
+<font color="black"><b>nth_member/3</b> <b>: </b> 
+</font><i>retrieves N-th element of a list</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-nth_member(_A,[a,b,c],_B).
+_A = a;
+_B = 1;
+
+_A = b;
+_B = 2;
+
+_A = c;
+_B = 3;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>number/1</b> <b>: </b> 
+</font><i>true if integer or float</i> </li><li>
+<font color="black"><b>number_chars/2</b> <b>: </b> 
+</font><i>(Number,CharAtoms): converts between a number and its list of char atoms representation</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-number_chars(1999,_A).
+_A = [1,9,9,9];
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>number_codes/2</b> <b>: </b> 
+</font><i>(Number,CharCodes): converts between a number and its list of char code representation</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-number_codes(1999,_A).
+_A = [49,57,57,57];
+
+no
+?-number_codes(_A,[50,48,48,49]).
+_A = 2001;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>numbervars/3</b> <b>: </b> 
+</font><i>binds to $VAR(I) with I over distinct integers variables in a term</i> </li><li>
+<font color="black"><b>oconsult/1</b> <b>: </b> 
+</font><i>reconsult/1 variant: consults/compiles based on db_ratio and overwrites old clauses</i> </li><li>
+<font color="black"><b>older_file/2</b> <b>: </b> 
+</font><i>true if arg 1 is a file older than arg 2</i> </li><li>
+<font color="black"><b>on_undefined/1</b> <b>: </b> 
+</font><i>(Goal): defines handler for undefined predicates matching Goal</i> </li><li>
+<font color="black"><b>once/1</b> <b>: </b> 
+</font><i>executes once, with no backtracking</i> </li><li>
+<font color="black"><b>one/4</b> <b>: </b> 
+</font><i>one(Recognizer,Result): DCG based regexp processor for exactly one Recognizer</i> </li><li>
+<font color="black"><b>op/3</b> <b>: </b> 
+</font><i>op(Pri,A,Op) defines an operator Op of priority Pri and associativity A</i> </li><li>
+<font color="black"><b>open/3</b> <b>: </b> 
+</font><i>returns a stream (arg 3) on a file (arg 1) in read/write/append mode (arg 2)</i> </li><li>
+<font color="black"><b>open_engine/3</b> <b>: </b> 
+</font><i>open_engine(G,X,E) creates an engine E ready to execute goal G with answer X</i> </li><li>
+<font color="black"><b>open_stream/4</b> <b>: </b> 
+</font><i>(Type,FileOrCmd,ReadWriteAppend,?StreamID) opens various streams</i> </li><li>
+<font color="black"><b>otherwise/0</b> <b>: </b> 
+</font><i>always succeeds</i> </li><li>
+<font color="black"><b>otime/1</b> <b>: </b> 
+</font><i>gets time in secs from arbitrary origin to start</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-otime(_A).
+_A = 426532223;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>out/1</b> <b>: </b> 
+</font><i>puts a term on Linda server or trigers resumption of a matching in/1 waiting for this data</i> </li><li>
+<font color="black"><b>override/3</b> <b>: </b> 
+</font><i>overrides a compiled predicate - to be used with care</i> </li><li>
+<font color="black"><b>password/1</b> <b>: </b> 
+</font><i>assumes default password for user</i> </li><li>
+<font color="black"><b>pc/0</b> <b>: </b> 
+</font><i>pushes code compiled into the workspace to the persistent kernel</i> </li><li>
+<font color="black"><b>pclose/1</b> <b>: </b> 
+</font><i>closes a pipe generated stream</i> </li><li>
+<font color="black"><b>pcollect/2</b> <b>: </b> 
+</font><i>collects output from a command to a list of char codes</i> </li><li>
+<font color="black"><b>peer_addr/2</b> <b>: </b> 
+</font><i>gets address of peer connected to socket</i> </li><li>
+<font color="black"><b>peer_port/2</b> <b>: </b> 
+</font><i>gets port of peer connected to socket</i> </li><li>
+<font color="black"><b>phrase/2</b> <b>: </b> 
+</font><i>(Axiom, ?InputChars): DCG evaluator, starting from Axiom, consuming/producing InputChars</i> </li><li>
+<font color="black"><b>phrase/3</b> <b>: </b> 
+</font><i>(Axiom, ?InputChars, ?OutputChars): DCG evaluator, staring from Axiom</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-phrase(([a],[b]),[a,b|_A],_A).
+_A = _x61890;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>pico/0</b> <b>: </b> 
+</font><i>calls pico editor on last compiled file</i> </li><li>
+<font color="black"><b>plus/4</b> <b>: </b> 
+</font><i>plus(Recognizer,Result): DCG based plus regexp processor for (Recognizer)+</i> </li><li>
+<font color="black"><b>popen/3</b> <b>: </b> 
+</font><i>popen(Cmd,read/write,Stream) opens Stream using a pipe from/to process executing Cmd</i> </li><li>
+<font color="black"><b>port/1</b> <b>: </b> 
+</font><i>assumes default port for Linda server</i> </li><li>
+<font color="black"><b>portray_clause/1</b> <b>: </b> 
+</font><i>pretty prints a clause</i> </li><li>
+<font color="black"><b>pow/3</b> <b>: </b> 
+</font><i>(Base,Expo,Val) computes power function</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-pow(2,3,_A).
+_A = 8;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>pp_clause/1</b> <b>: </b> 
+</font><i>prints out a clause with some care on how it looks</i> </li><li>
+<font color="black"><b>pp_term/1</b> <b>: </b> 
+</font><i>pretty prints a term</i> </li><li>
+<font color="black"><b>predicate_property/2</b> <b>: </b> 
+</font><i>returns a property of a predicate</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-predicate_property(write(_A),_B).
+_A = _x61889;
+_B = built_in;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>print/1</b> <b>: </b> 
+</font><i>variant of write/1</i> </li><li>
+<font color="black"><b>println/1</b> <b>: </b> 
+</font><i>synchronized printing of a term on a line</i> </li><li>
+<font color="black"><b>process_term/3</b> <b>: </b> 
+</font><i>(OpCode,Input,Output): applies various user defined C functions to external terms</i> </li><li>
+<font color="black"><b>prod/2</b> <b>: </b> 
+</font><i>(List, ?Result): product of a list</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-prod([10,20],_A).
+_A = 200;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>profile/0</b> <b>: </b> 
+</font><i>in specialy compiled profiler mode prints out info accumulated so far</i> </li><li>
+<font color="black"><b>prolog_flag/2</b> <b>: </b> 
+</font><i>(Flag,Value): retrieves the value of a Prolog flag</i> </li><li>
+<font color="black"><b>prolog_init/1</b> <b>: </b> 
+</font><i>runs more command line args representing prolog goals</i> </li><li>
+<font color="black"><b>prolog_load/1</b> <b>: </b> 
+</font><i>loads code and/or executes first command line arg</i> </li><li>
+<font color="black"><b>prolog_run/1</b> <b>: </b> 
+</font><i>starts main/0 if defined, otherwise toplevel/0</i> </li><li>
+<font color="black"><b>(public)/1</b> <b>: </b> 
+</font><i>declares globally visible predicate Name/Arity</i> </li><li>
+<font color="black"><b>push_code/1</b> <b>: </b> 
+</font><i>moves code compiled in workspace to kernel and returns top of code area - used by pc/0</i> </li><li>
+<font color="black"><b>push_term/2</b> <b>: </b> 
+</font><i>(GroundKey,Term): attaches a term to a ground key in constant time as a the first element</i> </li><li>
+<font color="black"><b>pushq/3</b> <b>: </b> 
+</font><i>adds to beginning of persistent queeue</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-pushq(key1,key2,f(_A,_A)).
+_A = _x61891;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>put/1</b> <b>: </b> 
+</font><i>writes and ascii code as a char</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-put(99).
+c
+yes
+</pre>
+
+</font></li><li>
+<font color="black"><b>put_char/2</b> <b>: </b> 
+</font><i>(Stream,CharAsOneLetterConstant): outputs a char to a stream -ISO Prolog</i> </li><li>
+<font color="black"><b>put_code/1</b> <b>: </b> 
+</font><i>ISO char code writer</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-put_code(99).
+c
+yes
+</pre>
+
+</font></li><li>
+<font color="black"><b>put_code/2</b> <b>: </b> 
+</font><i>outputs a char code to a stream - ISO</i> </li><li>
+<font color="black"><b>put_critical/2</b> <b>: </b> 
+</font><i>(Guard,Data): updates mutex Guard-protected Data on blackboard</i> </li><li>
+<font color="black"><b>put_term/2</b> <b>: </b> 
+</font><i>(GroundKey,Term): attaches a term to a ground key in constant time as the last element</i> </li><li>
+<font color="black"><b>pwd/0</b> <b>: </b> 
+</font><i>shows current dir</i> </li><li>
+<font color="black"><b>pwd/1</b> <b>: </b> 
+</font><i>returns current dir as a list of chars</i> </li><li>
+<font color="black"><b>qcompile/1</b> <b>: </b> 
+</font><i>compile/1 variant: compiles a file to memory after pushing current user code to kernel - where it becomes read only</i> </li><li>
+<font color="black"><b>qfindall/4</b> <b>: </b> 
+</font><i>qfindall(X,G,Xs,Ys): queues based, slightly faster findall/4, not MT-safe</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-qfindall(s(_A),(_A = 1 ; _A = 2),_B,[3,4]).
+_A = _x61899;
+_B = [s(1),s(2),3,4];
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>qmake/1</b> <b>: </b> 
+</font><i>compiles Project to fast C code - for packaging as standalone executable</i> </li><li>
+<font color="black"><b>qmake/2</b> <b>: </b> 
+</font><i>(Project,Module): compiles to fast C code a project in Module: uses set_threshhold(12,60) before dooing cmake/2, for a good speed/code size ratio</i> </li><li>
+<font color="black"><b>qprint/1</b> <b>: </b> 
+</font><i>prints out a clause such that a variant of it can be always read back</i> </li><li>
+<font color="black"><b>quiet/1</b> <b>: </b> 
+</font><i>gets/sets level of "quietness"</i> </li><li>
+<font color="black"><b>quietmes/1</b> <b>: </b> 
+</font><i>writes message if in low quietness mode</i> </li><li>
+<font color="black"><b>quietmes/2</b> <b>: </b> 
+</font><i>writes message if quietness is lower than arg 1)</i> </li><li>
+<font color="black"><b>quit/0</b> <b>: </b> 
+</font><i>same as halt</i> </li><li>
+<font color="black"><b>random/1</b> <b>: </b> 
+</font><i>returns a random integer</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-random(_A).
+_A = 1443;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>random_seed/1</b> <b>: </b> 
+</font><i>initializes random/1 with an integer, uses clock if 0</i> </li><li>
+<font color="black"><b>rd/1</b> <b>: </b> 
+</font><i>reads a term matching arg 1 from Linda blackboard</i> </li><li>
+<font color="black"><b>read/1</b> <b>: </b> 
+</font><i>reads a term</i> </li><li>
+<font color="black"><b>read_chars/1</b> <b>: </b> 
+</font><i>reads to a list of ascii codes</i> </li><li>
+<font color="black"><b>read_line/1</b> <b>: </b> 
+</font><i>reads a line into a constant</i> </li><li>
+<font color="black"><b>read_term/2</b> <b>: </b> 
+</font><i>reads a term and also a list of variable-name associations</i> </li><li>
+<font color="black"><b>read_term_from_chars/2</b> <b>: </b> 
+</font><i>reads a term from a list of char codes</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-read_term_from_chars([102,40,88,44,88,44,89,44,89,41],_A).
+_A = f(_x63741,_x63741,_x63792,_x63792);
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>read_term_from_chars/3</b> <b>: </b> 
+</font><i>reads a term with variable names from a list of char codes</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-read_term_from_chars([102,40,88,44,88,44,89,44,89,41],_A,_B).
+_A = f(_x63809,_x63809,_x63860,_x63860);
+_B = [X = _x63809,Y = _x63860];
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>read_terms_from_chars/2</b> <b>: </b> 
+</font><i>(Chars,Clause): backtracks over Clause(s) parsed from a list of char codes</i> </li><li>
+<font color="black"><b>read_terms_from_chars/3</b> <b>: </b> 
+</font><i>(Chars,Clause,VarsInClause): backtracks over Clause(s) parsed from a list of char codes</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-read_terms_from_chars([98,40,88,44,89,41,58,45,97,40,89,44,88,41,46,32,97,40,49,44,49,41,46,32,97,40,95,44,50,41,46,32],_A,_B).
+_A = (b(_x65606,_x65634) :- a(_x65634,_x65606));
+_B = [X = _x65606,Y = _x65634];
+
+_A = a(1,1);
+_B = [];
+
+_A = a(_x65205,2);
+_B = [_ = _x65205];
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>read_words/1</b> <b>: </b> 
+</font><i>reads a line into a list of words</i> </li><li>
+<font color="black"><b>reboot/0</b> <b>: </b> 
+</font><i>regenerates BinProlog from its sources</i> </li><li>
+<font color="black"><b>reconsult/1</b> <b>: </b> 
+</font><i>applies current consult method to file given as arg 1, set db_ratio/1 for specifying dynamic recompilation of heavily used interpreted code</i> </li><li>
+<font color="black"><b>remote_run/1</b> <b>: </b> 
+</font><i>runs Goal on remote server using default password</i> </li><li>
+<font color="black"><b>remote_run/3</b> <b>: </b> 
+</font><i>(Host,Port,Goal): runs Goal on rmote server at Host, Port with default password</i> </li><li>
+<font color="black"><b>remote_run/6</b> <b>: </b> 
+</font><i>(Host,Port,Answer,Goal,Password,Reply): runs Goal on server at Host, Port with given Password and returns Reply. However, if you do let(where,here) before calling it, a local goal is called instead.</i> </li><li>
+<font color="black"><b>remove_current_term/1</b> <b>: </b> 
+</font><i>(Iterator) removes current term attached to an iterator</i> </li><li>
+<font color="black"><b>repeat/0</b> <b>: </b> 
+</font><i>backtracks until its continuation succeeds; defined as repeat. repeat:-repeat. </i> </li><li>
+<font color="black"><b>restart/0</b> <b>: </b> 
+</font><i>cleans up data areas and reinitializes symbol tables</i> </li><li>
+<font color="black"><b>retract/1</b> <b>: </b> 
+</font><i>backtracks over deleting matching clauses</i> </li><li>
+<font color="black"><b>retract1/1</b> <b>: </b> 
+</font><i>deletes first matching clause in the current database</i> </li><li>
+<font color="black"><b>retractall/1</b> <b>: </b> 
+</font><i>deletes all matching clauses</i> </li><li>
+<font color="black"><b>return/1</b> <b>: </b> 
+</font><i>returns data from an engine as if it were an answer - such that the engine can be resumed with get/2 to execute the next goal</i> </li><li>
+<font color="black"><b>return0/1</b> <b>: </b> 
+</font><i>returns a term from an engine left in a state ready to resume</i> </li><li>
+<font color="black"><b>reuse_engine/3</b> <b>: </b> 
+</font><i>reuse_engine(X,G,E) initializes engine E with goal G and answer pattern X</i> </li><li>
+<font color="black"><b>reverse/2</b> <b>: </b> 
+</font><i>reverses a list</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-reverse([a,b,c],_A).
+_A = [c,b,a];
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>round/2</b> <b>: </b> 
+</font><i>float to int function</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-round(1.51,_A).
+_A = 2;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>rpc/1</b> <b>: </b> 
+</font><i>(Query): calls server on current local reusable socket</i> </li><li>
+<font color="black"><b>rpc/3</b> <b>: </b> 
+</font><i>(Answer,Goal,Result): calls server on local reusable socket and gets back Result as the(Answer) or no</i> </li><li>
+<font color="black"><b>rpc_handler/1</b> <b>: </b> 
+</font><i>(Goal): user-defined rpc handler - filters/calls Goal received on server</i> </li><li>
+<font color="black"><b>rpc_server/0</b> <b>: </b> 
+</font><i>runs Jinni compatible server with socket reuse on default port</i> </li><li>
+<font color="black"><b>rpc_server/2</b> <b>: </b> 
+</font><i>Port,Password: runs Jinni compatible server with socket reuse</i> </li><li>
+<font color="black"><b>rpc_server/3</b> <b>: </b> 
+</font><i>Port,Password,Timout: runs Jinni compatible server with socket reuse</i> </li><li>
+<font color="black"><b>rpc_test/0</b> <b>: </b> 
+</font><i>tests rpc server and client with socket reuse</i> </li><li>
+<font color="black"><b>rpc_test/1</b> <b>: </b> 
+</font><i>tests rpc client with socket reuse for a given number of operations</i> </li><li>
+<font color="black"><b>rtime/1</b> <b>: </b> 
+</font><i>gets elapsed real time in secs</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-rtime(_A).
+_A = 0;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>run_server/0</b> <b>: </b> 
+</font><i>runs foreground server on localhost (default port) for Jinni clients</i> </li><li>
+<font color="black"><b>run_server/1</b> <b>: </b> 
+</font><i>runs foreground server on Port to provide services to Jinni clients</i> </li><li>
+<font color="black"><b>run_server/2</b> <b>: </b> 
+</font><i>(Port,Password): runs server on Port, Password required from clients</i> </li><li>
+<font color="black"><b>run_server/6</b> <b>: </b> 
+</font><i>(Port,Password,Heap,Stack,Trail,Timeout): runs server with specified service parameters</i> </li><li>
+<font color="black"><b>scompile/1</b> <b>: </b> 
+</font><i>smart compile/1 variant: if the *.wam file is newer reloads, otherwise fcompiles first</i> </li><li>
+<font color="black"><b>sconsult/1</b> <b>: </b> 
+</font><i>reconsult/1 variant: cleans up data areas consults, makes all static</i> </li><li>
+<font color="black"><b>sdebug/1</b> <b>: </b> 
+</font><i>emits mt-safe synchronized debug message</i> </li><li>
+<font color="black"><b>see/1</b> <b>: </b> 
+</font><i>focuses input on a file</i> </li><li>
+<font color="black"><b>see_at/1</b> <b>: </b> 
+</font><i>seeks a seekable file at a give offset (in bytes)</i> </li><li>
+<font color="black"><b>see_or_fail/1</b> <b>: </b> 
+</font><i>opens a file if it exists, otherwise fails</i> </li><li>
+<font color="black"><b>seeing/1</b> <b>: </b> 
+</font><i>gets file name opened and set by see/1</i> </li><li>
+<font color="black"><b>seeing_at/1</b> <b>: </b> 
+</font><i>retrieves position in current file opened by see/1</i> </li><li>
+<font color="black"><b>seen/0</b> <b>: </b> 
+</font><i>close file opened by see/1</i> </li><li>
+<font color="black"><b>sentence_of/2</b> <b>: </b> 
+</font><i>reads a natural language file to a sentence built as a list of words - on backtracking</i> </li><li>
+<font color="black"><b>sentence_of/3</b> <b>: </b> 
+</font><i>(File,Ends,Sent) reads a file to a sentence separated by Ends - on backtracking</i> </li><li>
+<font color="black"><b>service_loop/2</b> <b>: </b> 
+</font><i>ServiceSocket,Password:starts service loop on reusable ServiceSocket - works on server side with server/2</i> </li><li>
+<font color="black"><b>set_bp_error/4</b> <b>: </b> 
+</font><i>(Id,Mes,Arg1,Arg2): notifies emulator about error condition</i> </li><li>
+<font color="black"><b>set_c_threshold/1</b> <b>: </b> 
+</font><i>related to C generator: sets length K of WAM instruction block such that block larger than K will get compiled to C code</i> </li><li>
+<font color="black"><b>set_c_threshold/2</b> <b>: </b> 
+</font><i>(Min,Max): related to C generator: sets Min,Max length of WAM instruction block such that blocks between Min and Max size will get compiled to C code</i> </li><li>
+<font color="black"><b>set_db/1</b> <b>: </b> 
+</font><i>sets the name of active database for dynamic code</i> </li><li>
+<font color="black"><b>set_default/1</b> <b>: </b> 
+</font><i>asserts arg 1 as default state for use by default/2</i> </li><li>
+<font color="black"><b>set_hash_max/1</b> <b>: </b> 
+</font><i>Set the range of values from -1 to -Max, that should be a prime number, defaults to 1999</i> </li><li>
+<font color="black"><b>set_host/1</b> <b>: </b> 
+</font><i>asserts IP adress or name of server host we want to talk to</i> </li><li>
+<font color="black"><b>set_input/1</b> <b>: </b> 
+</font><i>sets current input stream</i> </li><li>
+<font color="black"><b>set_lineno/1</b> <b>: </b> 
+</font><i>sets line number counter in current file - use with care</i> </li><li>
+<font color="black"><b>set_load_method/1</b> <b>: </b> 
+</font><i>sets the current load method by name</i> </li><li>
+<font color="black"><b>set_login/1</b> <b>: </b> 
+</font><i>asserts default (nick)name for user</i> </li><li>
+<font color="black"><b>set_output/1</b> <b>: </b> 
+</font><i>sets current output stream</i> </li><li>
+<font color="black"><b>set_password/1</b> <b>: </b> 
+</font><i>sets default password for user</i> </li><li>
+<font color="black"><b>set_port/1</b> <b>: </b> 
+</font><i>asserts port number of the server we want to talk to</i> </li><li>
+<font color="black"><b>set_prolog_flag/2</b> <b>: </b> 
+</font><i>(Flag,Value): sets the value of a Prolog flag</i> </li><li>
+<font color="black"><b>set_this_host/1</b> <b>: </b> 
+</font><i>asserts IP adress or name of this machine</i> </li><li>
+<font color="black"><b>set_this_port/1</b> <b>: </b> 
+</font><i>asserts default port for to work as a server on</i> </li><li>
+<font color="black"><b>set_timeout/1</b> <b>: </b> 
+</font><i>asserts default timeout</i> </li><li>
+<font color="black"><b>setarg/3</b> <b>: </b> 
+</font><i>backtrackable: setarg(I,T,X) replaces arg I of T with X</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-setarg(2,f(a,b),c).
+
+yes
+</pre>
+
+</font></li><li>
+<font color="black"><b>setof/3</b> <b>: </b> 
+</font><i>all solutions predicate generating sorted sets of unduplicated answers</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-setof(_A,member(_A,[3,2,2,1]),_B).
+_A = _x61888;
+_B = [1,2,3];
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>shell/1</b> <b>: </b> 
+</font><i>passes a command to the OS</i> </li><li>
+<font color="black"><b>show_default/1</b> <b>: </b> 
+</font><i>makes available a default value</i> </li><li>
+<font color="black"><b>show_defaults/0</b> <b>: </b> 
+</font><i>show default values of some system variables</i> </li><li>
+<font color="black"><b>show_engine/0</b> <b>: </b> 
+</font><i>if debugmes/1 is on (as with quiet(1)), shows params of current engine</i> </li><li>
+<font color="black"><b>show_info/2</b> <b>: </b> 
+</font><i>generates components of info/1 output</i> </li><li>
+<font color="black"><b>sign/2</b> <b>: </b> 
+</font><i>int function</i> </li><li>
+<font color="black"><b>sin/2</b> <b>: </b> 
+</font><i>float function</i> </li><li>
+<font color="black"><b>skip_until/2</b> <b>: </b> 
+</font><i>findall variant</i> </li><li>
+<font color="black"><b>skip_when/2</b> <b>: </b> 
+</font><i>findall variant</i> </li><li>
+<font color="black"><b>sleep/1</b> <b>: </b> 
+</font><i>waits arg 1 seconds</i> </li><li>
+<font color="black"><b>sock2file/2</b> <b>: </b> 
+</font><i>reads from a socket, to a file</i> </li><li>
+<font color="black"><b>sock_read/2</b> <b>: </b> 
+</font><i>reads from a socket when size of the data is described by int before chars to be read</i> </li><li>
+<font color="black"><b>sock_read/3</b> <b>: </b> 
+</font><i>reads from a socket, a string</i> </li><li>
+<font color="black"><b>sock_readln/2</b> <b>: </b> 
+</font><i>reads from a socket until an end of line LF (ascii 10) or char 0 is found and discards possible previous CR (ascii13)</i> </li><li>
+<font color="black"><b>sock_readln/3</b> <b>: </b> 
+</font><i>reads from a socket, a line</i> </li><li>
+<font color="black"><b>sock_write/2</b> <b>: </b> 
+</font><i>writes a string to a socket prefixed by its lenght</i> </li><li>
+<font color="black"><b>sock_write/3</b> <b>: </b> 
+</font><i>writes to a socket, a string</i> </li><li>
+<font color="black"><b>sock_writeln/2</b> <b>: </b> 
+</font><i>writes a string to a socket and adds an ascii 10 to the end</i> </li><li>
+<font color="black"><b>sock_writeln/3</b> <b>: </b> 
+</font><i>writes to a socket, a line</i> </li><li>
+<font color="black"><b>solutions/2</b> <b>: </b> 
+</font><i>(GX,Xs): adds (last) output arg X to closure G then works like findall(X,GX,Xs)</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-solutions(argn(_A,f(a,b,c)),_B).
+_A = _x61889;
+_B = [a,b,c];
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>sort/2</b> <b>: </b> 
+</font><i>sorts and removes duplicates</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-sort([2,1,3,1,4,4,2],_A).
+_A = [1,2,3,4];
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>spawn/1</b> <b>: </b> 
+</font><i>spawns Goal in a new bp window on W95/NT PC and Unix/X</i> </li><li>
+<font color="black"><b>spawn/3</b> <b>: </b> 
+</font><i>spawns(Goal,Includes,TempFile): spawns a new bp window</i> </li><li>
+<font color="black"><b>(spy)/1</b> <b>: </b> 
+</font><i>set spy point on goal, triggering trace when interpreted</i> </li><li>
+<font color="black"><b>spying/1</b> <b>: </b> 
+</font><i>checks what we are spying</i> </li><li>
+<font color="black"><b>sqrt/2</b> <b>: </b> 
+</font><i>returns square root of arg 1, a float</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-sqrt(2,_A).
+_A = 1.41421356;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>sread/2</b> <b>: </b> 
+</font><i>reads a term from a string (atom)</i> </li><li>
+<font color="black"><b>sread/3</b> <b>: </b> 
+</font><i>reads a term and a list of vars from a string (atom)</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-sread(f(X,Y),_A,_B).
+_A = f(_x62962,_x62990);
+_B = [X = _x62962,Y = _x62990];
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>star/4</b> <b>: </b> 
+</font><i>star(Recognizer,Result): DCG based star regexp processor for (Recognizer)*</i> </li><li>
+<font color="black"><b>start_rpc/0</b> <b>: </b> 
+</font><i>starts rpc client on default local reusable socket and port</i> </li><li>
+<font color="black"><b>start_rpc/3</b> <b>: </b> 
+</font><i>(Host,Port,Password): starts rpc client on local reusable socket</i> </li><li>
+<font color="black"><b>stat/0</b> <b>: </b> 
+</font><i>short hand for statistics</i> </li><li>
+<font color="black"><b>stat2dyn/1</b> <b>: </b> 
+</font><i>stat2dyn(H): reverts to uncompiled representation for a predicate with head H</i> </li><li>
+<font color="black"><b>stat2dyn/2</b> <b>: </b> 
+</font><i>stat2dyn(Db,H): reverts to uncompiled representation for a predicate in database Db with head H</i> </li><li>
+<font color="black"><b>static_prolog_flag/2</b> <b>: </b> 
+</font><i>contains read-only Prolog flag values</i> </li><li>
+<font color="black"><b>statistics/0</b> <b>: </b> 
+</font><i>shows info about data areas</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-statistics.
+runtime=[400,132]
+global_stack=[496504,16149192]
+local_stack=[544,2094536]
+trail=[68328,2026768]
+code=[527160,1569960]
+strings=[41756,4152548]
+symbols=[41840,2055312]
+htable=[229488,6061968]
+bboard=[1261104,831944]
+gctime=[0,0]
+realtime=[0,426532223]
+
+yes
+</pre>
+
+</font></li><li>
+<font color="black"><b>statistics/2</b> <b>: </b> 
+</font><i>returns info about data areas</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-statistics(_A,_B).
+_A = runtime;
+_B = [400,0];
+
+_A = global_stack;
+_B = [497576,16148120];
+
+_A = local_stack;
+_B = [512,2094568];
+
+_A = trail;
+_B = [68368,2026728];
+
+_A = code;
+_B = [527160,1569960];
+
+_A = strings;
+_B = [41756,4152548];
+
+_A = symbols;
+_B = [41840,2055312];
+
+_A = htable;
+_B = [229488,6061968];
+
+_A = bboard;
+_B = [1261536,831512];
+
+_A = gctime;
+_B = [0,0];
+
+_A = realtime;
+_B = [0,426532223];
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>stop/0</b> <b>: </b> 
+</font><i>exits thread or process</i> </li><li>
+<font color="black"><b>stop/1</b> <b>: </b> 
+</font><i>stops and frees resources held by an engine (may happen automaticaly if an engine fails)</i> </li><li>
+<font color="black"><b>stop_rpc/0</b> <b>: </b> 
+</font><i>stops rpc client on local reusable socket</i> </li><li>
+<font color="black"><b>stop_service/0</b> <b>: </b> 
+</font><i>stops server with socket reuse - acts on the server side</i> </li><li>
+<font color="black"><b>subsumes_chk/2</b> <b>: </b> 
+</font><i>checks if arg 1 is subsumed by arg 2, after renaming vars</i> </li><li>
+<font color="black"><b>sum/2</b> <b>: </b> 
+</font><i>(List,?Result): sum of a list</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-sum([10,20],_A).
+_A = 30;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>swap_cont/2</b> <b>: </b> 
+</font><i>calls arg 1 as cc and returns cc in arg 2</i> </li><li>
+<font color="black"><b>swrite/2</b> <b>: </b> 
+</font><i>writes a term to a string (atom)</i> </li><li>
+<font color="black"><b>swrite/3</b> <b>: </b> 
+</font><i>writes a term with a liste of vars to a string (atom)</i> </li><li>
+<font color="black"><b>symcat/3</b> <b>: </b> 
+</font><i>makes new identifier from arg 1 and arg 2</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-symcat(a,b,_A).
+_A = a_b;
+
+no
+?-symcat(a,1,_A).
+_A = a_1;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>synchronize/1</b> <b>: </b> 
+</font><i>wraps Goal in arg 1 for serialized execution</i> </li><li>
+<font color="black"><b>synchronize/2</b> <b>: </b> 
+</font><i>wraps Goal for serialized execution and returns true or fail</i> </li><li>
+<font color="black"><b>synchronize_on/2</b> <b>: </b> 
+</font><i>wraps Goal for sync on given mutex for serialized execution</i> </li><li>
+<font color="black"><b>synchronize_on/3</b> <b>: </b> 
+</font><i>wraps Goal for sync on given mutex for serialized execution and returns true or fail</i> </li><li>
+<font color="black"><b>system/1</b> <b>: </b> 
+</font><i>passes a command to the OS</i> </li><li>
+<font color="black"><b>system/2</b> <b>: </b> 
+</font><i>passes a command to the OS and gets back return code</i> </li><li>
+<font color="black"><b>tab/1</b> <b>: </b> 
+</font><i>outputs N blanks</i> </li><li>
+<font color="black"><b>take_at_most/2</b> <b>: </b> 
+</font><i>(N,Goal) computes at most N answers of Goal</i> </li><li>
+<font color="black"><b>tan/2</b> <b>: </b> 
+</font><i>float function</i> </li><li>
+<font color="black"><b>tell/1</b> <b>: </b> 
+</font><i>focuses output on a file</i> </li><li>
+<font color="black"><b>tell_at/1</b> <b>: </b> 
+</font><i>moves output file pointer to a given offset (in bytes)</i> </li><li>
+<font color="black"><b>tell_at_end/1</b> <b>: </b> 
+</font><i>focuses output on file opened in append mode</i> </li><li>
+<font color="black"><b>telling/1</b> <b>: </b> 
+</font><i>gets file name opened and set by tell/1</i> </li><li>
+<font color="black"><b>telling_at/1</b> <b>: </b> 
+</font><i>retrieves output file position (in bytes)</i> </li><li>
+<font color="black"><b>term_append/3</b> <b>: </b> 
+</font><i>efficiently concatenates 2 terms</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-term_append(f(a,b),g(c,d),_A).
+_A = f(a,b,c,d);
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>term_chars/2</b> <b>: </b> 
+</font><i>(Term,Chars): converts between a term and its list of char code representation</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-term_chars(f(a,b),_A).
+_A = [102,40,97,44,98,41];
+
+no
+?-term_chars(_A,[102,40,97,44,98,41]).
+_A = f(a,b);
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>term_codes/2</b> <b>: </b> 
+</font><i>(Term,Chars): converts between a term and its list of char code representation</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-term_codes(f(a,b),_A).
+_A = [102,40,97,44,98,41];
+
+no
+?-term_codes(_A,[102,40,97,44,98,41]).
+_A = f(a,b);
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>term_decoder/2</b> <b>: </b> 
+</font><i>(Encrypted,Plain): user provided encoder for secure communications - works on lists of ascii codes</i> </li><li>
+<font color="black"><b>term_encoder/2</b> <b>: </b> 
+</font><i>(Plain,Encrypted): user provided decoder for secure communications - works on list of ascii codes</i> </li><li>
+<font color="black"><b>term_expansion/2</b> <b>: </b> 
+</font><i>can be used to define a hook into the default DCG expansion mechanism</i> </li><li>
+<font color="black"><b>term_hash/2</b> <b>: </b> 
+</font><i>computes hash code on terms ground up to depth 64; fails if something is unbound or the limit is reached</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-term_hash(t(a,b),_A).
+_A = 2984279846;
+
+no
+?-term_hash(t(a,c),_A).
+_A = 2984279847;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>term_of/2</b> <b>: </b> 
+</font><i>reads a Prolog file to a set of terms - on backtracking</i> </li><li>
+<font color="black"><b>term_store_op/4</b> <b>: </b> 
+</font><i>API for external term storage</i> </li><li>
+<font color="black"><b>textedit/0</b> <b>: </b> 
+</font><i>calls texedit editor on last compiled file</i> </li><li>
+<font color="black"><b>the/1</b> <b>: </b> 
+</font><i>defined as the(G):-the(G,G)</i> </li><li>
+<font color="black"><b>the/2</b> <b>: </b> 
+</font><i>defined as the(X,G):-the(X,G,the(X))</i> </li><li>
+<font color="black"><b>the/3</b> <b>: </b> 
+</font><i>the(X,G,R) first answer R=the(X) or R=no, without binding G</i> </li><li>
+<font color="black"><b>this_db/1</b> <b>: </b> 
+</font><i>same as current_db, returns the current database</i> </li><li>
+<font color="black"><b>this_engine/1</b> <b>: </b> 
+</font><i>gets a handle to the current engine</i> </li><li>
+<font color="black"><b>this_host/1</b> <b>: </b> 
+</font><i>assumes default IP adress or name this machiner</i> </li><li>
+<font color="black"><b>this_port/1</b> <b>: </b> 
+</font><i>assumes default port for to work as a server on</i> </li><li>
+<font color="black"><b>thread_cancel/1</b> <b>: </b> 
+</font><i>terminates (cancels) thread given in arg 1</i> </li><li>
+<font color="black"><b>thread_exit/0</b> <b>: </b> 
+</font><i>exits a thread</i> </li><li>
+<font color="black"><b>thread_exit/1</b> <b>: </b> 
+</font><i>exits a thread</i> </li><li>
+<font color="black"><b>thread_join/1</b> <b>: </b> 
+</font><i>joins thread</i> </li><li>
+<font color="black"><b>thread_notify/1</b> <b>: </b> 
+</font><i>notifies a thread waiting on guard with thread_wait</i> </li><li>
+<font color="black"><b>thread_notify_all/1</b> <b>: </b> 
+</font><i>notifies all threads waiting on guard with thread_wait</i> </li><li>
+<font color="black"><b>thread_resume/1</b> <b>: </b> 
+</font><i>resumes execution of suspended thread</i> </li><li>
+<font color="black"><b>thread_suspend/1</b> <b>: </b> 
+</font><i>suspends execution of thread</i> </li><li>
+<font color="black"><b>thread_timed_wait/2</b> <b>: </b> 
+</font><i>waits on first arg Guard second arg msec or until notified</i> </li><li>
+<font color="black"><b>thread_wait/1</b> <b>: </b> 
+</font><i>waits on guard until notified by thread_notify</i> </li><li>
+<font color="black"><b>throw/1</b> <b>: </b> 
+</font><i>ISO Prolog exception operator: throws a term to be caught by a matching catch</i> </li><li>
+<font color="black"><b>throw_with_cont/2</b> <b>: </b> 
+</font><i>works for throw/1: used to rethrow with new continuation</i> </li><li>
+<font color="black"><b>timed_call/4</b> <b>: </b> 
+</font><i>(Answer,Goal,Timeout,Result) - calls and possibly stops Goal after Timout secs</i> </li><li>
+<font color="black"><b>timeout/1</b> <b>: </b> 
+</font><i>assumes default timeout</i> </li><li>
+<font color="black"><b>to_bp_comment/3</b> <b>: </b> 
+</font><i>gets a predicate of form p_n_info("...") and its first arg, holding comments for p</i> </li><li>
+<font color="black"><b>to_engine/2</b> <b>: </b> 
+</font><i>(E,T) sends to engine E a term T, and fails if E has an empty message box</i> </li><li>
+<font color="black"><b>to_lower_char/2</b> <b>: </b> 
+</font><i>(Upper,Lower): converts a char to lower case</i> </li><li>
+<font color="black"><b>to_lower_chars/2</b> <b>: </b> 
+</font><i>converts a list of chars to lower case</i> </li><li>
+<font color="black"><b>to_string/2</b> <b>: </b> 
+</font><i>converts a term to a string constant (in paricular, converts numbers to strings)</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-to_string(13,_A).
+_A = 13;
+
+no
+?-to_string(3.14,_A).
+_A = 3.14;
+
+no
+?-to_string(f(_A,_A),_B).
+_A = _x61896;
+_B = f(_x61896,_x61896);
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>to_tokens/2</b> <b>: </b> 
+</font><i>to_tokens(Codes,PrologTokens)</i> </li><li>
+<font color="black"><b>to_upper_char/2</b> <b>: </b> 
+</font><i>(Lower,Upper): converts a char to upper case</i> </li><li>
+<font color="black"><b>to_upper_chars/2</b> <b>: </b> 
+</font><i>converts a list of chars to upper case</i> </li><li>
+<font color="black"><b>to_word_codes/2</b> <b>: </b> 
+</font><i>to_word_codes(Codes,ListOfWordCodes)</i> </li><li>
+<font color="black"><b>to_words/2</b> <b>: </b> 
+</font><i>to_words(Codes,NaturalLanguageWords</i> </li><li>
+<font color="black"><b>token_of/2</b> <b>: </b> 
+</font><i>reads a Prolog file to a set of tokens - on backtracking</i> </li><li>
+<font color="black"><b>tokens_of/2</b> <b>: </b> 
+</font><i>reads a Prolog file to a slist of tokens</i> </li><li>
+<font color="black"><b>told/0</b> <b>: </b> 
+</font><i>closes file opened by tell/1</i> </li><li>
+<font color="black"><b>topcall/1</b> <b>: </b> 
+</font><i>calls arg 1 as if it were entered by the user at Prolog prompt</i> </li><li>
+<font color="black"><b>toplevel/0</b> <b>: </b> 
+</font><i>interactive toplevel Prolog loop</i> </li><li>
+<font color="black"><b>topstep/1</b> <b>: </b> 
+</font><i>interactive toplevel Prolog step</i> </li><li>
+<font color="black"><b>trace/0</b> <b>: </b> 
+</font><i>trace all predicates when interpreted</i> </li><li>
+<font color="black"><b>trace/1</b> <b>: </b> 
+</font><i>traces execution of a goal</i> </li><li>
+<font color="black"><b>trim_term/4</b> <b>: </b> 
+</font><i>trim_term(D,Filler,T,NewT) replaces subterms of T deeper than D with Filler</i> </li><li>
+<font color="black"><b>true/0</b> <b>: </b> 
+</font><i>always succeeds</i> </li><li>
+<font color="black"><b>truncate/2</b> <b>: </b> 
+</font><i>float to int function</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-truncate(1.51,_A).
+_A = 1;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>try_unlock_thread_guard/1</b> <b>: </b> 
+</font><i>try to unlock a thread guard</i> </li><li>
+<font color="black"><b>try_unlock_thread_guard/2</b> <b>: </b> 
+</font><i>try to unlock a thread guard for a specified timeout</i> </li><li>
+<font color="black"><b>tstest/3</b> <b>: </b> 
+</font><i>(K,V,R): performs various tests with external terms</i> </li><li>
+<font color="black"><b>tsync_op/3</b> <b>: </b> 
+</font><i>same as thread_operation(Op, MutexOrParam, ActionOrValue) various thread synchronization operations</i> </li><li>
+<font color="black"><b>ttyprin/1</b> <b>: </b> 
+</font><i>writes to terminal</i> </li><li>
+<font color="black"><b>ttyprint/1</b> <b>: </b> 
+</font><i>writes to terminal with a new line</i> </li><li>
+<font color="black"><b>unix/1</b> <b>: </b> 
+</font><i>executes various Unix commands</i> </li><li>
+<font color="black"><b>unix_access/2</b> <b>: </b> 
+</font><i>checks if arg1 (a path+file) is accessible in arg 2 (integer) mode</i> </li><li>
+<font color="black"><b>unix_argc/1</b> <b>: </b> 
+</font><i>gets cmd line arg counter</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-unix_argc(_A).
+_A = 2;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>unix_argv/1</b> <b>: </b> 
+</font><i>gets the list of cmd line args from 1 to argc</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-unix_argv(_A).
+_A = [helpgen.pro];
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>unix_argv/2</b> <b>: </b> 
+</font><i>gets a cmd line arg from 0 to argc</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-unix_argv(0,_A).
+_A = c:\bin\bp.EXE;
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>unix_cat/1</b> <b>: </b> 
+</font><i>prints a file to user terminal</i> </li><li>
+<font color="black"><b>unix_cd/1</b> <b>: </b> 
+</font><i>changes local dir to arg 1</i> </li><li>
+<font color="black"><b>unix_fork/1</b> <b>: </b> 
+</font><i>starts child process with Unix fork</i> </li><li>
+<font color="black"><b>unix_getenv/2</b> <b>: </b> 
+</font><i>gets an environment variable</i> </li><li>
+<font color="black"><b>unix_kill/2</b> <b>: </b> 
+</font><i>sends signal arg 1 to process with pid arg 2</i> </li><li>
+<font color="black"><b>unix_pid/1</b> <b>: </b> 
+</font><i>returns process id of current process</i> </li><li>
+<font color="black"><b>unlock_thread_guard/1</b> <b>: </b> 
+</font><i>unlocks thread guard</i> </li><li>
+<font color="black"><b>untrail_to/1</b> <b>: </b> 
+</font><i>unwinds the trail up to a choice point</i> </li><li>
+<font color="black"><b>update_current_term/2</b> <b>: </b> 
+</font><i>(Iterator,NewTerm): replaces current term of an iterator</i> </li><li>
+<font color="black"><b>user_error/2</b> <b>: </b> 
+</font><i>writes basic error message and fail</i> </li><li>
+<font color="black"><b>var/1</b> <b>: </b> 
+</font><i>true if currently an unbound variable</i> </li><li>
+<font color="black"><b>variant_of/2</b> <b>: </b> 
+</font><i>checks if args are the same up to a renaming of vars</i> </li><li>
+<font color="black"><b>vars_of/2</b> <b>: </b> 
+</font><i>(Term,Vars): lists free vars of a term</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-vars_of(f(_A,t(_A,_B,_C),_C),_D).
+_A = _x61889;
+_B = _x61894;
+_C = _x61891;
+_D = [_x61889,_x61894,_x61891];
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>vget/2</b> <b>: </b> 
+</font><i>gets a VSHARE declared C data object in a term like int(N),F/N or var(V)</i> </li><li>
+<font color="black"><b>vget0/2</b> <b>: </b> 
+</font><i>gets the type and value of a C word</i> </li><li>
+<font color="black"><b>vget_int/2</b> <b>: </b> 
+</font><i>gets a VSHARE defined int C variable to a 28 bit int</i> </li><li>
+<font color="black"><b>vget_int0/2</b> <b>: </b> 
+</font><i>gets from arg 1 - an int* C variable - to a 28 bit int</i> </li><li>
+<font color="black"><b>vi/0</b> <b>: </b> 
+</font><i>calls vi editor on last compiled file</i> </li><li>
+<font color="black"><b>vread/2</b> <b>: </b> 
+</font><i>reads HDEFI or HDEFS defined C constant into a Prolog integer or atom</i> </li><li>
+<font color="black"><b>vset/2</b> <b>: </b> 
+</font><i>sets a VSHARE declared C data object in a term like int(N),F/N or var(V)</i> </li><li>
+<font color="black"><b>vset_int/2</b> <b>: </b> 
+</font><i>sets a VSHARE defined int C variable to a 28 bit int</i> </li><li>
+<font color="black"><b>vset_int0/2</b> <b>: </b> 
+</font><i>sets arg 1 - an int* C variable - to a 28 bit int</i> </li><li>
+<font color="black"><b>wait_for/2</b> <b>: </b> 
+</font><i>wait_for(Term,Constraint) waits for a term on the blackboard, such that Constraint holds</i> </li><li>
+<font color="black"><b>while/2</b> <b>: </b> 
+</font><i>(Cond,Goal): findall variant which explores alternative answers for Goal, while Cond holds, </i> </li><li>
+<font color="black"><b>words_code/2</b> <b>: </b> 
+</font><i>generates a code ready to print, one a t a time with put/1 from a list of words</i> </li><li>
+<font color="black"><b>write/1</b> <b>: </b> 
+</font><i>writes to current output stream set with tell/1, defaults to <user> - Prolog's stdio</i> </li><li>
+<font color="black"><b>write_chars/1</b> <b>: </b> 
+</font><i>writes a list of ascii codes</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-write_chars([104,101,108,108,111]).
+hello
+yes
+</pre>
+
+</font></li><li>
+<font color="black"><b>write_term_to_chars/2</b> <b>: </b> 
+</font><i>writes a term to a list of char codes</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-write_term_to_chars(f(_A,_A,_B,_B),_C).
+_A = _x61892;
+_B = _x61894;
+_C = [102,40,95,120,54,49,56,57,50,44,95,120,54,49,56,57,50,44,95,120,54,49,56,57,52,44,95,120,54,49,56,57,52,41];
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>write_term_to_chars/3</b> <b>: </b> 
+</font><i>writes a term with variables names to a list of char codes</i> 
+<font color="red">
+<pre>
+<b>EXAMPLE(S):</b> 
+?-write_term_to_chars(f(_A,_B),[X = _A,Y = _B],_C).
+_A = _x61895;
+_B = _x61896;
+_C = [102,40,39,88,39,44,39,89,39,41];
+
+no
+</pre>
+
+</font></li><li>
+<font color="black"><b>write_words/1</b> <b>: </b> 
+</font><i>write list of words to a space separated line</i> </li><li>
+<font color="black"><b>writeq/1</b> <b>: </b> 
+</font><i>variant of write which quotes if needed, so that term is read back correctly/1</i> </li><li>
+<font color="black"><b>x_abolish/1</b> <b>: </b> 
+</font><i>db hook, deletes all matching clauses and unmarks the clause as dynamic</i> </li><li>
+<font color="black"><b>x_asserta/1</b> <b>: </b> 
+</font><i>db hook, adds a clause to be first in a predicate definition</i> </li><li>
+<font color="black"><b>x_assertz/1</b> <b>: </b> 
+</font><i>db hook, adds a clause to be last in a predicate definition</i> </li><li>
+<font color="black"><b>x_clause/2</b> <b>: </b> 
+</font><i>db hook, clause(H,B) generates a clause with head matching H and body B</i> </li><li>
+<font color="black"><b>x_consult/1</b> <b>: </b> 
+</font><i>db hook, consults with possible duplication of clauses</i> </li><li>
+<font color="black"><b>x_dynamic/1</b> <b>: </b> 
+</font><i>db hook, states that a predicate can be updated</i> </li><li>
+<font color="black"><b>x_gc/0</b> <b>: </b> 
+</font><i>db hook, recovers memory used by the database</i> </li><li>
+<font color="black"><b>x_is_dynamic/1</b> <b>: </b> 
+</font><i>db hook, checks if dynamic</i> </li><li>
+<font color="black"><b>x_listing/0</b> <b>: </b> 
+</font><i>db hook, lists given predicate if in current database</i> </li><li>
+<font color="black"><b>x_listing/1</b> <b>: </b> 
+</font><i>lists predicate F of arity N if in current database</i> </li><li>
+<font color="black"><b>x_profile/0</b> <b>: </b> 
+</font><i>db hook, shows the result of profiling compiled predicates</i> </li><li>
+<font color="black"><b>x_retract/1</b> <b>: </b> 
+</font><i>db hook, backtracks over deleting matching clauses</i> </li><li>
+<font color="black"><b>x_retractall/1</b> <b>: </b> 
+</font><i>db hook, deletes all matching clauses</i> </li><li>
+<font color="black"><b>x_trace/1</b> <b>: </b> 
+</font><i>traces and profiles predicates, in combination with x_profile</i> </li><li>
+<font color="black"><b>x_trace/2</b> <b>: </b> 
+</font><i>db hook, internal</i> </li><li>
+<font color="black"><b>x_traced_call/1</b> <b>: </b> 
+</font><i>traces calls if compile-time x_trace triggers it</i> </li><li>
+<font color="black"><b>xload/1</b> <b>: </b> 
+</font><i>xload(File) loads clauses to the current database, from a binary File</i> </li><li>
+<font color="black"><b>xor/3</b> <b>: </b> 
+</font><i>bitwise exclusive or</i> </li><li>
+<font color="black"><b>xsave/1</b> <b>: </b> 
+</font><i>xsave(File) saves all the clauses of the current database to a binary File</i> </li><li>
+<font color="black"><b>~ /1</b> <b>: </b> 
+</font><i>short hand for reconsult</i> </li>
+</ol>
+
+</font>
+</body>
+</html>

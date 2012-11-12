@@ -1,0 +1,102 @@
+.nr X
+.TH bp 1 "June 1999"
+.SH NAME
+bp \- BinProlog - 
+.SH SYNOPSIS
+\f4bp\f1
+[\f4\-h\f2 n\f1]
+[\f4\-s\f2 n\f1]
+[\f4\-t\f2 n\f1]
+[\f4\-c\f2 n\f1]
+[\f4\-b\f2 n\f1]
+[\f4\-i\f2 n\f1]
+[\f2filename\f1] 
+.SH AVAILABILITY
+.LP
+Various Unix systems and Windows NT and 9x
+
+.SH DESCRIPTION
+
+BinProlog is a fairly complete Prolog
+implementation featuring both C-emulated execution
+and generation of standalone applications
+by compilation to C. Some other features are:
+dynamic recompilation,
+Tcl/Tk interface,
+C-compatible floating point operations, dynamic code,
+heap garbage collector,
+intuitionistic and linear implication,
+efficient high-order programming builtins, logical
+global variables, backtrackable destructive assignment,
+circular term unification, extended DCGs (now built in
+the engine as `invisible grammars'), objects, Linda-extensions
+for INTERNET programmig, continuation
+manipulation primitives, a garbage-collected
+hashing based global dictionnary for constant-time sparse
+arrays and graphs, a C-interface (optional with C-source
+licensing) etc.
+
+The \f4bp\fP command starts the BinProlog toplevel.
+
+The directory \f4pl2c\fP contains a project (*.pro) file
+and a makefile for generating a standalone application
+through compilation to C.
+
+The directory \f4TCL\fP contains a bidirectional client-server based
+BinProlog to Tcl/Tk interface.
+
+The directory \f4cparser\fP contains
+Koen De Bosschere's ISO Prolog
+parser (written in C) and BinProlog standalones
+based on the parser (cbinpro.*). Reading files
+with the parser is about 5 times faster than with
+BinProlog's Prolog based parser.
+
+The directory \f4csoks\fP contains as standalone socket programs
+BinProlog's networking layer.
+
+.SH OPTIONS
+.TP 10
+.B \-h\f2 n\f1 
+.B Heap size in Kb.
+.TP
+.B \-s\f2 n\f1
+.B Stack size in Kb.
+.TP
+.B \-t\f2 n\f1
+.B Trail size in Kb.
+.TP
+.B \-c\f2 n\f1
+.B Code size in Kb.
+.TP
+.B \-b\f2 n\f1
+.B Blackboard size in Kb, dynamic if 0.
+.TP
+.B \-d\f2 n\f1
+.B String Input-Output buffer in Kb.
+.TP
+.B \-d\f2 n\f1
+.B Exponent of 2, entries in hashing table.
+.TP
+.B \-a\f2 n\f1
+.B Exponent of 2, entries atom table.
+.TP
+.B \-q\f2 n\f1
+.B Level of quietness to control messages.
+.TP
+.B \-l\f2 n\f1
+.B  Default load method (1..5)
+.TP
+.B \-r\f2 n\f1
+.B  call/update ratio for dynamic recompilation
+.TP
+.B \f2filename \f1 
+.B Prolog run time system or startup file. 
+When omitted, the filename wam.bp is used by default,
+which is usually embedded in the standalone executable
+generated through translation to C.
+Use info/0, info/1 and help/1 for online information on builtins.
+.SH NOTES
+For lates BinProlog and Jinni related developments
+visit BinNet Corporation's Web site at http://www.binnetcorp.com .
+

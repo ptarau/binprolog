@@ -1,0 +1,124 @@
+%% to_linear(T,CT): converts a term to parser independent representation - ## libs
+
+to_linear(T,[N|Gs]):-
+  numbervars(T,0,N),
+  to_canonical(T,Xs,[]),
+  Gs=Xs.
+
+to_canonical('$VAR'(T))-->!,{number_codes(T,Cs),length(Cs,L)},
+  [1,L],inject_terminals(Cs).
+to_canonical(T)-->{number(T),!,number_codes(T,Cs),length(Cs,L)},
+  [2,L],inject_terminals(Cs).
+to_canonical(T)-->{atom(T),!,atom_codes(T,Cs),length(Cs,L)},
+  [3,L],inject_terminals(Cs).
+to_canonical(T)-->
+  {compound(T),'=..'(T,Ts),length(Ts,L)},
+  [4,L],
+  to_canonicals(Ts).
+
+inject_terminals([T|Ts])-->!,[T],inject_terminals(Ts).
+inject_terminals([])-->[].
+
+to_canonicals([T|Ts])-->!,to_canonical(T),to_canonicals(Ts).
+to_canonicals([])-->[].
+
+%% from_linear(CT,T): converts a term back to normal Prolog representation
+from_linear([N|Cs],T):-fun('$',N,D),from_canonical(CT,D,Cs,[]),!,T=CT.
+
+from_canonical(V,D)-->[1,L],!,extract_terminals(0,L,Cs),
+  {number_codes(T,Cs),succ(T,I),arg(I,D,V)}.
+from_canonical(T,_)-->[2,L],!,extract_terminals(0,L,Cs),{number_codes(T,Cs)}.
+from_canonical(T,_)-->[3,L],!,extract_terminals(0,L,Cs),{atom_codes(T,Cs)}.
+from_canonical(T,D)-->[4,N],
+  from_canonicals(0,N,Xs,D),
+  {T=..Xs}.
+
+from_canonicals(N,N,[],_)-->!,[].
+from_canonicals(K,N,[X|Xs],D)-->{succ(K,K1)},
+  from_canonical(X,D),
+  from_canonicals(K1,N,Xs,D).
+
+extract_terminals(N,N,[])-->!,[].
+extract_terminals(K,N,[X|Xs])-->{succ(K,K1)},
+  [X],
+  extract_terminals(K1,N,Xs).
+
+/*
+gg:-
+  T1=fun("abc",goo(X,X,314,hi(Y,Y)),999),
+  to_linear(T1,Xs),
+  write(Xs),nl,
+  write(T1),nl,
+  from_linear(Xs,T2),
+  write(T2),nl,
+  fail.
+*/
+  
+% client in jlib.pl
+cserver:-cserver(9001).
+
+cserver(Port):-
+   traceln(cserver_running_on_port(Port)),
+   new_cserver(Port,Server),
+   repeat,
+     cserver_step(Server),
+   fail.
+
+
+cserver_step(Server):-
+   new_cservice(Server,S),
+   recv_canonical(S,(X:-G)),
+   %traceln((X:-G)),
+   (G->R=the(X);R=no),
+   send_canonical(S,R).
+     
+send_canonical(S,T):-to_linear(T,Cs),csock_write(S,Cs).
+recv_canonical(S,T):-csock_read(S,Cs),from_linear(Cs,T).
+
+shell_server:-shell_server(10001).
+
+shell_server(Port):-
+   traceln(shell_server_running_on_port(Port)),
+   new_cserver(Port,Server),
+   shell_server_outer_loop(Server,_,[]),
+   traceln(shell_server_finished_on_port(Port)).
+
+shell_server_outer_loop(Server)-->
+   %{traceln(at_beginning_of_outer_loop)},
+   {new_cservice(Server,Socket)},
+   shell_server_inner_loop(Socket),
+   {close_csocket(Socket)},
+   %{traceln(at_end_of_outer_loop_socket_closed)},
+   shell_server_outer_loop(Server).
+   
+shell_server_inner_loop(S)-->
+  %{traceln(begin_step_inner_loop)},
+  shell_server_query_answer(S),
+  !,
+  %{traceln(end_step_inner_loop)},
+  shell_server_inner_loop(S).
+shell_server_inner_loop(_)-->
+  %{traceln(inner_loop_failed)},
+  [].
+
+shell_server_query_answer(S,Db1,Db2):-
+ %traceln(entering(shell_server_query_answer)),
+ recv_canonical(S,Q),
+ %traceln(shell_server_query_answer_got(Q)),
+ shell_server_eval_query(Q,S,Db1,Db2),
+ %traceln(shell_server_query_evaluated(Q)),
+ true.
+
+shell_server_eval_query((X:-G),S,D,D):-
+   send_canonical(S,ready),
+   %traceln(ready(X,G)),
+   (G,R=the(X);R=no),
+   recv_canonical(S,Cmd),
+   %traceln(cmd(Cmd)),
+   (Cmd=more->A=R;A=no),
+   send_canonical(S,A),
+   %traceln(cmd_answer(Cmd,A)),
+   A=no,
+   !.
+
+hi:-println(hi).

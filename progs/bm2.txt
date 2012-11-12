@@ -1,0 +1,151 @@
+execution time is 84 milliseconds
+colors(red,blue,black,blue,black,blue,black,blue,black,blue,yellow,red,yellow,red,yellow,red,yellow,red,yellow,black,blue,black,blue,black,blue,black,blue,red,red,yellow,red,yellow,red,yellow,black,blue,black,blue,black,blue,red,red,yellow,red,yellow,black,black,blue,black,red,yellow,red,blue,blue,black,red,black,yellow,black,yellow,black,blue,red,black,yellow,blue,yellow,black,blue,yellow,blue,yellow,blue,red,yellow,blue,black,red,yellow,yellow,blue,black,red,blue,red,yellow,blue,black,red,yellow,black,red,yellow,red,blue,black,blue,yellow,black,blue,black,red,yellow,red,black,red,yellow,red,yellow,black)
+BMARK_cube: = [sols = 48,time = 142]
+9
+
+BMARK_fibo: = [time = 15,heap = 51132,trail = 0,fibo(16,1597)]
+time = 84
+runtime=[110,0]
+global_stack=[27812,8295036]
+local_stack=[104,1047436]
+trail=[948,1046600]
+code=[264500,784060]
+strings=[372,4193932]
+symbols=[13184,1035392]
+htable=[115404,3030324]
+bboard=[9752,1036772]
+gctime=[0,0]
+realtime=[0,426499294]
+The Board
+
+ 25 20 11 16  5
+ 12 17  6 21 10
+  7 24 19  4 15
+ 18 13  2  9 22
+  1  8 23 14  3
+Input:
+
+0.03 0.03 
+0.97 0.03 
+0.03 0.97 
+0.97 0.97 
+
+Desired Output:
+
+0.03 0.03 
+0.03 0.97 
+0.03 0.97 
+0.97 0.03 
+
+SquaredError  Output
+
+1-[0.41843105] 0.48383547 0.49093862
+2-[0.44126879] 0.44453927 0.4509374
+3-[0.36923541] 0.41015279 0.49595436
+4-[0.60521336] 0.3795951 0.53659196
+
+401-[0.21508088] 0.15727091 0.475963
+402-[0.32331259] 0.29526271 0.46706036
+403-[0.2834902] 0.27879897 0.49926731
+404-[0.59993018] 0.39193833 0.54553359
+
+801-[0.1661059] 0.01685418 0.43734885
+802-[0.27235881] 0.20657841 0.47890034
+803-[0.23499257] 0.19759289 0.51513168
+804-[0.41858211] 0.66687336 0.60157357
+
+1201-[0.11039856] 0.00480234 0.36130596
+1202-[0.15480871] 0.13431439 0.59062259
+1203-[0.13789393] 0.13249858 0.61308548
+1204-[0.25282023] 0.7855927 0.49777578
+
+1601-[0.02661779] 0.00206653 0.1907405
+1602-[0.0335582] 0.08171777 0.79426307
+1603-[0.03354986] 0.08211181 0.79440325
+1604-[0.05868681] 0.87347954 0.25219498
+
+2001-[0.01008074] 0.00143968 0.12625514
+2002-[0.01185867] 0.0644859 0.86670725
+2003-[0.01201523] 0.06431795 0.86589665
+2004-[0.02161448] 0.90373132 0.16123622
+
+2401-[0.00558961] 0.00118611 0.09898818
+2402-[0.00610477] 0.05634797 0.89644352
+2403-[0.00618628] 0.05609216 0.89580108
+2404-[0.01152998] 0.91804271 0.12397031
+
+2801-[0.00375651] 0.00104447 0.08401929
+2802-[0.00375632] 0.0514119 0.91257313
+2803-[0.00380317] 0.05115432 0.91207192
+2804-[0.00731471] 0.92678821 0.10380685
+
+3201-[0.00282112] 0.00095237 0.0744675
+3202-[0.00255322] 0.04802793 0.922796
+3203-[0.00258308] 0.04778529 0.92238947
+3204-[0.00510603] 0.93285425 0.0910428
+
+Final weights
+
+6.92184187 -4.66448054 -4.6694026 
+2.20459678 -5.105753 -5.07394521 
+3.34668143 -6.82326578 -3.93899298 
+-2.97394039 6.46519569 -7.0745238 
+time = 259
+[[rob-king,leon-prince,mark-queen],[mark-24,leon-25,rob-26],[mark-classic,leon-jazz,rob-pop]]
+time = 0
+time = 229
+runtime=[263,0]
+global_stack=[32144,8290704]
+local_stack=[120,1047420]
+trail=[1036,1046512]
+code=[266892,781668]
+strings=[642,4193662]
+symbols=[13312,1035264]
+htable=[116100,3029628]
+bboard=[67448,979076]
+gctime=[0,0]
+realtime=[0,426499294]
+[4]-[body,constant,deep]
+[12]-[body,constant,top]
+[4,12]-[body,constant]
+[5]-[body,deep,structure]
+[6]-[body,deep,value]
+[7]-[body,deep,variable]
+[4,5,6,7]-[body,deep]
+[13]-[body,structure,top]
+[5,13]-[body,structure]
+[14]-[body,top,value]
+[15]-[body,top,variable]
+[12,13,14,15]-[body,top]
+[6,14]-[body,value]
+[7,15]-[body,variable]
+[4,5,6,7,12,13,14,15]-[body]
+[0]-[constant,deep,head]
+[0,4]-[constant,deep]
+[8]-[constant,head,top]
+[0,8]-[constant,head]
+[8,12]-[constant,top]
+[0,4,8,12]-[constant]
+[1]-[deep,head,structure]
+[2]-[deep,head,value]
+[3]-[deep,head,variable]
+[0,1,2,3]-[deep,head]
+[1,5]-[deep,structure]
+[2,6]-[deep,value]
+[3,7]-[deep,variable]
+[0,1,2,3,4,5,6,7]-[deep]
+[9]-[head,structure,top]
+[1,9]-[head,structure]
+[10]-[head,top,value]
+[11]-[head,top,variable]
+[8,9,10,11]-[head,top]
+[2,10]-[head,value]
+[3,11]-[head,variable]
+[0,1,2,3,8,9,10,11]-[head]
+[9,13]-[structure,top]
+[1,5,9,13]-[structure]
+[10,14]-[top,value]
+[11,15]-[top,variable]
+[8,9,10,11,12,13,14,15]-[top]
+[2,6,10,14]-[value]
+[3,7,11,15]-[variable]

@@ -1,0 +1,2 @@
+:-[tetris].
+:-[tetris_trace].

@@ -1,0 +1,1502 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+           "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<meta name="GENERATOR" content="TtH 3.81">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+ <style type="text/css"> div.p { margin-top: 7pt;}</style>
+ <style type="text/css"><!--
+ td div.comp { margin-top: -0.6ex; margin-bottom: -1ex;}
+ td div.comb { margin-top: -0.6ex; margin-bottom: -.6ex;}
+ td div.hrcomp { line-height: 0.9; margin-top: -0.8ex; margin-bottom: -1ex;}
+ td div.norm {line-height:normal;}
+ span.roman {font-family: serif; font-style: normal; font-weight: normal;} 
+ span.overacc2 {position: relative;  left: .8em; top: -1.2ex;}
+ span.overacc1 {position: relative;  left: .6em; top: -1.2ex;} --></style>
+ 
+
+  
+<title>0mm</title>
+
+0mm
+
+
+
+<div class="p"><!----></div>
+ 
+<div class="p"><!----></div>
+
+<title>
+\Huge
+BinProlog 2006 11.x Professional Edition\
+BinProlog Interface Guide\
+Connecting BinProlog with C/C++, Java, Tcl/Tk \vskip 5cm
+</title>
+    
+<h1 align="center">
+<font size="+4">
+BinProlog 2006 11.x Professional Edition<br />
+BinProlog Interface Guide<br />
+Connecting BinProlog with C/C++, Java, Tcl/Tk <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+</font> </h1>
+
+<div class="p"><!----></div>
+
+<h3 align="center">
+<font size="+2">
+   <b>Paul Tarau</b><br /><br />
+<font size="+1">
+   BinNet Corp.<br />
+   WWW: http://www.binnetcorp.com<br />
+   E-mail: binnetcorp@binnetcorp.com
+<font size="+0">
+ </h3></font></font></font>
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /> <h2><a name="tth_sEc1">
+1</a>&nbsp;&nbsp;BinProlog's C-interface</h2>
+
+<div class="p"><!----></div>
+To be able to extend BinProlog and possibly embed it as logic
+engine in your no run-time fee application you will need
+a BinProlog C-source code
+license. See the files SOURCE.LICENSE and PRICING for more information.
+You can also interact with other languages under UNIX using the
+bidirectional pipe based interface starting from BinProlog's Tcl/Tk
+interfaced (see directory TCL).
+
+<div class="p"><!----></div>
+The following sequence of quick examples shows how it works.
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc1.1">
+1.1</a>&nbsp;&nbsp;A Demo Program</h3>
+
+<div class="p"><!----></div>
+BinProlog's C-interface together with a prototype example been moved in
+directory <tt>c_inter</tt>. Start by cloning this directory if you
+want to build an interface application and edit/adapt the files.
+
+<div class="p"><!----></div>
+The discussion which follows basically explains
+the content of the files <tt>c.c c.h and c.pl</tt> in this directory.
+
+<div class="p"><!----></div>
+Once BinProlog is correctly installed as file "bp" somewhere in
+your path along with the libraries bp.o and wam.o which should
+be in directory
+<tt>../src</tt> and you have a C-compiler around, you can simply
+do <tt>make</tt> in directory <tt>c_inter</tt> to create a standalone application 
+which integrates the functionality of the C-code in file c.c.
+
+<div class="p"><!----></div>
+To test the resulting standalone executable <tt>c_binpro</tt>, 
+try out the demo <tt>c_test</tt>
+defined in file <tt>c.pl</tt>.
+Start running it by typing <tt>c_binpro</tt>
+and then type <tt>c_test.</tt> at the
+Prolog prompt. To avoid the prompt and directly launch
+the application add 
+
+<pre>
+main:-c_test.
+
+</pre>
+in file <tt>c.pl</tt> before typing <tt>make</tt>.
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc1.2">
+1.2</a>&nbsp;&nbsp;Calling C from BinProlog: adding new builtins</h3>
+
+<div class="p"><!----></div>
+New builtins are added in <tt>headers.pl</tt> and after a "make realclean; make"
+a new version of BinProlog containing them is generated automatically.
+Starting from <tt>headers.pl</tt> the system will first generate the files
+<tt>defs.h, prof.h, builtins.pl</tt> and then recompile itself.
+For this recompilation either a previous version of BinProlog<a href="#tthFtNtAAB" name="tthFrefAAB"><sup>1</sup></a>
+
+<div class="p"><!----></div>
+or SICStus Prolog 2.x is used.
+
+<div class="p"><!----></div>
+An example of declaration in <tt>headers.pl</tt> is:
+
+<div class="p"><!----></div>
+<font size="-1">
+<pre>
+&nbsp;&nbsp;b0(+/3,arith(1),in_body).&nbsp;&nbsp;&lt;===&nbsp;arity=3+1&nbsp;by&nbsp;binarization
+
+</pre>
+</font>
+
+<div class="p"><!----></div>
+ Notice that arith(1) means that it is
+ "like an arithmetic functions" which returns <em>one</em> value, i.e this should be used as in
+
+<div class="p"><!----></div>
+<font size="-1">
+<pre>
+&nbsp;&nbsp;+(0,1,Result).
+
+</pre>
+</font>
+
+<div class="p"><!----></div>
+ I would suggest to start with the simplest form of interaction:
+a call of your own C-code from BinProlog. Try modifying in the file
+c.c (provided with the C-sources of BinProlog,
+in directory <tt>c_inter</tt>),
+the function <tt>new_builtin()</tt> which looks as follows:
+
+<div class="p"><!----></div>
+<font size="-1">
+<pre>
+/*&nbsp;ADD&nbsp;YOUR&nbsp;NEW&nbsp;BUILTINS&nbsp;HERE
+
+&nbsp;&nbsp;&nbsp;they&nbsp;can&nbsp;be&nbsp;called&nbsp;from&nbsp;Prolog&nbsp;as:
+&nbsp;&nbsp;&nbsp;new_builtin(0,&lt;INPUT_ARG&#62;,&lt;OUTPUT_ARG&#62;)
+&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;X(1)&nbsp;contains&nbsp;the&nbsp;integer&nbsp;`opcode'&nbsp;of&nbsp;your&nbsp;builtin
+&nbsp;&nbsp;&nbsp;X(2)&nbsp;contains&nbsp;your&nbsp;input&nbsp;arg
+&nbsp;&nbsp;&nbsp;regs[I]&nbsp;contains&nbsp;somthing&nbsp;that&nbsp;will&nbsp;be&nbsp;unified&nbsp;with&nbsp;what&nbsp;you&nbsp;return
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(the&nbsp;precise&nbsp;value&nbsp;of&nbsp;I&nbsp;depends&nbsp;on&nbsp;the&nbsp;register&nbsp;allocator).
+
+&nbsp;&nbsp;&nbsp;You&nbsp;are&nbsp;expected&nbsp;to&nbsp;`return'&nbsp;either&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;a&nbsp;non-null&nbsp;object&nbsp;that&nbsp;will&nbsp;be&nbsp;unified&nbsp;with&nbsp;&lt;OUTPUT_ARG&#62;,&nbsp;or
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;NULL&nbsp;to&nbsp;signal&nbsp;FAILURE
+
+&nbsp;&nbsp;&nbsp;As&nbsp;the&nbsp;returned&nbsp;object&nbsp;will&nbsp;be&nbsp;in&nbsp;a&nbsp;register&nbsp;this
+&nbsp;&nbsp;&nbsp;can&nbsp;be&nbsp;used&nbsp;for&nbsp;instance&nbsp;to&nbsp;add&nbsp;a&nbsp;garbage&nbsp;collector
+&nbsp;&nbsp;&nbsp;that&nbsp;moves&nbsp;every&nbsp;data&nbsp;area&nbsp;around...
+
+*/
+
+/**
+&nbsp;&nbsp;simple&nbsp;function&nbsp;to&nbsp;be&nbsp;called&nbsp;from&nbsp;BinProlog
+*/
+int&nbsp;sfun(char&nbsp;*s)&nbsp;{
+&nbsp;&nbsp;&nbsp;char&nbsp;buf[100];
+&nbsp;&nbsp;&nbsp;sprintf(buf,"=&#62;&nbsp;CALLED&nbsp;sfun(char&nbsp;*)&nbsp;at&nbsp;%ld!",(unsigned&nbsp;long)sfun);
+&nbsp;&nbsp;&nbsp;strcat(s,buf);
+&nbsp;&nbsp;&nbsp;return&nbsp;1;
+}
+
+/**
+&nbsp;&nbsp;simple&nbsp;float&nbsp;function&nbsp;to&nbsp;be&nbsp;called&nbsp;from&nbsp;BinProlog
+*/
+double&nbsp;ffun(double&nbsp;d)&nbsp;{
+&nbsp;&nbsp;&nbsp;char&nbsp;buf[100];
+&nbsp;&nbsp;&nbsp;sprintf(buf,"=&#62;&nbsp;CALLED&nbsp;double&lt;-ffun(double&nbsp;d)&nbsp;at&nbsp;%ld!",(unsigned&nbsp;long)ffun);
+&nbsp;&nbsp;&nbsp;return&nbsp;d*2.5;
+}
+
+term&nbsp;new_builtin(register&nbsp;term&nbsp;H,register&nbsp;term&nbsp;regs,register&nbsp;term&nbsp;*A,register&nbsp;instr&nbsp;P,register&nbsp;stack&nbsp;wam)&nbsp;{
+&nbsp;&nbsp;&nbsp;BP_check_call();&nbsp;
+&nbsp;&nbsp;&nbsp;switch(BP_op)
+&nbsp;&nbsp;{&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;/*&nbsp;for&nbsp;beginners&nbsp;...&nbsp;*/
+
+&nbsp;&nbsp;&nbsp;&nbsp;case&nbsp;0:&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*&nbsp;this&nbsp;just&nbsp;returns&nbsp;your&nbsp;input&nbsp;argument&nbsp;(default&nbsp;behavior)&nbsp;*/
+&nbsp;&nbsp;&nbsp;&nbsp;break;
+
+&nbsp;&nbsp;&nbsp;&nbsp;case&nbsp;1:&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_result=BP_integer(13);&nbsp;/*&nbsp;this&nbsp;example&nbsp;returns&nbsp;13&nbsp;*/
+&nbsp;&nbsp;&nbsp;&nbsp;break;
+
+&nbsp;&nbsp;&nbsp;&nbsp;case&nbsp;2:&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_result=BP_atom("hello");&nbsp;/*&nbsp;this&nbsp;example&nbsp;returns&nbsp;'hello'&nbsp;*/
+&nbsp;&nbsp;&nbsp;&nbsp;break;
+
+&nbsp;&nbsp;&nbsp;&nbsp;/*&nbsp;for&nbsp;experts&nbsp;...&nbsp;*/
+
+&nbsp;&nbsp;&nbsp;&nbsp;case&nbsp;3:&nbsp;/*&nbsp;iterative&nbsp;list&nbsp;construction&nbsp;*/
+&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;cell&nbsp;middle,last,F1,F2;&nbsp;int&nbsp;i;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_make_float(F1,&nbsp;77.0/2);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_make_float(F2,&nbsp;3.14);
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_begin_put_list(middle);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_put_list(BP_integer(33));
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_put_list(F1);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_put_list(BP_string("hello"));
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_put_list(F2);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_end_put_list();
+&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_begin_put_list(last);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for(i=0;&nbsp;i&lt;5;&nbsp;i++)&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_put_list(BP_integer(i));
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_end_put_list();
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_begin_put_list(BP_result);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_put_list(BP_string("first"));
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_put_list(middle);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_put_list(last);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_put_list(F1);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_put_list(F2);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_end_put_list();&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;break;
+
+&nbsp;&nbsp;&nbsp;&nbsp;case&nbsp;4:&nbsp;/*&nbsp;cons&nbsp;style&nbsp;list&nbsp;construction&nbsp;*/
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_begin_cons();
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_result=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_cons(
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_integer(1),
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_cons(
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_integer(2),
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_nil
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_end_cons();
+&nbsp;&nbsp;&nbsp;&nbsp;break;
+
+&nbsp;&nbsp;&nbsp;&nbsp;case&nbsp;5:&nbsp;/*&nbsp;for&nbsp;hackers&nbsp;only&nbsp;...&nbsp;*/&nbsp;;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_result=(cell)H;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;H[0]=g.DOT;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;H[1]=X(2);
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;H[2]=g.DOT;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;H[3]=BP_integer(99);
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;H[4]=g.DOT;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;H[5]=(cell)(H+5);&nbsp;/*&nbsp;new&nbsp;var&nbsp;*/
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;H[6]=g.DOT;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;H[7]=(cell)(H+5);&nbsp;/*&nbsp;same&nbsp;var&nbsp;as&nbsp;previously&nbsp;created&nbsp;*/
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;H[8]=g.DOT;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;H[9]=BP_atom("that's&nbsp;it");
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;H[10]=g.NIL;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;H+=11;
+&nbsp;&nbsp;&nbsp;&nbsp;break;
+
+&nbsp;&nbsp;&nbsp;&nbsp;case&nbsp;6:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_fail();
+&nbsp;&nbsp;&nbsp;&nbsp;break;
+
+&nbsp;&nbsp;&nbsp;&nbsp;case&nbsp;7:&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;cell&nbsp;T=BP_input;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(BP_is_integer(T))
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{int&nbsp;i;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_get_integer(T,i);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fprintf(g.tellfile,"integer:&nbsp;%ld\n",i);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_result=BP_integer(-1);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_fail();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;break;
+
+&nbsp;&nbsp;&nbsp;case&nbsp;8:&nbsp;/*&nbsp;for&nbsp;experts:&nbsp;calling&nbsp;BinProlog&nbsp;from&nbsp;C&nbsp;*/
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;cell&nbsp;L,R,Goal;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_begin_put_list(L);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_put_list(BP_string("one"));
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_put_list(BP_integer(2));
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_put_list(BP_string("three"));
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_put_list(BP_input);&nbsp;/*&nbsp;whatever&nbsp;comes&nbsp;as&nbsp;input&nbsp;*/
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_end_put_list();
+&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_put_functor(Goal,"append",3);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_put_old_var(L);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_put_old_var(L);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_put_new_var(R);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_prolog_call(Goal);&nbsp;/*&nbsp;this&nbsp;will&nbsp;return&nbsp;NULL&nbsp;on&nbsp;failure&nbsp;!!!*/
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_put_functor(Goal,"write",1);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_put_old_var(R);&nbsp;&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_prolog_call(Goal);&nbsp;/*&nbsp;calls&nbsp;write/1&nbsp;*/
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_put_functor(Goal,"nl",0);
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_prolog_call(Goal);&nbsp;/*&nbsp;calls&nbsp;nl/0&nbsp;*/
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_result=R;&nbsp;/*&nbsp;returns&nbsp;the&nbsp;appended&nbsp;list&nbsp;to&nbsp;Prolog&nbsp;*/
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;
+
+&nbsp;&nbsp;&nbsp;&nbsp;case&nbsp;10:&nbsp;/*&nbsp;for&nbsp;experts:&nbsp;calling&nbsp;BinProlog&nbsp;from&nbsp;C&nbsp;*/
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;cell&nbsp;L,R,Goal;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_begin_put_list(L);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_put_list(BP_string("one"));
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_put_list(BP_integer(2));
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_put_list(BP_string("three"));
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_put_list(BP_input);&nbsp;/*&nbsp;whatever&nbsp;comes&nbsp;as&nbsp;input&nbsp;*/
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_end_put_list();
+&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_put_functor(Goal,"cut_test",3);&nbsp;/*&nbsp;see&nbsp;c.pl&nbsp;*/
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_put_old_var(L);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_put_old_var(L);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_put_new_var(R);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_prolog_call(Goal);&nbsp;/*&nbsp;this&nbsp;will&nbsp;return&nbsp;NULL&nbsp;on&nbsp;failure&nbsp;!!!*/
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_put_functor(Goal,"write",1);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_put_old_var(R);&nbsp;&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_prolog_call(Goal);&nbsp;/*&nbsp;calls&nbsp;write/1&nbsp;*/
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_put_functor(Goal,"nl",0);
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_prolog_call(Goal);&nbsp;/*&nbsp;calls&nbsp;nl/0&nbsp;*/
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_result=R;&nbsp;/*&nbsp;returns&nbsp;the&nbsp;appended&nbsp;list&nbsp;to&nbsp;Prolog&nbsp;*/
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;
+
+&nbsp;&nbsp;&nbsp;case&nbsp;11:&nbsp;/*&nbsp;CALLING&nbsp;BinProlog&nbsp;on&nbsp;a&nbsp;NEW&nbsp;ENGINE&nbsp;*/
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;stack&nbsp;Engine;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cell&nbsp;Goal,Answer;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cell&nbsp;Xs,X;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_begin_put_list(Xs);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_put_list(BP_string("new_engine_test"));
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_put_list(BP_input);&nbsp;/*&nbsp;whatever&nbsp;comes&nbsp;as&nbsp;input&nbsp;*/
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_put_list(BP_integer(100));
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_put_list(BP_integer(200));
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_put_list(BP_integer(300));
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_end_put_list();
+&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_put_functor(Goal,"member",2);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_put_new_var(X);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_put_old_var(Xs);
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Engine=BP_create_engine(wam,100,50,50);
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_load_engine(Engine,Goal,X);
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while((Answer=(cell)ask_engine(Engine)))
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;cell&nbsp;Goal1;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_put_functor(Goal1,"write",1);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_put_old_var(Answer);&nbsp;&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_prolog_call(Goal1);&nbsp;/*&nbsp;calls&nbsp;write/1&nbsp;*/
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_put_functor(Goal1,"nl",0);
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_prolog_call(Goal1);&nbsp;/*&nbsp;calls&nbsp;nl/0&nbsp;*/
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_destroy_engine(Engine);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_result=Goal;&nbsp;/*&nbsp;returns&nbsp;the&nbsp;goal&nbsp;-&nbsp;just&nbsp;for&nbsp;tracing&nbsp;*/
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;
+
+&nbsp;&nbsp;case&nbsp;12:&nbsp;/*&nbsp;CALLING&nbsp;BinProlog&nbsp;on&nbsp;a&nbsp;NEW&nbsp;ENGINE.&nbsp;The&nbsp;friendliest&nbsp;way...&nbsp;*/
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;stack&nbsp;Engine;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cell&nbsp;Goal,Answer;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cell&nbsp;Xs,X;
+&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_sread("[0,s(0),s(s(0)),[a,b,c]]",Xs);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_put_functor(Goal,"member",2);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_put_new_var(X);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_put_old_var(Xs);
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Engine=BP_create_engine(wam,100,50,50);
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_load_engine(Engine,Goal,X);
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;printf("BP_input:&nbsp;=&nbsp;%s\n",BP_swrite(BP_input));&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while((Answer=(cell)ask_engine(Engine)))
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;printf("Answer&nbsp;=&nbsp;%s\n",BP_swrite(Answer));
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_destroy_engine(Engine);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_result=Goal;&nbsp;/*&nbsp;returns&nbsp;the&nbsp;goal&nbsp;-&nbsp;just&nbsp;for&nbsp;tracing&nbsp;*/
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;
+
+
+&nbsp;&nbsp;case&nbsp;13:&nbsp;/*&nbsp;CALLING&nbsp;BinProlog&nbsp;on&nbsp;a&nbsp;NEW&nbsp;ENGINE.&nbsp;The&nbsp;friendliest&nbsp;way...&nbsp;*/
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;stack&nbsp;Engine;&nbsp;int&nbsp;i;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cell&nbsp;Goal,Answer,Answers[4],Ys;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cell&nbsp;Xs,X;
+&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_sread("[0,s(0),s(s(0)),[a,b,c]]",Xs);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_put_functor(Goal,"member",2);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_put_new_var(X);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_put_old_var(Xs);
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Engine=BP_create_engine(wam,100,50,50);
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_load_engine(Engine,Goal,X);
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*&nbsp;accumulates&nbsp;the&nbsp;answers&nbsp;*/
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for(i=0;&nbsp;Answer=(cell)ask_engine(Engine);&nbsp;i++)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*&nbsp;To&nbsp;survive&nbsp;failure&nbsp;in&nbsp;Engine&nbsp;!!!!&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;After&nbsp;copying,&nbsp;Answer&nbsp;will&nbsp;point&nbsp;to&nbsp;a&nbsp;valid&nbsp;object&nbsp;on&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;calling&nbsp;engine's&nbsp;heap&nbsp;whose&nbsp;H&nbsp;is&nbsp;also&nbsp;updated&nbsp;(see
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_copy_answer&nbsp;in&nbsp;c.h).&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_copy_answer(Answer);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Answers[i]=Answer;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_destroy_engine(Engine);
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*&nbsp;prints&nbsp;out&nbsp;the&nbsp;accumulated&nbsp;answers&nbsp;*/
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;printf("BP_input:&nbsp;=&nbsp;%s\n",BP_swrite(BP_input));
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_begin_put_list(Ys);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for(i=0;&nbsp;i&lt;4;&nbsp;i++)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;printf("Answers[%d]&nbsp;=&nbsp;%s\n",i,BP_swrite(Answers[i]));
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_put_list(Answers[i]);&nbsp;/*&nbsp;to&nbsp;return&nbsp;them&nbsp;to&nbsp;Prolog&nbsp;*/
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_end_put_list();&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_result=Ys;&nbsp;/*&nbsp;returns&nbsp;the&nbsp;list&nbsp;of&nbsp;answers,&nbsp;Ys,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;after&nbsp;constructing&nbsp;it&nbsp;on&nbsp;the&nbsp;heap&nbsp;*/
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/**
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Calls&nbsp;a&nbsp;string&nbsp;transformer&nbsp;function&nbsp;from&nbsp;BinProlog:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sfun&nbsp;gets&nbsp;a&nbsp;char&nbsp;*&nbsp;argument&nbsp;which&nbsp;it&nbsp;modifies&nbsp;at&nbsp;will.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Signals&nbsp;succes&nbsp;with&nbsp;1,&nbsp;failure&nbsp;with&nbsp;0
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case&nbsp;14:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_result=BP_funptr(sfun);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/**
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Calls&nbsp;a&nbsp;C&nbsp;function&nbsp;with&nbsp;an&nbsp;int&nbsp;or&nbsp;float&nbsp;argument
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;returns&nbsp;a&nbsp;float&nbsp;result
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case&nbsp;15:&nbsp;{&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;double&nbsp;d;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(BP_is_integer(BP_input))&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;i;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_get_integer(BP_input,i);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;d=(double)i;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else&nbsp;if(BP_is_atom(BP_input))&nbsp;{&nbsp;//&nbsp;it&nbsp;means&nbsp;ref&nbsp;to&nbsp;a&nbsp;BP_FLOAT
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;char&nbsp;*s=NULL;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_get_string(BP_input,s);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;d=atof(s);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else&nbsp;if(BP_is_var(BP_input))&nbsp;{&nbsp;//&nbsp;it&nbsp;means&nbsp;ref&nbsp;to&nbsp;a&nbsp;BP_FLOAT
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;ok;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_get_float(BP_input,d,ok);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(!ok)&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;printf("not&nbsp;a&nbsp;float:&nbsp;=&nbsp;%s\n",BP_swrite(BP_input));&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_fail();
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else&nbsp;&nbsp;/*&nbsp;this&nbsp;returns&nbsp;with&nbsp;failure&nbsp;*/&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;printf("BAD&nbsp;BP_input:&nbsp;=&nbsp;%s\n",BP_swrite(BP_input));
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_fail();
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*&nbsp;compute&nbsp;results&nbsp;*/&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;double&nbsp;r=ffun(d);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_make_float(BP_result,r);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getting&nbsp;any&nbsp;simple&nbsp;(int,double,string)&nbsp;data&nbsp;from
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prolog&nbsp;-&nbsp;the&nbsp;C&nbsp;side&nbsp;trusts&nbsp;that&nbsp;Prolog&nbsp;sends
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;right&nbsp;data&nbsp;-&nbsp;which&nbsp;isconverted
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;automatically&nbsp;based&nbsp;on&nbsp;its&nbsp;dynamic&nbsp;Prolog&nbsp;type
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case&nbsp;16:&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(0)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;string&nbsp;s=NULL;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;void&nbsp;*p=(void*)&amp;s;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_get_simple(BP_input,p);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(NULL==s)&nbsp;BP_fail();
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;printf("got&nbsp;string&nbsp;=&nbsp;%s\n",s);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_result=BP_atom(s);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else&nbsp;{&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;double&nbsp;d;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;void&nbsp;*p=(void*)&amp;d;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_get_simple(BP_input,p);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;printf("got&nbsp;double&nbsp;=&nbsp;%f\n",d);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_make_float(BP_result,d+1);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getts&nbsp;a&nbsp;list&nbsp;of&nbsp;known&nbsp;length,&nbsp;applies
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to&nbsp;the&nbsp;a&nbsp;function&nbsp;of&nbsp;type&nbsp;int&nbsp;f(void&nbsp;**)&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;of&nbsp;simple&nbsp;args&nbsp;and&nbsp;returns&nbsp;an&nbsp;int
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;list&nbsp;like&nbsp;[hello,3.14,2003]&nbsp;will
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;need&nbsp;argc=0&nbsp;and&nbsp;argv&nbsp;should&nbsp;have&nbsp;the&nbsp;address
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;of&nbsp;variable&nbsp;of&nbsp;APPROPRIATE&nbsp;types.&nbsp;Conversion
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;of&nbsp;data&nbsp;is&nbsp;automatic&nbsp;but&nbsp;we&nbsp;trust&nbsp;YOU&nbsp;to&nbsp;provide
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;right&nbsp;containers&nbsp;in&nbsp;C&nbsp;!!!
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case&nbsp;17:&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string&nbsp;s;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;double&nbsp;d;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;i,n;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int&nbsp;argc=3;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;void&nbsp;*argv[3]&nbsp;={(void*)&amp;s,(void*)&amp;d,(void*)&amp;i};
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(NULL==BP_get_list(BP_input,argc,argv))&nbsp;BP_fail();
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;printf("got&nbsp;from&nbsp;prolog&nbsp;list:&nbsp;%s,&nbsp;%f,&nbsp;%d\n",s,d,i);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BP_result=BP_integer(i);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/*&nbsp;EDIT&nbsp;AND&nbsp;ADD&nbsp;YOUR&nbsp;CODE&nbsp;HERE....*/
+
+&nbsp;&nbsp;&nbsp;&nbsp;default:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;LOCAL_ERR(X(1),"call&nbsp;to&nbsp;unknown&nbsp;user_defined&nbsp;C&nbsp;function");
+&nbsp;&nbsp;}
+&nbsp;&nbsp;return&nbsp;H;&nbsp;
+}
+
+
+</pre>
+</font>
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc1.3">
+1.3</a>&nbsp;&nbsp;Calling Prolog from C</h3>
+
+<div class="p"><!----></div>
+Normally this is done after a first call from Prolog to C
+(this gives a chance to the prolog system to get initialized).
+The most flexible technique is based on multiple engines. Take a look
+at <tt>case 11</tt> and <tt>case 12</tt> in the previous section.
+
+<div class="p"><!----></div>
+The lower-level interface, (which follows) is still usable
+but less recommended.
+
+<div class="p"><!----></div>
+<font size="-1">
+<pre>
+/*&nbsp;this&nbsp;can&nbsp;be&nbsp;used&nbsp;to&nbsp;call&nbsp;Prolog&nbsp;from&nbsp;C&nbsp;:&nbsp;see&nbsp;example&nbsp;if0&nbsp;*/
+
+term&nbsp;bp_prolog_call(goal,regs,H,P,A,wam)
+&nbsp;&nbsp;register&nbsp;term&nbsp;goal,regs,H,*A;
+&nbsp;&nbsp;register&nbsp;instr&nbsp;P;
+&nbsp;&nbsp;register&nbsp;stack&nbsp;wam;
+{
+&nbsp;&nbsp;PREP_CALL(goal);
+&nbsp;&nbsp;return&nbsp;bp(regs,H,P,A,wam);
+}
+
+/*&nbsp;simple&nbsp;example&nbsp;of&nbsp;prolog&nbsp;call&nbsp;*/
+term&nbsp;if0(regs,H,P,A,wam)
+&nbsp;&nbsp;register&nbsp;term&nbsp;regs,H,*A;
+&nbsp;&nbsp;register&nbsp;instr&nbsp;P;
+&nbsp;&nbsp;register&nbsp;stack&nbsp;wam;
+{&nbsp;term&nbsp;bp();
+&nbsp;&nbsp;cell&nbsp;goal=regs[1];
+
+&nbsp;&nbsp;/*&nbsp;in&nbsp;this&nbsp;example&nbsp;the&nbsp;input&nbsp;GOAL&nbsp;is&nbsp;in&nbsp;regs[1]&nbsp;*/
+&nbsp;&nbsp;/*&nbsp;of&nbsp;course&nbsp;you&nbsp;can&nbsp;also&nbsp;build&nbsp;it&nbsp;directly&nbsp;in&nbsp;C&nbsp;*/
+&nbsp;&nbsp;/*&nbsp;unless&nbsp;you&nbsp;want&nbsp;specific&nbsp;action&nbsp;on&nbsp;failure,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;use&nbsp;BP_prolog_call(goal)&nbsp;here&nbsp;*/
+
+&nbsp;&nbsp;H=bp_prolog_call(goal,regs,H,P,A,wam);&nbsp;
+&nbsp;&nbsp;if(H)&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fprintf(stderr,"success:&nbsp;returning&nbsp;from&nbsp;New&nbsp;WAM\n");
+&nbsp;&nbsp;else&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fprintf(stderr,"fail:&nbsp;returning&nbsp;from&nbsp;New&nbsp;WAM\n");
+
+&nbsp;&nbsp;/*&nbsp;do&nbsp;not&nbsp;forget&nbsp;this&nbsp;!!!&nbsp;*/
+&nbsp;&nbsp;return&nbsp;H;&nbsp;/*&nbsp;return&nbsp;NULL&nbsp;to&nbsp;signal&nbsp;failure&nbsp;*/
+}
+
+</pre>
+</font>
+
+<div class="p"><!----></div>
+BinProlog's <tt>main()</tt> should be the starting point of your program
+to be able to initialize all data areas. To call back from C you
+can follow the example if0. A sustained BinProlog-C dialog
+can be set up by using the 2 techniques described previously.
+
+<div class="p"><!----></div>
+An example of using the C-interface (composed of files c.h c.c c.pl)
+can be found in directory <tt>c_inter</tt>.
+ If you whish you can create
+a standalone C-executable by using BinProlog's compilation to C
+(see directories <tt>pl2c</tt>, <tt>dynpl2c</tt>) you can
+simply type `make' in directory  <tt>c_inter</tt>.
+
+<div class="p"><!----></div>
+ <h2><a name="tth_sEc2">
+2</a>&nbsp;&nbsp;A 3-tier BinProlog/C/Java interface through JNI</h2>
+
+<div class="p"><!----></div>
+Simple BinProlog Java interface for Windows, Solaris and Linux.
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc2.1">
+2.1</a>&nbsp;&nbsp;Overview</h3>
+
+<div class="p"><!----></div>
+The BinProlog runtime emultor combined with the C-ified
+compiler are packaged into a dynamic library (jbp.dll or libjbp.so).
+A stub jBinPro.c based on BinProlog's C interface
+implements a call_bp_main C function which is
+declared as a native Java method in file JavaLog.java. 
+
+<div class="p"><!----></div>
+A makefile (you might whish to edit for path information)
+takes care of the whole process.
+
+<div class="p"><!----></div>
+The scripts jbp.bat (Windows) and jbp (Solaris)
+can be used to run the resulting application.
+You might have to edit them for path information.
+
+<div class="p"><!----></div>
+More work, BinProlog Professional source license and possibly the sources
+of the JDK kit from Sun are needed to make this into an applet runnable
+from Netscape. Note also that currently native methods in Java are of
+limited use due to security concerns and that such an applet might be
+restricted to your INTRANET.
+
+<div class="p"><!----></div>
+I would suggest using BinProlog's Linda-based Jinni extension
+for unrestricted INTERNET applications or a combination of Java
+and BinProlog components.
+
+<div class="p"><!----></div>
+Still, for a minimal overhead interaction, in case your interface
+needs to glue together C/C++ Prolog and Java components, the effort
+might be worth it. On platforms where BinProlog does not support
+multi-threading, using Jinni's (a simplified Java based Prolog dialect)
+might be particularly appealing.
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc2.2">
+2.2</a>&nbsp;&nbsp;The Prolog Component</h3>
+
+<div class="p"><!----></div>
+This example test bidirectional BinProlog/Java connection going through
+BinProlog's C interface. The Java application is Jinni, which 
+also provides Prolog functionality. These can be seen also as an interface
+between a Prolog-in-Java and a Prolog-in-C.
+
+<div class="p"><!----></div>
+
+<pre>
+main:-
+&nbsp;&nbsp;write('BinProlog&nbsp;called&nbsp;from&nbsp;Java'),nl,
+&nbsp;&nbsp;%&nbsp;WILL&nbsp;CALL&nbsp;Jinni&nbsp;services&nbsp;as&nbsp;follows:
+&nbsp;&nbsp;%&nbsp;ask_jinni(Pattern,Goal,Answer)&nbsp;Answer=the(Pattern')&nbsp;|&nbsp;no
+&nbsp;&nbsp;write('calling&nbsp;back&nbsp;Java&nbsp;using&nbsp;new_bultin,&nbsp;with:'),nl,
+&nbsp;&nbsp;In='listing(append)',
+&nbsp;&nbsp;write(In),nl,
+&nbsp;&nbsp;new_builtin(1,In,Out),
+&nbsp;&nbsp;write('back&nbsp;to&nbsp;Prolog&nbsp;again'),
+&nbsp;&nbsp;write(Out),nl,
+&nbsp;&nbsp;!.
+main:-
+&nbsp;&nbsp;write('something&nbsp;failing&nbsp;in&nbsp;main.pro'),nl.
+
+</pre>
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc2.3">
+2.3</a>&nbsp;&nbsp;The Java Component</h3>
+
+<div class="p"><!----></div>
+This is the master entry point of the application as BinProlog 
+(written in C) is seen as a Java native method (using JNI, JDK 1.1 convetions).
+When started with <tt>java jbp</tt> its <tt>main</tt> method will load the
+native method obtained by linking jbp.c with BinProlog object files.
+Then it calls BinProlog's main entry C function with main.pro as parameter.
+It also provides a Java method <tt>fromC</tt> to be called back
+(this is supported by JNI 1.1) later.
+
+<div class="p"><!----></div>
+
+<pre>
+class&nbsp;jbp&nbsp;{
+&nbsp;&nbsp;public&nbsp;native&nbsp;String&nbsp;call_bp_main(String&nbsp;jGoal);
+&nbsp;&nbsp;static&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;System.loadLibrary("jbp");
+&nbsp;&nbsp;}
+&nbsp;&nbsp;
+&nbsp;&nbsp;public&nbsp;&nbsp;String&nbsp;fromC(String&nbsp;k)&nbsp;{&nbsp;//&nbsp;constructor
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("back&nbsp;from&nbsp;java:"+k);
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;"CallFromCtoJava,&nbsp;"+k;
+&nbsp;&nbsp;}
+
+&nbsp;&nbsp;public&nbsp;static&nbsp;void&nbsp;main(String&nbsp;args[])&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;jbp&nbsp;a_jbp=new&nbsp;jbp();
+&nbsp;&nbsp;&nbsp;&nbsp;String&nbsp;Answer=a_jbp.call_bp_main("$main.pro");&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("ANSWER:"+Answer);
+&nbsp;&nbsp;}
+}
+
+</pre>
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc2.4">
+2.4</a>&nbsp;&nbsp;The C component</h3>
+
+<div class="p"><!----></div>
+The C component is a based simplified version of <tt>new_builtin</tt> from 
+directory <tt>c_inter</tt>, showing calls from BinProlog to C and back.
+
+<div class="p"><!----></div>
+To make some sense out of this, the reader has to start by understanding
+the JNI from the documentation 
+at www.javasoft.com and paly first with our C-interface described
+in the previous section.
+
+<div class="p"><!----></div>
+<font size="-1">
+<pre>
+#include&nbsp;&lt;jni.h&#62;
+#include&nbsp;"jbp.h"
+#include&nbsp;&lt;stdio.h&#62;
+
+/*&nbsp;code&nbsp;BinProlog&nbsp;will&nbsp;call&nbsp;before&nbsp;after&nbsp;its&nbsp;own&nbsp;initalization&nbsp;process&nbsp;*/
+
+int&nbsp;init_c()&nbsp;{
+&nbsp;&nbsp;printf("initialising&nbsp;user's&nbsp;C&nbsp;code\n");
+&nbsp;&nbsp;return&nbsp;1;
+}
+
+/*&nbsp;MAIN&nbsp;FILE:&nbsp;change&nbsp;this&nbsp;if&nbsp;you&nbsp;want&nbsp;to&nbsp;call&nbsp;BinProlog&nbsp;as&nbsp;a&nbsp;DLL&nbsp;*/
+/*&nbsp;or&nbsp;some&nbsp;other&nbsp;form&nbsp;of&nbsp;dynamically&nbsp;linked&nbsp;library&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/
+
+/*****&nbsp;BinProlog's&nbsp;embedding&nbsp;as&nbsp;a&nbsp;Java&nbsp;native&nbsp;procedure&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*****/
+
+/*
+&nbsp;*&nbsp;Class:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;jbp
+&nbsp;*&nbsp;Method:&nbsp;&nbsp;&nbsp;&nbsp;call_bp_main
+&nbsp;*&nbsp;Signature:&nbsp;(Ljava/lang/String;)V
+&nbsp;*/
+
+static&nbsp;JNIEnv&nbsp;*jenv=NULL;
+static&nbsp;jobject&nbsp;jobj=NULL;
+
+JNIEXPORT&nbsp;jstring&nbsp;JNICALL&nbsp;
+Java_jbp_call_1bp_1main&nbsp;(JNIEnv&nbsp;*env,&nbsp;jobject&nbsp;obj,&nbsp;jstring&nbsp;jGoal)&nbsp;{
+	int&nbsp;argc=2;&nbsp;char&nbsp;*argv[]={"bp","$main.pro",NULL};
+	extern&nbsp;int&nbsp;bp_main(int&nbsp;argc,&nbsp;char&nbsp;**argv);
+&nbsp;&nbsp;argv[1]=(*env)-&#62;GetStringUTFChars(env,&nbsp;jGoal,&nbsp;0);
+&nbsp;&nbsp;jenv=env;
+&nbsp;&nbsp;jobj=obj;
+	(void)&nbsp;bp_main(argc,argv);
+&nbsp;&nbsp;return&nbsp;jGoal;
+}
+
+/****************************************************************
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STUB&nbsp;IN&nbsp;CASE&nbsp;THE&nbsp;C_INTERFACE&nbsp;IS&nbsp;NOT&nbsp;USED
+
+(Real)&nbsp;files&nbsp;using&nbsp;new&nbsp;C-interface&nbsp;(c.pl&nbsp;c.h&nbsp;c.c&nbsp;have&nbsp;been&nbsp;moved&nbsp;to&nbsp;
+directory&nbsp;../c_inter
+*****************************************************************/
+
+#include&nbsp;"global.h"
+
+extern&nbsp;struct&nbsp;specsyms&nbsp;g;
+
+string&nbsp;c_interface="with&nbsp;Java&nbsp;and&nbsp;C&nbsp;Interface";
+
+static&nbsp;string&nbsp;c_errmess="c.c:&nbsp;prototype&nbsp;Java&nbsp;interface\n";
+
+term&nbsp;new_builtin(register&nbsp;term&nbsp;H,&nbsp;register&nbsp;term&nbsp;regs,&nbsp;register&nbsp;term&nbsp;*A,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;register&nbsp;instr&nbsp;P,&nbsp;register&nbsp;stack&nbsp;wam)
+{
+&nbsp;&nbsp;jstring&nbsp;jback,jto;&nbsp;&nbsp;&nbsp;const&nbsp;char*&nbsp;cback;&nbsp;&nbsp;const&nbsp;char*&nbsp;csend="FromCtoJ";
+&nbsp;&nbsp;jclass&nbsp;cls&nbsp;=&nbsp;(*jenv)-&#62;GetObjectClass(jenv,&nbsp;jobj);
+&nbsp;&nbsp;jmethodID&nbsp;mid&nbsp;=&nbsp;(*jenv)-&#62;GetMethodID(jenv,&nbsp;cls,"fromC",&nbsp;
+	&nbsp;&nbsp;"(Ljava/lang/String;)Ljava/lang/String;"
+&nbsp;&nbsp;);
+&nbsp;&nbsp;
+&nbsp;&nbsp;fprintf(STD_err,c_errmess);
+
+&nbsp;&nbsp;
+&nbsp;&nbsp;if&nbsp;(mid&nbsp;==&nbsp;0)&nbsp;return&nbsp;NULL;
+&nbsp;&nbsp;jto=(*jenv)-&#62;NewStringUTF(jenv,&nbsp;csend);
+&nbsp;&nbsp;jback=(*jenv)-&#62;CallObjectMethod(jenv,&nbsp;jobj,&nbsp;mid,jto);
+&nbsp;&nbsp;cback=(*jenv)-&#62;GetStringUTFChars(jenv,&nbsp;jback,&nbsp;0);
+&nbsp;&nbsp;printf("BACK!%s\n",cback);&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;
+&nbsp;&nbsp;/*return&nbsp;NULL;&nbsp;&nbsp;always&nbsp;fails&nbsp;*/&nbsp;
+&nbsp;&nbsp;regs[1]=regs[4];
+&nbsp;&nbsp;*H=regs[2];
+&nbsp;&nbsp;regs[3]=(cell)H++;
+&nbsp;&nbsp;return&nbsp;H;&nbsp;&nbsp;
+}
+
+term&nbsp;if0(register&nbsp;term&nbsp;regs,&nbsp;register&nbsp;term&nbsp;H,&nbsp;register&nbsp;instr&nbsp;P,&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;register&nbsp;term&nbsp;*A,&nbsp;register&nbsp;stack&nbsp;wam)
+{&nbsp;/*&nbsp;unused&nbsp;builtin&nbsp;*/
+&nbsp;&nbsp;fprintf(STD_err,c_errmess);
+&nbsp;&nbsp;return&nbsp;NULL;
+}
+
+</pre></font>
+
+<div class="p"><!----></div>
+ <h2><a name="tth_sEc3">
+3</a>&nbsp;&nbsp;BinProlog's Tcl/Tk interface (written in cooperation with Bart Demoen, KU. Leuven, back in 1993 or 1994)</h2>
+
+<div class="p"><!----></div>
+This interface is based on and abstract scheme for the embedding of two languages with
+strong meta-programming, parsing and structure manipulation
+capabilities.  We provide a call-back mechanism requiring each language
+to <em>compile</em> its service requests to the other's syntax for processing
+through the other's <em>meta-programming</em>
+capabilities. <em>State mirroring</em> ensures
+that only differential information needs to be transmitted.  We
+describe a practical implementation of these principles and our
+experience with the <b>BinProlog Tcl/Tk</b> interface. 
+Compilation by each side, that targets
+the other's syntax and dynamic object manipulation capabilities,
+achieves in <em>less than two hundred</em> 
+lines of code, a fully functional integration
+of the two systems. The environment
+is portable to any Prolog system to which it
+adds powerful graphic and transparent distributed
+network programming facilities.
+Our approach suggest that logic programming language-processors
+can be made to fit easily in a multi-paradigm programming environment
+with little programming effort by using their
+strong <em>language translation</em> and <em>meta-programming</em>
+capabilities.
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc3.1">
+3.1</a>&nbsp;&nbsp;Introduction</h3>
+
+<div class="p"><!----></div>
+Integration of various programming paradigms is a necessity
+in modern programming environments. 
+Monolithic language implementations tend to be replaced more and more
+by a combination of specialised <em>tools</em>.
+In particular, generic graphic processors can be connected
+to various languages which do not need 
+their own graphic primitives anymore.
+
+<div class="p"><!----></div>
+However, when there's a large
+semantic distance between the languages and they feature
+radically different computational models, a low-level
+interface is a painful and not always rewarding programming
+task. It happens very often that when the interface is finished
+one of the sides of the interface just becomes obsolete
+because of
+rapid evolution. This is especially true with various
+windowing systems which are often machine/operating system dependent.
+
+<div class="p"><!----></div>
+The aim of this paper is to propose an unusually quick
+interfacing technique which uses meta-programming capabilities
+on the two sides. The basic idea is to link the two languages
+through a standard client-server interface and have each of
+them drive the other as an interactive agent, by generating
+the appropriate code on the fly.
+By mirroring the state of the objects, only state
+changes have to be transmitted from one side to the other,
+so that the granularity of the interaction will not become
+a bottleneck. Moreover, if one side has the capacity to
+react to events, this property will be inherited with
+minimal programming effort by the other side.
+
+<div class="p"><!----></div>
+This paper is motivated by our work on finding a simple and
+portable way to add a visual programming environment to
+Prolog systems.
+
+<div class="p"><!----></div>
+The popular Tcl/Tk visual language by John Ousterhout []
+is basically a composite made of
+of a shell-like interpreted programming
+language (Tcl) and a high-level Motif-style graphic
+package (Tk). Tcl is an untyped string-only language with
+strong meta-programming facilities (i.e. an <em>eval</em> primitive
+and dynamic procedure creation).
+
+<div class="p"><!----></div>
+After describing a general language-processor interaction
+model we will report
+how it has been applied to an interface between BinProlog [],
+and Tcl/Tk and how this interface has been ported to
+another Prolog system (Prolog by BIM) with minimal
+programming effort.
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc3.2">
+3.2</a>&nbsp;&nbsp;An abstract multi-language communication model</h3>
+
+<div class="p"><!----></div>
+Let <tt>L</tt> and <tt>R</tt> be two languages, t<sub>L,R</sub> a translation function
+(compilation) from L to R, t<sub>R,L</sub> the reverse translation from
+<tt>R</tt> to <tt>L</tt>.
+Let e<sub>L</sub> and respectively
+e<sub>R</sub> be the <em>eval</em> operations of <tt>L</tt> and <tt>R</tt>.
+Let r<sub>L</sub>, w<sub>L</sub>, r<sub>R</sub> and w<sub>R</sub> denote the read and write operations
+of languages L and R.
+
+<div class="p"><!----></div>
+An L<sub>R</sub>-processor is a process with capabilities to
+
+<ol type="1">
+<li> execute programs written in L
+<div class="p"><!----></div>
+</li>
+
+<li> implement a translation function from L to R.
+<div class="p"><!----></div>
+</li>
+</ol>
+
+<div class="p"><!----></div>
+We say that two language processors L<sub>R</sub> and R<sub>L</sub> are <em>connected</em>
+if the following conditions are verified:
+
+<ol type="1">
+<li> each <em>translate+write</em> operation on one side triggers exactly one
+<em>read+eval</em> operation on the other side,
+<div class="p"><!----></div>
+</li>
+
+<li> one or more<a href="#tthFtNtAAC" name="tthFrefAAC"><sup>2</sup></a> <em>translate+write</em> operations
+can be triggered by each <em>eval</em> operation.
+<div class="p"><!----></div>
+</li>
+</ol>
+
+<div class="p"><!----></div>
+ This
+can be formalized more precisely in terms of temporal modal
+operators. 
+
+<div class="p"><!----></div>
+Our <em>write</em> and <em>read</em>
+operations should not be confused with
+ordinary input-output primitives. More precisely they are abstracted
+from the subset of input-output operations which can be meaningfully
+translated and are therefore suitable
+as input for the other side's eval functions.
+Thus they can be seen as carrying messages from an L<sub>R</sub>
+processor to an R<sub>L</sub> processor.
+
+<div class="p"><!----></div>
+We say that an L<sub>R</sub> and an R<sub>L</sub> processor
+are <em>fairly interacting</em> if
+
+<ol type="1">
+<li> each write operation on one side will be 
+eventually read on the other side
+<div class="p"><!----></div>
+</li>
+
+<li>
+the behaviour of
+each side is observable on the other side in terms of a sequence of successive
+read and write operations
+<div class="p"><!----></div>
+</li>
+</ol>
+
+<div class="p"><!----></div>
+If for two L<sub>R</sub> and R<sub>L</sub> language processors are <em>connected</em>
+and their read and write operations are queued, then
+they are <em>fairly interacting</em>.
+
+<div class="p"><!----></div>
+We will break this fully symmetric behaviour by defining
+a <em>slave</em> language-processor as one that passively waits
+for write operations from the other side and a <em>master</em>
+language-processor which reacts to a write operation
+by a corresponding read operation with
+its result passed to its <em>eval</em> operation.
+We suppose also that the user interacts only with the master.
+As only the slave waits blocked on read operations, the
+master is free to be `multi-threaded' or event-driven.
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc3.3">
+3.3</a>&nbsp;&nbsp;The BinProlog to Tcl/Tk interface</h3>
+
+<div class="p"><!----></div>
+As an instance of this general scheme,
+we have chosen to connect BinProlog as a `slave process'
+to a Tcl/Tk <em>wish</em> shell enhanced
+with reactive capabilities
+given by the <em>addinput</em> facility&nbsp;<a href="#tthFtNtAAD" name="tthFrefAAD"><sup>3</sup></a>. A specialized BinProlog
+toplevel is launched from the Tcl/Tk shell as a
+background Unix process connected through
+a bidirectional pipe.
+The BinProlog process is able to generate and react to Tcl/Tk events.
+
+<div class="p"><!----></div>
+The interface uses tcl7.3 with tk3.6 combined with addinput-3.6a.  It
+consists of 91 lines
+of Prolog and 101 lines of (commented) Tcl code.  Thanks to the
+strong meta-programming capabilities of both languages the interface
+boldly <em>compiles</em> 
+messages from one side
+to evaluable representations on the
+other side and calls the appropriate
+<em>eval</em> operation.
+The interface is portable to other
+Prolog systems and requires no C-programming. 
+The installation of a BinProlog slave on the 
+`event channel' handled by <tt>addinput</tt> is done as follows:
+
+<div class="p"><!----></div>
+<font size="-1">
+<pre>
+proc&nbsp;start_prolog&nbsp;{}&nbsp;{
+#&nbsp;&nbsp;&nbsp;Opening&nbsp;a&nbsp;bidirectional&nbsp;pipe&nbsp;to&nbsp;BinProlog
+#&nbsp;&nbsp;&nbsp;under&nbsp;control&nbsp;of&nbsp;the&nbsp;addinput&nbsp;facility
+&nbsp;&nbsp;&nbsp;&nbsp;set&nbsp;f&nbsp;[open&nbsp;"|bp&nbsp;-q5&nbsp;server.bp"&nbsp;r+]
+&nbsp;&nbsp;&nbsp;&nbsp;addinput&nbsp;$f&nbsp;"bpInOut&nbsp;%%&nbsp;%E&nbsp;%F"
+}
+
+</pre></font>
+
+<div class="p"><!----></div>
+ Output from the BinProlog slave
+<tt>bp server.bp</tt> activates a Tcl/Tk
+procedure which executes on a <em>new</em> Tk-interpreter without
+disturbing normal interaction with the <em>wish</em> shell.
+
+<div class="p"><!----></div>
+Basically, performance is not affected by the parsing
+as this is kept minimal. Moreover in systems with a parser
+written in C
+(as Prolog by BIM or the Koen De Bosschere's 
+ISO-parser based version of BinProlog)
+parsing is in itself fast enough not to dominate
+the interaction cost.
+Techniques as <em>state mirroring</em> which will be discussed in the next
+section are also used to minimize the communication overhead.
+
+<div class="p"><!----></div>
+High-level primitives on the Tcl/Tk side ensure that
+output to Prolog are valid Prolog terms.
+On the Prolog side a special toplevel loop reads the
+Tcl/Tk message, and applies its eval operation
+(call/1) to it. To avoid spurious interaction due
+to syntax errors or unexpected messages on each side
+only lines having a reserved header (i.e. 
+<tt>call_prolog</tt>
+and respectively <tt>call_tcl</tt>)
+are evaluated. However, to give the look and feel of interacting
+with a Prolog system, messages from Prolog which are not
+of the form <tt>call_tcl&nbsp;{...}</tt> will be printed out
+as such. This fits well with Tcl which is string oriented
+but would not fit well with a term-oriented language like
+Prolog without parser modifications.
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc3.4">
+3.4</a>&nbsp;&nbsp;State mirroring</h3>
+
+<div class="p"><!----></div>
+State mirroring is a simple technique that consists of
+duplication by a given language processor of (relevant)
+state information of an interactively connected other
+language processor.
+
+<div class="p"><!----></div>
+In the case of Prolog, we have chosen to avoid the
+representation of states by infinite forward loops
+for two reasons:
+
+<div class="p"><!----></div>
+
+<ol type="1">
+<li> unexpected failure would make the system unreliable
+and hard to debug
+<div class="p"><!----></div>
+</li>
+
+<li> unexpected delays induced by garbage collection would make
+a visual interface unpleasant to use
+<div class="p"><!----></div>
+</li>
+</ol>
+
+<div class="p"><!----></div>
+Fortunately, BinProlog's blackboard turned out to be the perfect match
+to mirror the state
+of various Tcl/Tk objects. A library emulating BinProlog's blackboard
+operations in terms of generic Prolog 
+dynamic database operations
+has been used to achieve
+the same effect in the Prolog by BIM port of the interface.
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc3.5">
+3.5</a>&nbsp;&nbsp;Programming with the embedded environment</h3>
+
+<div class="p"><!----></div>
+Using the BinProlog-Tcl/Tk interface is very simple.
+Let <tt>&lt;P&gt;</tt> be the name of the composite program.
+Suppose the user creates 2 files <tt>&lt;P&gt;.tcl</tt> and 
+<tt>&lt;P&gt;.pl</tt>. The composite `program' can be executed
+as follows:
+
+<div class="p"><!----></div>
+<font size="-1">
+<pre>
+&nbsp;&nbsp;&nbsp;&nbsp;$&nbsp;wish
+&nbsp;&nbsp;&nbsp;&nbsp;%&nbsp;source&nbsp;&lt;P&#62;.tcl
+
+</pre></font>
+
+<div class="p"><!----></div>
+ <tt>&lt;P&gt;.tcl</tt> is expected to have at its end something like:
+
+<div class="p"><!----></div>
+<font size="-1">
+<pre>
+&nbsp;&nbsp;&nbsp;start_prolog
+&nbsp;&nbsp;&nbsp;p&nbsp;{compile(&lt;P&#62;)}
+
+</pre></font>
+
+<div class="p"><!----></div>
+ The user will get the usual Tcl command prompt to interact with
+either Tcl or Prolog. A command entered at the Tcl prompt
+normally `goes to' Tcl except for the following: 
+
+<div class="p"><!----></div>
+<font size="-1">
+<pre>
+&nbsp;&nbsp;&nbsp;&nbsp;start_prolog&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-connects&nbsp;to&nbsp;a&nbsp;new&nbsp;Prolog&nbsp;process
+&nbsp;&nbsp;&nbsp;&nbsp;halt_prolog&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-terminates&nbsp;the&nbsp;Prolog&nbsp;process:&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;&nbsp;p&nbsp;{&lt;PrologTerm&#62;}&nbsp;&nbsp;-sends&nbsp;a&nbsp;goal&nbsp;to&nbsp;Prolog&nbsp;for&nbsp;quiet&nbsp;evaluation
+
+&nbsp;&nbsp;&nbsp;&nbsp;q&nbsp;{&lt;PrologTerm&#62;}&nbsp;&nbsp;-sends&nbsp;a&nbsp;query&nbsp;to&nbsp;Prolog&nbsp;and&nbsp;gets&nbsp;back&nbsp;answers
+
+</pre></font>
+
+<div class="p"><!----></div>
+ After being activated by one of the previous (p or q) Tcl commands
+a Prolog goal may `call back' to continue the dialog with Tcl/Tk using
+the following Tcl command on the Prolog side:
+
+<div class="p"><!----></div>
+<font size="-1">
+<pre>
+&nbsp;&nbsp;&nbsp;call_tcl/1&nbsp;&nbsp;&nbsp;&nbsp;-sends&nbsp;to&nbsp;Tcl&nbsp;a&nbsp;command&nbsp;to&nbsp;be&nbsp;immediately
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;evaluated&nbsp;in&nbsp;`background',&nbsp;while&nbsp;the&nbsp;Tcl&nbsp;shell
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prompts&nbsp;and&nbsp;waits&nbsp;for&nbsp;Tcl&nbsp;or&nbsp;Prolog&nbsp;commands.
+
+</pre></font>
+
+<div class="p"><!----></div>
+ Output with <tt>puts</tt> (Tcl) or <tt>write/1</tt>
+(Prolog) goes as usual to the <tt>stdout</tt> of the Tcl shell.
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc3.6">
+3.6</a>&nbsp;&nbsp;A visual N-queens program</h3>
+
+<div class="p"><!----></div>
+This program illustrates two simple-minded but useful features
+of the interface:
+
+<div class="p"><!----></div>
+
+<ol type="1">
+<li>  Prolog lists are sent to Tcl as Tcl-lists
+<div class="p"><!----></div>
+</li>
+
+<li>  Prolog simply pumps solutions one by one using their most natural
+   representation through <tt>call_tcl(display_queens(L))</tt>.
+<div class="p"><!----></div>
+</li>
+
+<li> synchronization is done as follows:
+
+<ul>
+<li> the user provides mouse events
+generating write operations
+<div class="p"><!----></div>
+</li>
+
+<li> the prolog process waits for input on a read operation
+until asked for another answer
+<div class="p"><!----></div>
+</li>
+</ul>
+<div class="p"><!----></div>
+</li>
+</ol>
+
+<div class="p"><!----></div>
+Equivalently, the user
+can also control the Prolog program from Tcl's command line
+by typing in "p more" or "p done" messages.
+
+<div class="p"><!----></div>
+The code on the Prolog side consists of a
+classic N-queens program, the generic
+prolog interface program server.pl
+and the clause:
+
+<div class="p"><!----></div>
+<font size="-1">
+<pre>
+qs(N):-
+&nbsp;&nbsp;&nbsp;&nbsp;queens(N,L),
+&nbsp;&nbsp;&nbsp;&nbsp;call_tcl(display_queens(L)),&nbsp;&nbsp;&nbsp;%&nbsp;sends&nbsp;a&nbsp;display&nbsp;request
+&nbsp;&nbsp;&nbsp;&nbsp;write('type&nbsp;&lt;p&nbsp;done&#62;&nbsp;when&nbsp;finished&nbsp;&lt;p&nbsp;more&#62;&nbsp;otherwise'),nl,
+&nbsp;&nbsp;&nbsp;&nbsp;tcl_in(call_prolog(done)),!.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%&nbsp;waits&nbsp;for&nbsp;`done'&nbsp;or&nbsp;`more'
+
+</pre></font>
+
+<div class="p"><!----></div>
+ The code on the Tcl/Tk side
+consists of the generic server.tcl interface program,
+routines to set up the visual display and procedures like
+<tt>show_queen</tt>, <tt>hide_queen</tt> which are called by the
+main Tcl/Tk-side routine:
+
+<div class="p"><!----></div>
+<font size="-1">
+<pre>
+proc&nbsp;display_queens&nbsp;{qs}&nbsp;{
+&nbsp;&nbsp;global&nbsp;w&nbsp;count
+&nbsp;&nbsp;incr&nbsp;count
+&nbsp;&nbsp;hide_queens
+&nbsp;&nbsp;set&nbsp;l&nbsp;0
+&nbsp;&nbsp;foreach&nbsp;q&nbsp;$qs&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;incr&nbsp;l
+&nbsp;&nbsp;&nbsp;&nbsp;show_queen&nbsp;$w&nbsp;[expr&nbsp;$l&nbsp;-1]&nbsp;[expr&nbsp;$q&nbsp;-1]&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;}&nbsp;&nbsp;
+}
+
+</pre></font>
+
+<div class="p"><!----></div>
+ This procedure simply counts the answers and updates the display
+when a new answer comes from Prolog, triggered by the presence
+of new input on the pipe.
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc3.7">
+3.7</a>&nbsp;&nbsp;Performance evaluation</h3>
+
+<div class="p"><!----></div>
+Tcl/Tk is itself a glue language which links together
+large blocks of C-code.
+We have written a naive-reverse program
+and measured that it executes in Tcl between
+20-50 times slower than in BinProlog.
+This definitely suggests that our technique, using
+relatively expensive parsing and compilation operations
+will not become itself an interaction bottleneck and
+therefore due to the much
+higher flexibility and almost instant
+portability between various Prolog systems
+this approach looks superior to a highly
+Prolog-specific C-level integration.
+
+<div class="p"><!----></div>
+As BinProlog is a much faster symbolic processor than Tcl,
+we have
+decided to do most of the translation
+operations on the Prolog side.
+We have measured about 1500 BinProlog-Tcl/Tk exchanges per second
+on a Sparcstation 2 and 700-800 exchanges on a Sparcstation 1,
+both serving the same Tektronix X-terminal through a network.
+
+<div class="p"><!----></div>
+This confirms that the interface is fast enough for complex
+real time visualisation tasks and pleasant to use in a
+average Unix environment.
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc3.8">
+3.8</a>&nbsp;&nbsp;Porting the interface to another Prolog</h3>
+
+<div class="p"><!----></div>
+It took one hour to make the interface work with ProLog by BIM.
+The main change was to modify <tt>start_prolog</tt> on the
+Tcl side to start a ProLog by BIM process with:
+
+<div class="p"><!----></div>
+<font size="-1">
+<pre>
+&nbsp;&nbsp;&nbsp;set&nbsp;f&nbsp;[open&nbsp;"|bim&nbsp;server.pro"&nbsp;r+]
+
+</pre></font>
+
+<div class="p"><!----></div>
+  The ProLog by BIM process is initialized from
+a small new toplevel <tt>server.pro</tt>. The one hour work
+had more to deal with the differences between the two 
+Prolog systems,
+than the interface itself. Moreover, code written for
+one Prolog system (like the <tt>N-queens</tt> program) 
+runs without changes on the other, 
+as far as it is written in portable Prolog.
+We think this compares favorably with
+a dedicated piecewise interface written
+in C for each Prolog graphic builtin
+in terms of programming effort,
+portability and learning curve for the user,
+and, as our performance evaluation has shown,
+with reasonable real-time interactivity.
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc3.9">
+3.9</a>&nbsp;&nbsp;Related work</h3>
+
+<div class="p"><!----></div>
+Another Prolog with Tcl/Tk interface we know
+of is that developed by
+Micha Meier at ECRC as the standard
+Eclipse GUI. It has been ported to SICStus Prolog as well.
+Micha Meier's interface is tightly integrated (at C-level)
+and Eclipse specific (although a Sicstus port is also provided).
+The tighter integration is better (in principle)
+in the case
+of a very low granularity communication, although
+the programming effort to implement it is
+more considerable than ours.
+Our performance analysis
+shows that global costs are dominated by process switching,
+graphic manipulations and brute force processing in Prolog.
+Moreover, our interface, does
+not rely on a specific Tcl/Tk implementation and has
+no modification to the C-code neither on the Prolog emulator
+neither on the Tcl/Tk side.
+Because of this reasons, we believe that
+the simplicity and portability
+of our design is a clear advantage,
+especially in the context of rapidly evolving
+backward incompatible Tcl/Tk releases.
+
+<div class="p"><!----></div>
+ <h2><a name="tth_sEc4">
+4</a>&nbsp;&nbsp;Projected future work on the interface</h2>
+We plan to make the interface fully Prolog-independent
+and to write Prolog libraries to support various
+existing Tcl/Tk extensions and tools for
+distributed Tcl/Tk programming,
+automatic interface generators etc.
+A Tcl/Tk based generic Prolog toplevel would also
+be very helpful to give the full illusion of
+<em>being in Prolog</em> while benefiting of
+visual goodies of a Tcl/Tk shell.
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc4.1">
+4.1</a>&nbsp;&nbsp;Conclusion on the interface</h3>
+
+<div class="p"><!----></div>
+We have outlined a generic programming framework for a seamless
+integration of two programming languages which have `eval' capability
+and implemented an instance of the framework as a Prolog to TCL/Tk
+interface.
+
+<div class="p"><!----></div>
+Our experiments show that
+support for metaprogramming tools
+in modern programming environment
+is important not only for the expressiveness of the
+language itself but also multi-paradigm language
+integration.
+
+<div class="p"><!----></div>
+We have shown that with a reduced programming effort
+a powerful interface can be built between a Prolog system and
+a state-of-the art visual environment. 
+
+<div class="p"><!----></div>
+This suggests that embedding of a logic engine in a
+generic multi-language
+environment is competitive in functionality and performance
+with the traditional approach which advocates to hardwire
+in the Prolog system a set of language-specific extensions.
+
+<div class="p"><!----></div>
+The code for the interface can be obtained by ftp from
+<b>clement.info.umoncton.ca</b> and has been integrated in the
+BinProlog starting with the 2.20 distribution.
+
+<div class="p"><!----></div>
+ <h2><a name="tth_sEc5">
+5</a>&nbsp;&nbsp;Interfacing with Internet Languages</h2>
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+Our approach to multi-language/multi-machine communication 
+through the net has tried to keep the same touch of simplicity
+as the previously described Tcl/Tk interface [].
+Instead of exposing low-level C operations, we have chosen
+to build more convenient abstractions.
+
+<div class="p"><!----></div>
+Related BinProlog documentation is available at: 
+[,,,].
+
+<div class="p"><!----></div>
+Our recent Jinni and BinProlog related papers are available
+from:
+
+<div class="p"><!----></div>
+
+<pre>
+&nbsp;&nbsp;http://www.cs.unt.edu/~tarau/
+
+</pre>
+
+<div class="p"><!----></div>
+Related publications: [,,,]
+
+<div class="p"><!----></div>
+<hr /><h3>Footnotes:</h3>
+
+<div class="p"><!----></div>
+<a name="tthFtNtAAB"></a><a href="#tthFrefAAB"><sup>1</sup></a>Use
+"make remake or make again" if BinProlog is the only Prolog around.
+<div class="p"><!----></div>
+<a name="tthFtNtAAC"></a><a href="#tthFrefAAC"><sup>2</sup></a>The ability to trigger more than one <em>translate+write</em>
+is needed for instance when more than one task has to be
+initiated or more than on component of the state of one side
+has to be updated in a transaction.
+
+<div class="p"><!----></div>
+<a name="tthFtNtAAD"></a><a href="#tthFrefAAD"><sup>3</sup></a>
+A modification of the Tcl/Tk event loop (
+freely available from
+ftp.neosoft.com)
+which enables it to react to the presence of new input
+by triggering the execution of a user specified procedure
+when input becomes available.
+<br /><br /><hr /><small>File translated from
+T<sub><font size="-1">E</font></sub>X
+by <a href="http://hutchinson.belmont.ma.us/tth/">
+T<sub><font size="-1">T</font></sub>H</a>,
+version 3.81.<br />On 07 Jul 2008, 12:10.</small>
+</html>

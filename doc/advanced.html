@@ -1,0 +1,2851 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+           "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<meta name="GENERATOR" content="TtH 3.81">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+ <style type="text/css"> div.p { margin-top: 7pt;}</style>
+ <style type="text/css"><!--
+ td div.comp { margin-top: -0.6ex; margin-bottom: -1ex;}
+ td div.comb { margin-top: -0.6ex; margin-bottom: -.6ex;}
+ td div.hrcomp { line-height: 0.9; margin-top: -0.8ex; margin-bottom: -1ex;}
+ td div.norm {line-height:normal;}
+ span.roman {font-family: serif; font-style: normal; font-weight: normal;} 
+ span.overacc2 {position: relative;  left: .8em; top: -1.2ex;}
+ span.overacc1 {position: relative;  left: .6em; top: -1.2ex;} --></style>
+ 
+
+  
+<title>0mm</title>
+
+0mm
+
+
+
+<div class="p"><!----></div>
+ 
+<div class="p"><!----></div>
+
+<title>
+\Huge
+BinProlog 2006 11.x Professional Edition\
+Advanced BinProlog Programming and Extensions Guide
+\vskip 5cm
+</title>
+    
+<h1 align="center">
+<font size="+4">
+BinProlog 2006 11.x Professional Edition<br />
+Advanced BinProlog Programming and Extensions Guide
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+</font> </h1>
+
+<div class="p"><!----></div>
+
+<h3 align="center">
+<font size="+2">
+  <b>Paul Tarau</b><br /><br />
+<font size="+1">
+  BinNet Corp.<br />
+  WWW: http://www.binnetcorp.com
+<font size="+0">
+ </h3></font></font></font>
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /> <h2><a name="tth_sEc1">
+1</a>&nbsp;&nbsp;Introduction to BinProlog</h2>
+
+<div class="p"><!----></div>
+BinProlog has been developed by Paul Tarau (http://www.cs.unt.edu/&#126;&nbsp;tarau)
+and is based on his BinWAM abstract machine,
+a specialization of the WAM
+for the efficient execution of binary logic programs.
+
+<div class="p"><!----></div>
+BinProlog is a fast and compact Prolog compiler, based on the
+transformation  of Prolog to binary clauses. The compilation technique
+is similar to the Continuation Passing Style transformation used in
+some ML implementations. BinProlog  is also probably the first 
+Prolog system featuring dynamic recompilation of asserted predicates
+(a technique similar to the one used in some object oriented 
+languages like SELF 4.0),
+and a very efficient segment preserving copying heap garbage collector.
+
+<div class="p"><!----></div>
+Incorporating more than 15 years of research on compilation of Prolog and
+logic programming based Internet development,
+BinProlog is a robust and complete Prolog
+implementation featuring both C-emulated execution
+and generation of standalone applications
+by compilation to C.
+
+<div class="p"><!----></div>
+New features added in this edition of BinProlog include:
+
+<div class="p"><!----></div>
+
+<ul>
+<li> Mobile code, multi-threading for Windows
+<div class="p"><!----></div>
+</li>
+
+<li> Built-in, easy to use, high-level Internet programming tools (part of the BinNet Internet toolkit),
+including CGIs and sockets
+<div class="p"><!----></div>
+</li>
+
+<li> term-unification based high-level Linda server and client operations
+<div class="p"><!----></div>
+</li>
+
+<li> packaging of BinProlog as a DLL with examples of calls from C
+and Java
+<div class="p"><!----></div>
+</li>
+
+<li> new, robust LogiMOO multiuser cooperative work environment (`grupware') on top of BinProlog's new Linda operations
+(a BinNet Internet Server demo application)
+<div class="p"><!----></div>
+</li>
+</ul>.  
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc1.1">
+1.1</a>&nbsp;&nbsp;Contents of the BinProlog package</h3>
+
+<div class="p"><!----></div>
+BinProlog distributions contain a subset of the following directories.
+
+<div class="p"><!----></div>
+
+<pre>
++---doc
++---winbp&nbsp;-&nbsp;only&nbsp;available&nbsp;with&nbsp;Windows&nbsp;Visual&nbsp;C&nbsp;source&nbsp;version
++---src&nbsp;-&nbsp;only&nbsp;available&nbsp;with&nbsp;source&nbsp;license
++---progs
++---library
++---TCL
++---c_inter
++---pl2c
++---csocks
++---BP_DLL&nbsp;-&nbsp;only&nbsp;available&nbsp;with&nbsp;Windows&nbsp;versions
++---tests
++---bin
++---lib
+
+</pre>
+
+<div class="p"><!----></div>
+Prolog sources for the compiler and builtins
+are in directory <tt>src</tt> (only available with BinProlog source license).
+
+<div class="p"><!----></div>
+BinProlog binary libraries are in directory lib.
+
+<div class="p"><!----></div>
+The directory <tt>doc</tt> contains ASCII, Latex, PostScript and HTML
+versions of BinProlog documentation and a makefile to regenerate it.
+
+<div class="p"><!----></div>
+The directory <tt>pl2c</tt> contains
+various project (*.pro) files
+and a makefile for generating a standalone applications
+through compilation to C.
+
+<div class="p"><!----></div>
+The directory <tt>c_inter</tt> contains BinProlog's C-interface
+and examples of embedding of BinProlog in C applications.
+
+<div class="p"><!----></div>
+The directory <tt>TCL</tt> contains a bidirectional client/server based
+BinProlog to Tcl/Tk interface.
+
+<div class="p"><!----></div>
+The directory <tt>BP_DLL</tt> contains a Prolog dynamic library with an
+example of C application calling it (useful for
+owners of source license).
+
+<div class="p"><!----></div>
+The directory <tt>csocks</tt> contains standalone socket code for
+embedding in C programs serving as client or server components
+interoperating with BinProlog.
+
+<div class="p"><!----></div>
+In case you have BinProlog Full Source Edition, the directory src
+contains makefiles for gcc and VCC batch files to rebuild the
+sources after you make changes. Just go in directory src and type
+make all or makeall.bat.
+
+<div class="p"><!----></div>
+Please read the documentation files provided separately and visit
+our ONLINE HELP SYSTEM at BinNet Corp.'s web site, for last minute
+updates, demos and information about new features and components.
+
+<div class="p"><!----></div>
+On Cygnus' CYGWIN gcc, type
+
+<div class="p"><!----></div>
+  make all
+
+<div class="p"><!----></div>
+which also works on normal Unix systems not requiring unusual flags.
+
+<div class="p"><!----></div>
+On Linux PCs type
+
+<div class="p"><!----></div>
+  make linux
+
+<div class="p"><!----></div>
+On Solaris sparcs type
+
+<div class="p"><!----></div>
+  make solaris
+
+<div class="p"><!----></div>
+This will take care to generate the content of most of the directories.
+
+<div class="p"><!----></div>
+Finally, the Full Source Edition also contains VCC 6.0 project files
+in directory winbp, for working conveniently with the sources on a 
+Windows NT workstation.
+
+<div class="p"><!----></div>
+Alternatively, work on sources is now also supported for Cygnus gcc
+as well as Linux and othe Unix platforms, through a complete set of
+updated makefiles.
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc1.2">
+1.2</a>&nbsp;&nbsp;Binarization</h3>
+BinProlog is a small, program-transformation based compiler. Everything is
+converted to Continuation Passing Binary Clauses:
+
+<div class="p"><!----></div>
+ A rule like 
+
+<div class="p"><!----></div>
+
+<pre>
+&nbsp;&nbsp;a(X):-b(X),c(X,Y),d(Y).
+
+</pre>
+
+<div class="p"><!----></div>
+ becomes
+
+<div class="p"><!----></div>
+
+<pre>
+&nbsp;&nbsp;a(X,Cont):-b(X,c(X,Y,d(Y,Cont))).
+
+</pre>
+
+<div class="p"><!----></div>
+ A fact like
+
+<div class="p"><!----></div>
+
+<pre>
+&nbsp;&nbsp;a(13).
+
+</pre>
+
+<div class="p"><!----></div>
+ becomes
+
+<div class="p"><!----></div>
+
+<pre>
+&nbsp;&nbsp;a(13,Cont):-true(Cont).
+
+</pre>
+
+<div class="p"><!----></div>
+ A predicate using metavariables like
+
+<div class="p"><!----></div>
+
+<pre>
+&nbsp;&nbsp;p(X,Y):-X,Y.
+
+</pre>
+
+<div class="p"><!----></div>
+ becomes
+
+<div class="p"><!----></div>
+
+<pre>
+&nbsp;&nbsp;p(X,Y,Cont);-call(X,call(Y,Cont))).
+
+</pre>
+
+<div class="p"><!----></div>
+ with true/1 and call/2 efficient builtins in BinProlog.
+
+<div class="p"><!----></div>
+You can now try out in BinProlog  your own binary programs by using
+
+<pre>
+::-
+
+</pre>
+instead of
+
+<pre>
+:-&nbsp;
+
+</pre>
+so that the preprocessor will not touch
+them<a href="#tthFtNtAAB" name="tthFrefAAB"><sup>1</sup></a>. Otherwise, from the outside, BinProlog
+looks like any other Prolog.
+
+<div class="p"><!----></div>
+Binarization allows a significant simplification of the Prolog engine,
+which can be seen as specialization of the WAM for the execution of
+Continuation Passing Binary Programs.
+
+<div class="p"><!----></div>
+As a consequence, a very small emulator that often
+fits completely in the cache of the processor, a more efficient new
+data representation and some low-level optimizations make BinProlog
+probably the fastest freely available C-emulated Prolog at this time
+(136 million LIPS on a 2.4 GHz Pentium 4 Toshiba PC).
+
+<div class="p"><!----></div>
+This means 3-5 times faster than C-Prolog, 2-3 times faster than
+SWI-Prolog, 1.5-2 times faster than (X)SB-Prolog and close to C-emulated
+Sicstus Prolog.
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc1.3">
+1.3</a>&nbsp;&nbsp;Platforms supported</h3>
+
+<div class="p"><!----></div>
+
+<pre>
+Windows&nbsp;XP/2000/NT/95/98&nbsp;(Visual&nbsp;C&nbsp;version,&nbsp;multi-threaded)
+Windows&nbsp;XP/2000/NT/95/98&nbsp;(Cygnus&nbsp;gcc&nbsp;version,&nbsp;using&nbsp;free&nbsp;cygwin&nbsp;b20&nbsp;C&nbsp;compiler)
+Linux-x86&nbsp;gcc&nbsp;version
+Solaris-sparc&nbsp;gcc&nbsp;version
+Other&nbsp;32&nbsp;or&nbsp;64&nbsp;bit&nbsp;Unix&nbsp;platforms,&nbsp;upon&nbsp;customer&nbsp;request
+
+</pre>
+
+<div class="p"><!----></div>
+ As
+ the implementation makes no assumption about machine word size it is
+likely to compile even on very strange machines that have a C-compiler.
+BinProlog's integers are inherited from the native C-system.
+For example on DEC ALPHA or Itanium or G5 machines BinProlog has 64<font face="symbol">-</font
+>3=61 bit integers.
+On 32-bit systems it has 32<font face="symbol">-</font
+>2=30 bit integers.
+Floating point is double (64 bits) and it is guaranteed that computations
+in Prolog will always give the same results as in the underlying C.
+As a matter of fact BinProlog does not really know that it has floats
+but how this happens is rather long to explain here.
+
+<div class="p"><!----></div>
+ <h2><a name="tth_sEc2">
+2</a>&nbsp;&nbsp;Using BinProlog</h2>
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc2.1">
+2.1</a>&nbsp;&nbsp;Consulting/compiling files</h3>
+
+<div class="p"><!----></div>
+BinProlog features a number of different compilation and consulting
+methods as well as dynamic recompilation of consulted (interpreted) code
+for fast execution.
+
+<div class="p"><!----></div>
+ The shorthand
+
+<div class="p"><!----></div>
+
+<pre>
+&nbsp;&nbsp;&nbsp;?-&nbsp;[myFile].
+
+</pre>
+
+<div class="p"><!----></div>
+ defaults to the last used compilation method applied to
+<tt>myFile.pro</tt> <tt>myFile.pl</tt> or <tt>myFile</tt>. Among them,
+the default mcompile/1 compiling to memory and scompile/1 which
+uses temporary *.wam files to quickly load files which have not been
+changed. A good way to work with BinProlog is to make a "project" *.pro
+file includeing its components, as in:
+
+<div class="p"><!----></div>
+
+<pre>
+:-[myFile1].
+:-[myFile2].
+..............
+
+</pre>
+
+<div class="p"><!----></div>
+  The shorthand
+
+<div class="p"><!----></div>
+
+<pre>
+&nbsp;&nbsp;&nbsp;&nbsp;?-&nbsp;~my_file
+
+</pre>
+
+<div class="p"><!----></div>
+ defaults to the last used <em>interpretation</em> method applied to
+<tt>myFile.pro</tt> <tt>myFile.pl</tt> or <tt>myFile</tt>.
+For online information
+on their precise behavior, do:
+
+<div class="p"><!----></div>
+
+<pre>
+?-info(oconsult),info(consult),info(dconsult),info(sconsult).
+
+oconsult/1:&nbsp;
+&nbsp;&nbsp;reconsult&nbsp;variant,&nbsp;consults&nbsp;and&nbsp;overwrites&nbsp;old&nbsp;clauses
+
+consult/1:&nbsp;
+&nbsp;&nbsp;consults&nbsp;with&nbsp;possible&nbsp;duplication&nbsp;of&nbsp;clauses,&nbsp;allows&nbsp;
+&nbsp;&nbsp;later&nbsp;dynamic&nbsp;recompilation
+
+consult/2:&nbsp;
+&nbsp;&nbsp;consult(File,DB)&nbsp;consults&nbsp;File&nbsp;into&nbsp;DB
+
+dconsult/1:&nbsp;reconsult/1&nbsp;variant,&nbsp;cleans&nbsp;up&nbsp;data&nbsp;areas,&nbsp;
+&nbsp;&nbsp;consults,&nbsp;allowing&nbsp;dynamic&nbsp;recompilation
+
+sconsult/1:&nbsp;
+&nbsp;&nbsp;reconsult/1&nbsp;variant:&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;cleans&nbsp;up&nbsp;data&nbsp;areas,&nbsp;consults,&nbsp;makes&nbsp;all&nbsp;static
+
+</pre>
+
+<div class="p"><!----></div>
+To control dynamic recompilation you can use <tt>dynco/1</tt> with <tt>yes</tt>
+and <tt>no</tt> as arguments or <tt>db_ratio/1</tt> to precisely specify
+the ratio between calls and updateds to predicates which will
+trigger moving it from interpreted to compiled representation
+(default=10).
+
+<div class="p"><!----></div>
+BinProlog uses R.A. O'Keefe's public domain tokeniser and parser and
+write utilities (see the files read.pl, write.pl), DCGs and a
+transformer to binary programs. It compiles itself in a dozen of seconds on todays
+fast Pentium II/III machines.
+
+<div class="p"><!----></div>
+The system has very fast (heap-based) <tt>copy_term/2</tt>, <tt>
+findall/3</tt> and <tt>findall/4</tt> predicates, floating point, global
+logical variables.
+
+<div class="p"><!----></div>
+An original term compression technique [<a href="#TN94:PLILP" name="CITETN94:PLILP">31</a>] (joint work with
+Ulrich Neumerkel) reduces heap-consumption and adds some extra speed .
+Ulrich's iterative <tt>copy_term/2</tt> algorithm further accelerates
+BinProlog's `copy-once' heap-based <tt>findall/3</tt> and <tt>findall/4</tt>
+so that findall-intensive programs may run 2-3 times faster in
+BinProlog than in other (even native code) implementations.
+
+<div class="p"><!----></div>
+All data areas are now user configurable and garbage collected.
+
+<div class="p"><!----></div>
+For permanent information BinProlog has a, dynamically growing/shrinking
+garbage-collected data area, the <em>blackboard</em>, 
+where terms can be stored and accessed
+efficiently with a a 2-key hashing function using something like
+
+<div class="p"><!----></div>
+
+<pre>
+?-bb_def(likes,joe,[any(beer),good(vine),vegetarian(food)]).
+
+</pre>
+
+<div class="p"><!----></div>
+and updated with something like
+
+<div class="p"><!----></div>
+
+<pre>
+?-bb_set(likes,joe,nothing).
+
+</pre>
+
+<div class="p"><!----></div>
+or 
+
+<div class="p"><!----></div>
+
+<pre>
+?-bb_rm(likes,joe).
+
+</pre>
+
+<div class="p"><!----></div>
+To get its value:
+
+<div class="p"><!----></div>
+
+<pre>
+?-bb_val(likes,joe,What).
+
+</pre>
+
+<div class="p"><!----></div>
+BinProlog  has also backtrackable global variables,
+with 2-keyed names.
+
+<div class="p"><!----></div>
+Try:
+
+<div class="p"><!----></div>
+
+<pre>
+?-&nbsp;Person=joe,&nbsp;friend#Person:=:mary,&nbsp;bb.
+
+</pre>
+
+<div class="p"><!----></div>
+and then
+
+<pre>
+?-&nbsp;friend&nbsp;#&nbsp;joe:=:X.
+
+</pre>
+
+<div class="p"><!----></div>
+The blackboard can be used either directly or
+through an assert-retract style interface.
+
+<div class="p"><!----></div>
+The blackboard also gives constant-time sparse arrays and lemmas.
+For example try:
+
+<div class="p"><!----></div>
+
+<pre>
+?-&nbsp;for(I,1,99),bb_def(table,I,f(I,I)),fail.
+?-&nbsp;bb.
+
+</pre>
+
+<div class="p"><!----></div>
+BinProlog  has Edinburgh behavior and tries to be close
+to Sicstus and Quintus Prolog on the semantics of builtins
+without being too pedantic on what's not really important.
+Some ISO Prolog extensions (stream I/O) are now present
+in BinProlog (see Appendix for a list of builtins) together
+with their C-style equivalents.
+
+<div class="p"><!----></div>
+All the basic Prolog utilities are now supported (dynamic clauses, a
+metainterpreter with tracing facility, sort, setof, dynamic operators
+floating point operations and functions).
+BinProlog is one of the fastest Prolog systems around.
+Naive reverse makes more than 136 million LIPS on a
+Pentium 4 2.4GHz machine.
+Member/2 and for/3 are also C-based builtins for improved performance.
+
+<div class="p"><!----></div>
+Almost all the builtins are now expanded inline resulting in reduced
+heap consumption and improved  performance.
+
+<div class="p"><!----></div>
+A few programs (an automatic Tetris player, a knight-tour, an
+OR-parallel simulator, Fibonacci, Tak with lemmas, a small neural-net
+simulator backprop.pl) illustrate some of the new features. A few well-known
+benchmarks have been added to help compare BinProlog with other
+implementations.
+
+<div class="p"><!----></div>
+On 32 bit machines BinProlog has 30 bit integer arithmetic,
+<em>64 bit floating point operations</em> and functions like
+sin, cos, tan, log, exp, sqrt etc. (On 64 bit machines BinProlog supports 61 bit integer arithmetic).
+Arithmetic operations can be used either through the is/2 interface<a href="#tthFtNtAAC" name="tthFrefAAC"><sup>2</sup></a>:
+
+<div class="p"><!----></div>
+
+<pre>
+?-&nbsp;X&nbsp;is&nbsp;cos(3.14)+sin(0).
+
+</pre>
+
+<div class="p"><!----></div>
+or in relational form
+
+<div class="p"><!----></div>
+
+<pre>
+?-&nbsp;cos(1,X).
+
+</pre>
+
+<div class="p"><!----></div>
+Note that you should use something like <tt>Y=3+4, X is 1+expr(Y)</tt>
+instead of <tt>Y=3+4, X is 1+Y</tt> which will not work in compiled code.
+BinProlog's is/2 commutes with constructors and evaluates arbitrary
+functions (predicates returning results as their last argument), 
+therefore something like 
+
+<div class="p"><!----></div>
+
+<pre>
+&nbsp;&nbsp;X&nbsp;is&nbsp;[cos(3.14),2+3]++[10*10,5-2].
+
+</pre>
+
+<div class="p"><!----></div>
+will return 
+
+<pre>
+X=[-0.999999,5,100,3]
+
+</pre>
+
+<div class="p"><!----></div>
+Floating point has the same precision and semantics
+as the type <em>double</em> in C.
+Floating point operations are close in speed to emulated Sicstus.
+To try them out use the toy neural-network simulator <tt>backprop.pl</tt>.
+This program uses also constant time arrays and is therefore
+unusually fast compared to its execution in other Prologs like
+Quintus or Sicstus.
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc2.2">
+2.2</a>&nbsp;&nbsp;Using multiple logic engines</h3>
+
+<div class="p"><!----></div>
+A new (experimental) feature added starting with version 3.39 alows launching
+multiple Prolog engines having their own stack groups (heap, local stack
+and trail). An engine can be seen as an abstract data-type which
+produces a (possibly infinite) stream of solutions as needed.
+To create an engine use:
+
+<div class="p"><!----></div>
+
+<pre>
+&nbsp;&nbsp;%&nbsp;:-mode&nbsp;create_engine(+,+,+,-).
+&nbsp;&nbsp;create_engine(HeapSize,StackSize,TrailSize,Handle)
+
+</pre>
+
+<div class="p"><!----></div>
+The Handle is a unique integer denoting the engine for further
+processing.
+To `fuel' the engine with a goal and an expected answer variable
+do:
+
+<div class="p"><!----></div>
+
+<pre>
+&nbsp;&nbsp;%&nbsp;:-mode&nbsp;load_engine(+,+,+).
+&nbsp;&nbsp;load_engine(Handle,Goal,AnswerVariable)
+
+</pre>
+
+<div class="p"><!----></div>
+No processing except the initialization of the
+engine takes place and no answer
+is returned with this operation. Think about it as simply puting
+gas in your car.
+
+<div class="p"><!----></div>
+To get an answer from the engine do:
+
+<pre>
+&nbsp;&nbsp;%&nbsp;:-mode&nbsp;ask_engine(+,-).
+&nbsp;&nbsp;ask_engine(Handle,Answer)
+
+</pre>
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+When the stream of answers reaches its end, <tt>ask_engine/2</tt>
+will simply fail.
+
+<div class="p"><!----></div>
+If for some reasons you are not interested in the engine anymore,
+do
+
+<div class="p"><!----></div>
+
+<pre>
+&nbsp;&nbsp;%&nbsp;:-mode&nbsp;destroy_engine(+).
+&nbsp;&nbsp;destroy_engine(Handle)
+
+</pre>
+
+<div class="p"><!----></div>
+ to free the data areas alocated for the engine.
+If you want to submit another query before using the
+complet stream of answers, it is more efficient to reuse an
+existing engine with <tt>load_engine/3</tt>, instead of
+destroying it and creating a new one.
+
+<div class="p"><!----></div>
+Try out the following example (see more in files 
+<tt>library/engines, progs/engtest.pl</tt>):
+
+<div class="p"><!----></div>
+
+<pre>
+&nbsp;?-create_engine(256,64,64,E),
+&nbsp;&nbsp;&nbsp;load_engine(E,append(As,Bs,[A,B,B,A]),As+Bs),
+&nbsp;&nbsp;&nbsp;ask_engine(E,R1),write(R1),nl,
+&nbsp;&nbsp;&nbsp;ask_engine(E,R2),write(R2),nl,
+&nbsp;&nbsp;&nbsp;load_engine(E,member(X,[1,2,3]),X),
+&nbsp;&nbsp;&nbsp;ask_engine(E,R3),write(R3),nl,
+&nbsp;&nbsp;&nbsp;ask_engine(E,R4),write(R4),nl,
+&nbsp;&nbsp;&nbsp;destroy_engine(E).
+
+</pre>
+
+<div class="p"><!----></div>
+As engines will be assigned to real processors in future
+multi-threaded implementations this reusability of a
+given engine for execution of multiple goals is intended
+to allow precise control to the programmer over the
+resurces of a system. Preemptive multitasking
+handled either with thread libraries, when available and efficient,
+or by BinProlog itself otherwise, is planned in the near future.
+
+<div class="p"><!----></div>
+This `super-scalar' performance improvement
+can already be tested with the companion (Solaris 2.x only)
+Linda implementation in directory <tt>multi</tt> (see file
+<tt>multi/myprogs/mcolor.pl</tt>).
+
+<div class="p"><!----></div>
+If an engine fails due to the overflow of a given data area,
+it will warn you and fail. The warnings are disabled with
+quietness levels higher than 6 (command line switch <tt>q6</tt>).
+This allows use of engines to quietly recover from ressource
+errors.
+
+<div class="p"><!----></div>
+For owners of BinProlog's C-source licenses, C-functions
+with similar names and semantics as the predicates
+described in this section are available
+to allow embedding of multiple independent
+Prolog engines in their C-applications.
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc2.3">
+2.3</a>&nbsp;&nbsp;Findall/3 with multiple engines</h3>
+
+<div class="p"><!----></div>
+The file <tt>library/engines.pl</tt> contains some examples
+of how multiple engines can be used for implementing
+for instance all-solution predicates. Here is a re-entrant
+<tt>find_all/3</tt>.
+
+<div class="p"><!----></div>
+
+<pre>
+find_all(X,Goal,Xs):-
+&nbsp;&nbsp;default_engine_params(H,S,T),
+&nbsp;&nbsp;find_all(H,S,T,X,Goal,Xs).
+
+find_all(H,S,T,X,Goal,Xs):-
+&nbsp;&nbsp;create_engine(H,S,T,Handle),
+&nbsp;&nbsp;load_engine(Handle,Goal,X),
+&nbsp;&nbsp;collect_answers(Handle,Xs),
+&nbsp;&nbsp;destroy_engine(Handle).
+
+collect_answers(Handle,[X|Xs]):-ask_engine(Handle,A),!,
+&nbsp;&nbsp;copy_term(A,X),
+&nbsp;&nbsp;collect_answers(Handle,Xs).
+collect_answers(_,[]).
+
+default_engine_params(128,32,32).
+
+</pre>
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc2.4">
+2.4</a>&nbsp;&nbsp;Standalone applications through compilation to C</h3>
+
+<div class="p"><!----></div>
+BinProlog allows to separately compile user
+applications and just link them with the emulator library and the
+C-ified compiler (see directory <tt>pl2c</tt>).  This allows creation of
+a fully C-ified application in a few seconds. 
+
+<div class="p"><!----></div>
+Just type <tt>make PROJ=queens</tt> in directory <tt>pl2c</tt>.
+The standalone application <tt>queens</tt> is ready to be executed
+by typing <tt>queens</tt>.
+The generated C-code can be seen in files
+<tt>queens.h</tt> and <tt>queens.c</tt>.
+
+<div class="p"><!----></div>
+Moreover, on systems with dynamic linking like Solaris 2.x 
+true executables of size starting at about 6K can be created starting
+with version 3.30 (see directory <tt>dynpl2c</tt>).
+
+<div class="p"><!----></div>
+We refer to [<a href="#tdb95rev" name="CITEtdb95rev">28</a>]
+for the details of this translation process.
+
+<div class="p"><!----></div>
+If you define a predicate <tt>main/0</tt> then your
+executable will start directly from there instead
+of the usual interactive top-level. Calling it with a high
+quietness-level (i.e. command line switch <tt>q5</tt>) will
+suppress warnings and unwanted messages.
+
+<div class="p"><!----></div>
+ Normally BinProlog starts execution from main/1:
+
+<div class="p"><!----></div>
+
+<pre>
+&nbsp;&nbsp;&nbsp;main(X):-...
+
+</pre>
+
+<div class="p"><!----></div>
+ BinProlog's shell
+is nothing but such an application which
+starts with a toplevel loop i.e. something like:
+
+<div class="p"><!----></div>
+
+<pre>
+&nbsp;&nbsp;&nbsp;main(X):-toplevel(X).
+
+</pre>
+
+<div class="p"><!----></div>
+ You can override this behavior, even
+for the standard BinProlog system containing the predicate <tt>main/1</tt> (which
+starts the interactive top-level), by defining a predicate <tt>main/0</tt> in your
+program file. In this case, <tt>main/0</tt> becomes the new starting point.
+
+<div class="p"><!----></div>
+ You can bootstrap the compiler (if you own a source license), after modifying the 
+<tt>*.pl</tt> files by:
+
+<div class="p"><!----></div>
+
+<pre>
+&nbsp;&nbsp;?-&nbsp;boot.
+&nbsp;&nbsp;?-&nbsp;make.
+
+</pre>
+
+<div class="p"><!----></div>
+or, similarly for any other project having a top <tt>*.pro</tt> file:
+
+<div class="p"><!----></div>
+
+<pre>
+&nbsp;&nbsp;?-make(ProjectFile).
+&nbsp;&nbsp;?-make(ProjectFile,Module).
+
+</pre>
+
+<div class="p"><!----></div>
+or
+
+<div class="p"><!----></div>
+
+<pre>
+&nbsp;&nbsp;?-cmake(ProjectFile).
+&nbsp;&nbsp;?-cmake(ProjectFile,Module).
+
+</pre>
+
+<div class="p"><!----></div>
+if you intend to generate C-code and possibly hide non-public predicates
+inside a module.
+
+<div class="p"><!----></div>
+ This allows to integrate your preferences and extensions
+written in Prolog to the BinProlog kernel.
+
+<div class="p"><!----></div>
+<em> Make sure you keep a copy the original 
+<em>wam.bp</em> in a safe place, in case things go wrong when you type</em>
+
+<pre>
+&nbsp;&nbsp;?-boot.
+
+</pre>
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc2.5">
+2.5</a>&nbsp;&nbsp;Some limitations/features of BinProlog</h3>
+
+<div class="p"><!----></div>
+BinProlog is fairly close
+to the ISO standard both syntactically and semantically.
+
+<div class="p"><!----></div>
+We have passed Occam's razor on a few "features" of Prolog that are 
+obsolete in modern programming environments and on some others that are,
+in our opinion, bad software practice. These are usually unspecified by the ISO
+standard, therefore this does not affect our ISO compliance.
+
+<div class="p"><!----></div>
+Normally only one file at a time can be compiled in the interactive environment:
+
+<div class="p"><!----></div>
+
+<pre>
+&nbsp;&nbsp;?-[myfile].
+
+</pre>
+
+<div class="p"><!----></div>
+or
+
+<div class="p"><!----></div>
+
+<pre>
+&nbsp;&nbsp;?-&nbsp;compile(myfile).
+
+</pre>
+
+<div class="p"><!----></div>
+As BinProlog supports
+an include directive:
+
+<div class="p"><!----></div>
+
+<pre>
+:-[include1].
+:-[include2].
+....
+
+</pre>
+
+<div class="p"><!----></div>
+this is probaly the best way to work, in a stateless always clean
+workspace. Note that, following the ISO standard, multiple includes
+result in only one copy of the file being included.
+
+<div class="p"><!----></div>
+BinProlog  allows consulting multiple files subject to
+dynamic recompilation (use dconsult/1 to get something close
+to SICStus/Quintus loading convention) or use command line switch
+l4 to have this as default behavior for reconsult (with shorthand
+<tt><br />&nbsp;&nbsp;file</tt>).
+
+<div class="p"><!----></div>
+With dynamically recompiled consulted code, listing of sources
+and dynamic modification to any predicate is available while
+average performance stays close to statically compiled code 
+(usually within a factor of 2-3).
+
+<div class="p"><!----></div>
+This suggest to make a project <tt>*.pro</tt> file using a set of
+include directives each refereing to a <tt>*.pl</tt> file. 
+When compiled to a file (by using the 
+
+<pre>
+&nbsp;&nbsp;&nbsp;?-make(MyProject).
+
+</pre>
+command) a make-like memoing facility will avoid useless recompilation
+of the included <tt>(*.pl)</tt> files by creation of precompiled 
+<tt>(*.wam)</tt>
+files. For large projects this is the recommended technique.
+Creation of C-ified standalone files is also possible 
+(see the <tt>pl2c directory</tt>).
+
+<div class="p"><!----></div>
+ Programs that work well can be added to the BinProlog kernel.
+This avoids repeated recompilation of working code and predicates in the
+kernel are protected against name clashing.
+
+<div class="p"><!----></div>
+New programs can be loaded in the interactive environment.  When they
+work well, they migrate to the kernel. You can prepare a good Makefile
+to automate this job.  When everything is OK you can deliver it as a run-time-only application.
+Releases after 3.30 contain a basic make facility which avoids
+to recompile included <tt>*.pl</tt> files when a newer <tt>*.wam</tt> file exists.
+
+<div class="p"><!----></div>
+Programs are searched with suffixes <tt>"", ".pl", ".pro"</tt> in the directories
+<tt>., ../progs and ./myprogs</tt>.
+
+<div class="p"><!----></div>
+There's no limit on the number of files you can compile to disk:
+
+<pre>
+&nbsp;&nbsp;?-&nbsp;compile(wam,[file1,file2,...],'application.bp').
+
+</pre>
+
+<div class="p"><!----></div>
+Now BinProlog does implement consult/1, reconsult/1 and listing/0 for
+interpreted code but use.
+See the file extra.pl for the implementation.
+Similar to asserted but update-backtrackable, is BinProlog's <em>assumed code</em> (see the
+next sections) i.e. intuitionistic and linear implication.
+
+<div class="p"><!----></div>
+ Here are some other limitations/features:
+
+<div class="p"><!----></div>
+
+<ul>
+<li> Clauses of a predicate must be grouped, unless overriden by multifile/1 or discontiguous/1 declarations).
+<div class="p"><!----></div>
+</li>
+
+<li> ARITY is limited to 255.
+<div class="p"><!----></div>
+</li>
+</ul>
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc2.6">
+2.6</a>&nbsp;&nbsp;Garbage Collection</h3>
+
+<div class="p"><!----></div>
+A high performance copying heap garbage collector is implemented in versions 4.x and newer (thanks to
+Bart Demoen and Geert Engels). <tt>nogc/0</tt> switches it off,
+<tt>gc/0</tt> switches it on. Gc activation messages can be made
+silent using quietness levels like <tt>q3</tt> on the command-line,
+(now the default).
+Moreover, the blackboard, dynamic code space, the string space and the hashing table ARE garbage collected before loading a new program.
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc2.7">
+2.7</a>&nbsp;&nbsp;Other BinProlog goodies and new predicates</h3>
+
+<div class="p"><!----></div>
+A few BinProlog specific predicates are available:
+
+<div class="p"><!----></div>
+
+<pre>
+&nbsp;&nbsp;restart/0&nbsp;-&nbsp;cleans&nbsp;every&nbsp;data&nbsp;area
+&nbsp;&nbsp;cwrite/1&nbsp;&nbsp;-&nbsp;fast&nbsp;but&nbsp;restricted&nbsp;write
+&nbsp;&nbsp;symcat/3&nbsp;&nbsp;-&nbsp;returns&nbsp;a&nbsp;new&nbsp;symbol&nbsp;made&nbsp;from&nbsp;its&nbsp;arguments
+&nbsp;&nbsp;gensym/2&nbsp;&nbsp;-&nbsp;forms&nbsp;a&nbsp;new&nbsp;name&nbsp;of&nbsp;the&nbsp;form&nbsp;name_counter
+&nbsp;&nbsp;sread/2&nbsp;&nbsp;&nbsp;-&nbsp;reads&nbsp;from&nbsp;a&nbsp;name&nbsp;a&nbsp;(ground)&nbsp;term
+&nbsp;&nbsp;swrite/2&nbsp;&nbsp;-&nbsp;writes&nbsp;a&nbsp;term&nbsp;to&nbsp;a&nbsp;name
+&nbsp;&nbsp;termcat/3&nbsp;-&nbsp;adds&nbsp;its&nbsp;second&nbsp;argument&nbsp;as&nbsp;last&nbsp;argument&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;of&nbsp;its&nbsp;first&nbsp;argument&nbsp;and&nbsp;returns&nbsp;the&nbsp;new&nbsp;term
+&nbsp;&nbsp;term_chars/2-&nbsp;&nbsp;converts&nbsp;between&nbsp;a&nbsp;ground&nbsp;term&nbsp;and&nbsp;its
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string&nbsp;representation
+&nbsp;&nbsp;not/1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;is&nbsp;a&nbsp;form&nbsp;of&nbsp;sound&nbsp;negation
+&nbsp;&nbsp;for/3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;as&nbsp;for&nbsp;instance&nbsp;in
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;?-for(I,1,5),write(I),nl,fail
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iterates&nbsp;over&nbsp;a&nbsp;failure&nbsp;driven&nbsp;loop.
+
+</pre>
+
+<div class="p"><!----></div>
+It is a good idea to take a look at BinProlog's <tt>*.pl</tt> for
+other builtin-or-library predicates before implementing them yourself.
+The file <tt>write.pl</tt> contain various output predicates like
+
+<ul>
+<li> write/1
+<div class="p"><!----></div>
+</li>
+
+<li> writeq/1
+<div class="p"><!----></div>
+</li>
+
+<li> portray_clause/1
+<div class="p"><!----></div>
+</li>
+
+<li> print/1
+<div class="p"><!----></div>
+</li>
+
+<li> display/1
+<div class="p"><!----></div>
+</li>
+
+<li> ttyprint/1
+<div class="p"><!----></div>
+</li>
+
+<li> ttynl/1
+<div class="p"><!----></div>
+</li>
+</ul>
+
+<div class="p"><!----></div>
+ You can extend BinProlog by adding new predicates to the file extra.pl
+and then use the predicate <tt>boot/0</tt> defined in the file co.pl to
+generate a customized <tt>wam.bp</tt> file which integrates your changes
+when passed as a command line parameter to the <tt>bp</tt> executable.
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc2.8">
+2.8</a>&nbsp;&nbsp;Functional style higher-order programming</h3>
+
+<div class="p"><!----></div>
+BinProlog  integrates a number of useful higher-order
+predicates working on deterministic, functional style predicates.
+If your program is mostly functional the best thing is of course
+to forget about logic programming and write it in Haskell.
+However, with efficient implementatations of
+map/3, foldl/4, foldr/4 and the call/N as builtins BinProlog
+reduces the amount of extra argument book-keeping programmers
+face. Sum/2 and prod/2, computing the sum and the product of
+a list (now also builtins)
+are good examples of this more compact
+and fairly efficient higher-order programming style.
+
+<div class="p"><!----></div>
+
+<pre>
+sum(Xs,R):-foldl(+,0,Xs,R).
+
+prod(Xs,R):-foldl(*,1,Xs,R).
+
+</pre>
+
+<div class="p"><!----></div>
+Note that all functions (deterministic predicates returning result in their last argment)
+can be used from is/2 which also commutes with constructors, i.e. something like
+
+<div class="p"><!----></div>
+
+<pre>
+&nbsp;&nbsp;&nbsp;X&nbsp;is&nbsp;[5+sum([1,2,3]),sum([10,20])].
+
+</pre>
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc2.9">
+2.9</a>&nbsp;&nbsp;Efficient findall based meta-programming</h3>
+
+<div class="p"><!----></div>
+BinProlog's <tt>findall/3</tt> is so efficient that you can
+afford (with some care) to use it instead of explicit
+(and more painful) first-order programs as in:
+
+<div class="p"><!----></div>
+
+<pre>
+%&nbsp;maplist&nbsp;with&nbsp;findall
+maplist(Closure,Is,Os):-
+&nbsp;&nbsp;Closure=..L1,
+&nbsp;&nbsp;det_append(L1,[I,O],L2),
+&nbsp;&nbsp;P=..L2,
+&nbsp;&nbsp;findall(O,map1(P,I,Is),Os).
+
+map1(P,I,Is):-member(I,Is),P.
+
+</pre>
+
+<div class="p"><!----></div>
+This can be used as follows:
+
+<div class="p"><!----></div>
+
+<pre>
+?-&nbsp;maplist(+(1),[10,20,30],T).
+=&#62;&nbsp;T=[11,21,31]
+
+</pre>
+
+<div class="p"><!----></div>
+Note that constructing <tt>Closure</tt> only once (although this 
+may not be in any Prolog text-book!) is more efficient
+than doing it at each step.
+
+<div class="p"><!----></div>
+This <em>generator</em> based programming style puts nondeterminism
+to work as a relatively clean and encapsulated form of
+iteration.
+
+<div class="p"><!----></div>
+The predicate <tt>gc_call(Goal)</tt> defined in the file <tt>lib.pl</tt>
+executes Goal in minimal space.  It is explained in the Craft of Prolog
+by R.A. O'Keefe, MIT Press.
+Do not hesitate to use it. BinProlog offers a very fast, heap-oriented
+findall, so you can afford to use <tt>gc_call</tt>. In good hands, it is
+probably faster than using assert/retract and preventing
+space consumption is always a good idea despite the fact
+that BinProlog 6.25's efficient heap garbage collector will
+get your memory back anyway.
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc2.10">
+2.10</a>&nbsp;&nbsp;Builtins</h3>
+
+<div class="p"><!----></div>
+BinProlog has large number of builtins with semantics
+(intended to be) close to SICStus and QUINTUS Prolog.
+
+<div class="p"><!----></div>
+We refer to the automatically generated info file in Appendix
+for short definitions and examples of uses of BinProlog's
+documented builtins.
+
+<div class="p"><!----></div>
+ <h2><a name="tth_sEc3">
+3</a>&nbsp;&nbsp;Macro processing</h2>
+
+<div class="p"><!----></div>
+Two forms of macro processing facilities are available in BinProlog.
+One is <tt>term_expansion/2</tt> allowing to define toplevel
+operators (like the DCG arrow) to be expanded to whatever the
+user wants to. Starting with version 5.82, <tt>term_expansion/2</tt>
+facts can be either assumed or asserted.
+Another is compile-time execution <tt>##/1</tt> which
+executes arbitrary goals once while compiling it. For instance, it
+
+<div class="p"><!----></div>
+
+<pre>
+pi2(Y):-&nbsp;##((X&nbsp;is&nbsp;2*asin(1),Y&nbsp;is&nbsp;X*X)).
+
+</pre>
+
+<div class="p"><!----></div>
+arithmetic operations
+will be executed once while loading the file, instead of
+being executed each time <tt>pi2</tt> is called. 
+
+<div class="p"><!----></div>
+Note that both operations should only call predicates
+which are <em>already</em> defined,
+before the compilation starts.
+
+<div class="p"><!----></div>
+ <h2><a name="tth_sEc4">
+4</a>&nbsp;&nbsp;Inspecting some BinProlog internals</h2>
+
+<div class="p"><!----></div>
+ You can generate a kind of intermediate WAM-assembler by
+
+<div class="p"><!----></div>
+
+<pre>
+&nbsp;&nbsp;?-&nbsp;compile(asm,[file1,file2,...],'huge_file.asm').
+
+</pre>
+
+<div class="p"><!----></div>
+ A convenient way to see interactively the sequence of program
+transformations BinProlog is based on is:
+
+<div class="p"><!----></div>
+
+<pre>
+?-&nbsp;asm.
+a--&#62;b,c,d.
+^D
+
+DEFINITE:
+a(A,B)&nbsp;:-&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b(A,C),
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c(C,D),
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;d(D,B).
+
+BINARY:
+a(A,B,C)&nbsp;:-&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b(A,D,c(D,E,d(E,B,C))).
+
+WAM-ASSEMBLER:
+clause_?&nbsp;a,3
+firstarg_?&nbsp;_/0,6
+put_structure&nbsp;d/3,var(4-4/11,1/2)
+write_variable&nbsp;put,var(5-5/10,1/2)
+write_value&nbsp;put,var(2-2/6,2/2)
+write_value&nbsp;put,var(3-3/7,2/2)
+put_structure&nbsp;c/3,var(3-8/14,1/2)
+write_variable&nbsp;put,var(2-9/13,1/2)
+write_value&nbsp;put,var(5-5/10,2/2)
+write_value&nbsp;put,var(4-4/11,2/2)
+execute_?&nbsp;b,3
+
+</pre>
+
+<div class="p"><!----></div>
+ <h2><a name="tth_sEc5">
+5</a>&nbsp;&nbsp;Compiling to C</h2>
+
+<div class="p"><!----></div>
+Partial C-ification [<a href="#tdb95" name="CITEtdb95">30</a>] is a translation framework which
+`does less instead of doing more' to improve performance of emulators
+close to native code systems.
+
+<div class="p"><!----></div>
+Starting from an emulator for a language L written in C, we translate
+to C a
+subset of its instruction set (usually frequent and fine-grained
+instructions which are executed in contiguous sequences)
+and then simply use a compiler for C
+to generate a unique executable program.
+
+<div class="p"><!----></div>
+A translation threshold allows the programmer
+to empirically fine-tune the C-ification
+process by choosing the length of the
+emulator instruction sequence, starting from which,
+translation is enabled. The process uses
+a reasonable default value and can be easily controlled
+by the programmer
+
+<div class="p"><!----></div>
+
+<pre>
+:-set_c_threshold(Min,Max).
+
+</pre>
+
+<div class="p"><!----></div>
+will ensure that only emulated sequences of length between
+Min and Max get translated to C. This allows to handle gracefully
+the size/speed tradeoff. 
+
+<div class="p"><!----></div>
+Communication between the run-time system (still
+under the control of the emulator) and the C-ified
+chunks is handled as follows.
+
+<div class="p"><!----></div>
+The emulated code representation of a given
+program (in particular the compiler itself)
+is mapped to a C
+data structure which allows exchange of symbol table
+information at link time.
+
+<div class="p"><!----></div>
+To be able to call a C-routine from the emulator we have to
+know its address. Unfortunately, the linker is the only one that knows
+the eventual address of a C-routine.
+A simple and fully portable technique to plug the address of a 
+C-routine into the byte code is to C-ify the byte-code 
+of the emulator into a huge C array of records, containing the
+symbolic address of the C-chunks. After compilation, and linking
+with the emulator, the 
+linker will automatically resolve all the missing addresses and 
+generate warnings for the missing C-routines.
+
+<div class="p"><!----></div>
+This is compiled together with the C-code of the emulator
+to a stand alone executable with
+performance in the range between
+pure emulators and native code implementations.
+
+<div class="p"><!----></div>
+The method ensures a strong operational equivalence between
+emulated and translated code which share exactly the same
+observables in the run-time system.
+
+<div class="p"><!----></div>
+An important characteristic is easy debugging of the resulting
+compiler, coming from the full sharing
+of the run-time system between emulated and compiled code
+and the following property we call
+<em>instruction-level compositionality</em>:
+if every translated instruction has the same observable effect on
+a (small) subset of
+the program state (registers and a few data areas)
+in emulated and translated mode, then 
+arbitrary sequences of emulated and translated
+instructions are operationally equivalent.
+
+<div class="p"><!----></div>
+Currently C-ification covers term creation on the heap
+and  frequently used
+inline operations which can be processed
+in Binary Prolog before calling the `real goal' in the body.
+
+<div class="p"><!----></div>
+Chunks containing small built-ins that do not 
+require a procedure call will
+generate `leaf-routines' in C (which are called
+efficiently and do not use stack space).
+
+<div class="p"><!----></div>
+On the other hand large built-ins implemented as macros in the emulator
+would make code size explode.
+Implementing them as functions  to be called
+from the C-chunk would
+require code duplication and it would destroy
+the leaf-routine discipline
+which is particularly rewarding on Sparcs.
+We have chosen
+to implement them through an
+abstraction with a coroutining flavor: <em>anti-calls</em>.
+Note that calling a built-in from a C-chunk is operationally
+equivalent to the following sequence:
+
+<div class="p"><!----></div>
+
+<ul>
+<li> return from the chunk,
+<div class="p"><!----></div>
+</li>
+
+<li> execute the built-in in the emulator (usually a macro),
+<div class="p"><!----></div>
+</li>
+
+<li> call a new leaf-routine to resume the work left from the
+      previous leaf-routine.
+<div class="p"><!----></div>
+</li>
+</ul>
+
+<div class="p"><!----></div>
+Overall, anti-calls can be seen as form of coroutining
+(jumping back and forth) between native
+and emulated code.
+Anti-calls can be implemented with the direct-jump technique
+even more efficiently,
+although for portability
+reasons we have chosen a conventional return/call sequence,
+which is still fairly efficient
+as a return/call costs the same as a call/return.
+Moreover, this allows the chunks to remain leaf-routines,
+while delegating
+overflow and signal handling
+to the emulator. Note that
+excessively small chunks created as result
+of anti-calls are removed by an optimizing step
+of the compiler with the net result
+that such code will be completely left to
+the emulator. This is of course
+<em>more compact</em> and provable to be <em>not
+slower</em> than its fully C-expanded alternative.
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc5.1">
+5.1</a>&nbsp;&nbsp;Performance of C-ified code</h3>
+
+<div class="p"><!----></div>
+The speed-up clearly depends on the amount of C-ification
+and on the statistical importance of C-ified code in
+the execution profile of a program (see figure <a href="#bm">1</a>).
+We have noticed between 10-20% speed increase for
+programs which take advantage of C-ified code moderately,
+As these programs spend only 20-30% of their time
+in C-ified sequences performances are expected
+to scale correspondingly when
+we extend this approach to the full BinProlog 
+instruction set and implement low-level
+gcc direct jumps instead
+of function calls and anti-calls.
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+<a name="tth_fIg1">
+</a> 
+<center>
+<table border="1"><tr><td></td></tr>
+<tr><td colspan="1" align="center"><em>Bmark/Compiler</em> </td><td colspan="1" align="center">emBP </td><td colspan="1" align="center">C-BP </td><td colspan="1" align="center">emSP </td><td colspan="1" align="center">natSP </td></tr><tr><td></td></tr>
+<tr><td>NREV (KLIPS) </td><td align="right">445 </td><td align="right">455 </td><td align="right">412 </td><td align="right">882   </td></tr>
+<tr><td>CAL (ms) </td><td align="right">490 </td><td align="right">310  </td><td align="right">590  </td><td align="right">310   </td></tr>
+<tr><td>FIBO (ms) </td><td align="right">1730</td><td align="right">1320 </td><td align="right">1400 </td><td align="right">800  </td></tr>
+<tr><td>TAK (ms) </td><td align="right">610 </td><td align="right">470 </td><td align="right">400 </td><td align="right">180  </td></tr>
+<tr><td>SEMI3 (ms) </td><td align="right">1810 </td><td align="right">1410 </td><td align="right">1810 </td><td align="right">1310  </td></tr>
+<tr><td>QUEENS (ms) </td><td align="right">3170 </td><td align="right">2220 </td><td align="right">2840 </td><td align="right">1070  </td></tr><tr><td></td></tr></table>
+ <br />
+
+<div class="p"><!----></div>
+<br /><center>Figure 1: Performance of emulated (emBP) and partially
+C-ified BinProlog 3.22 (C-BP)
+compared to emulated (emSP) and native (natSP) SICStus 2.1_9 
+on a Sparc 10/20).
+ <a name="bm">
+</a></center>
+</center>
+
+<div class="p"><!----></div>
+Code-sizes for C-ified BinProlog executables (dynamically linked
+on Sparcs with Solaris) are usually even
+smaller than `compact' Sicstus code
+which uses classical instruction
+folding (a few hundreds of opcodes) to speed-up the emulator.
+
+<div class="p"><!----></div>
+The following table shows some code-size/execution-speed 
+variations with respect to the threshold for
+the semi-ring (<tt>SEMI3</tt>) benchmark. Clearly, excessively
+small chunks can influence adversely not only on
+size but also on speed. Something like threshold=20,
+looks like a practical optimum
+for this program.
+
+<div class="p"><!----></div>
+<font size="-1">
+<pre>
+threshold:&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;4&nbsp;&nbsp;&nbsp;&nbsp;8&nbsp;&nbsp;&nbsp;&nbsp;20&nbsp;&nbsp;30&nbsp;&nbsp;1000&nbsp;emBP&nbsp;emSP&nbsp;natSP
+size:&nbsp;&nbsp;(K)&nbsp;&nbsp;34.5&nbsp;32.2&nbsp;29.9&nbsp;16.3&nbsp;13.1&nbsp;12.9&nbsp;&nbsp;4.8&nbsp;22.0&nbsp;31.9
+speed:&nbsp;(ms)&nbsp;1480&nbsp;1430&nbsp;1440&nbsp;1450&nbsp;1810&nbsp;1790&nbsp;1800&nbsp;1810&nbsp;1310
+
+</pre>
+</font>
+
+<div class="p"><!----></div>
+ <h2><a name="tth_sEc6">
+6</a>&nbsp;&nbsp;The Blackboard</h2>
+
+<div class="p"><!----></div>
+A new interface has been added to separate backtrackable
+and surviving uses of blackboard objects so this primitive
+and the def/3, set/3, rm/2 of previous versions although still
+available should be replaced either with:
+
+<div class="p"><!----></div>
+
+<ul>
+<li> global logical variables
+<div class="p"><!----></div>
+</li>
+
+<li> garbage-collectible permanent objects.
+<div class="p"><!----></div>
+</li>
+</ul>
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc6.1">
+6.1</a>&nbsp;&nbsp;Global logical variables</h3>
+
+<div class="p"><!----></div>
+
+<pre>
+&nbsp;&nbsp;&nbsp;Syntax:&nbsp;A#B:=:X,&nbsp;or&nbsp;lval(A,B,X).
+
+</pre>
+
+<div class="p"><!----></div>
+ where X is any term on the heap. 
+It has simply a global name <tt>A#B</tt> i.e. an
+entry in the hashing table with keys A and B.  The address in the table
+(C-pointers are the same as logical variables in BinProlog) is trailed
+such that on backtracking it will be unbound (i.e. point to itself).
+Unification with a logical global variable is possible at any point in the program which knows the `name' A#B.
+
+<div class="p"><!----></div>
+Although a global logical variable cannot be changed it can be
+further instantiated as it happens to ordinary Prolog terms.
+Backtracking ensures they vanish so that no unsafe reference can be
+made to them.
+
+<div class="p"><!----></div>
+The program lq8.pl is an efficient 8-queens program using
+global logical variables to simulate the chess-board.
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc6.2">
+6.2</a>&nbsp;&nbsp;Garbage-collectible permanent objects.</h3>
+
+<div class="p"><!----></div>
+On the other hand, if <tt>bb_def/3</tt> or <tt>bb_set/3</tt> is used to name objects on the
+blackboard, they &#223;urvive" backtracking and can afterwards be retrieved as
+logical variables using <tt>bb_val/3</tt>.
+
+<div class="p"><!----></div>
+
+<pre>
+bb_def/3&nbsp;&nbsp;&nbsp;&nbsp;(i,i,i)&nbsp;defines&nbsp;a&nbsp;value
+bb_set/3&nbsp;&nbsp;&nbsp;&nbsp;(i,i,i)&nbsp;updates&nbsp;a&nbsp;value
+bb_rm/2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(i,i)&nbsp;removes&nbsp;a&nbsp;value
+bb_val/3&nbsp;&nbsp;&nbsp;&nbsp;(i,i,o)&nbsp;retrieves&nbsp;the&nbsp;value
+
+</pre>
+
+<div class="p"><!----></div>
+They are quite close to the <tt>recorda/recordz</tt> family of other
+Prologs although they offer better 2-key indexing, are simpler and can
+be used to do much more things efficiently.
+
+<div class="p"><!----></div>
+You can look to the program <tt>progs/knight.pl</tt> on how to use them to
+implement in a convenient and efficient way programs with backtrackable
+global arrays.
+
+<div class="p"><!----></div>
+They can be used to save information that survives backtracking in a
+way similar to other Prolog's <tt>assert</tt> and <tt>retract</tt> and are safe
+with respect to garbage collection of the blackboard.
+
+<div class="p"><!----></div>
+The predicate <tt>bb_list/1</tt> gives the content of the blackboard as a heap object (list), while <tt>bb/0</tt> simply prints it out.
+
+<div class="p"><!----></div>
+These predicates offer generally faster and more flexible management of
+dynamic state information than other Prolog's dynamic databases.
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc6.3">
+6.3</a>&nbsp;&nbsp;Assert and retract</h3>
+
+<div class="p"><!----></div>
+For compatibility reasons
+BinProlog has them, implemented on top of the more efficient
+blackboard manipulation builtins.
+With BinProlog  and dynamic recompilation however,
+some applications might be faster overall by using
+assert and retract, depending on the update/call ratio of
+dynamic predicates (you can use command line switch -r to
+change this). Try both compiling and reconsulting 
+the benchmark progs/assertbm.pl
+to have an estimate of the speed of these operations on your
+machine.
+
+<div class="p"><!----></div>
+This is an approximation of other Prologs assert and retract predicates.
+It tries to be close to Sicstus and Quintus with their semantics.
+
+<div class="p"><!----></div>
+If you want maximal efficiency for highly volatile data, use directly 
+<tt>bb_def/3, bb_set/3, bb_val/3, bb_rm</tt>
+They give you access to a very fast hashing table 
+
+<div class="p"><!----></div>
+
+<pre>
+&nbsp;&nbsp;&nbsp;&lt;key1,key2&#62;&nbsp;--&#62;&nbsp;value,
+
+</pre>
+
+<div class="p"><!----></div>
+the same that BinProlog uses internally for indexing by predicate and
+first argument.  They are close to other Prolog's `record' family,
+except that they do even less.
+
+<div class="p"><!----></div>
+When using dynamic predicates it is a good idea
+to declare them with <tt>dynamic/1</tt>
+although <tt>asserts</tt> will now be accepted even without such a
+declaration. To define dynamic code in a file you compile,
+dynamic declarations are mandatory.
+
+<div class="p"><!----></div>
+To activate an asserted predicate it is a good idea
+to alway call it with
+
+<div class="p"><!----></div>
+
+<pre>
+	?-metacall(Goal).
+
+</pre>
+
+<div class="p"><!----></div>
+ instead of 
+
+<div class="p"><!----></div>
+
+<pre>
+	?-&nbsp;Goal.
+
+</pre>
+
+<div class="p"><!----></div>
+However, this is not a strong requirement anymore,
+as an important number of users were unhappy with this restriction.
+
+<div class="p"><!----></div>
+The dynamic predicates are:
+
+<div class="p"><!----></div>
+
+<pre>
+assert/1
+asserta/1
+assertz/1
+
+retract/1
+clause/2
+metacall/1
+abolish/2
+
+</pre>
+
+<div class="p"><!----></div>
+You can easily add others or improve them by looking to the sources
+in the file <tt>extra.pl</tt>.
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc6.4">
+6.4</a>&nbsp;&nbsp;Multiple dynamic databases</h3>
+
+<div class="p"><!----></div>
+BinProlog  features multiple dynamic databases. Only one is
+active at a time and you can switch among them with <tt>set_db/1</tt>
+or even move one over another with <tt>db_move/2</tt>.
+
+<div class="p"><!----></div>
+Use info/1 to obtain more information on one of the following:
+
+<div class="p"><!----></div>
+
+<pre>
+current_db/1-built_in
+set_db/1-built_in
+db_abolish/2-built_in
+db_assert/2-built_in
+db_asserta/2-built_in
+db_asserted/2-built_in
+db_assertz/2-built_in
+db_clause/3-built_in
+db_clean/0-built_in
+db_clean/1-built_in
+db_head/2-built_in
+db_move/2-built_in
+db_ratio/1-built_in
+db_retract/2-built_in
+db_retract1/2-built_in
+db_retractall/2-built_in
+
+</pre>
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc6.5">
+6.5</a>&nbsp;&nbsp;The blackboard as an alternative to assert and retract</h3>
+
+<div class="p"><!----></div>
+Designed in the early stages of Prolog, assert and retract have been
+overloaded with different and often conflicting requirements. They try
+to be both the way to implement permanent data structures for global
+state information, self-modifying code
+and tools for Prolog program management. This created
+not only well-known semantical but also expressiveness and efficiency
+problems.
+
+<div class="p"><!----></div>
+This unnecessary overloading is probably due to some of their intended uses in interpreted Prologs like implementing the <tt>consult/1</tt> and 
+<tt>reconsult/1</tt> code-management predicates that can be replaced today by general purpose makefiles. As a consequence, their ability to express sophisticated data structures is very limited due mostly to unwanted copying operations (from heap to dynamic code area and back) and due to their non-backtrackable behavior.
+
+<div class="p"><!----></div>
+For example, to ensure indefinite number of uses of an asserted clause most Prologs either compile it on the fly or do some form of copying (usually twice: when asserting and when calling or retracting). This is not only a waste of resources but also forbids use of asserted clauses for dynamically evolving global objects containing logical variables, one of the most interesting and efficient data structure tricks in Prolog. Worst, variables representing global data structures have to be passed around as extra arguments, just to bore programmers and make them dream about 
+inheritance and objects oriented languages.
+This also also creates error prone maintenance problems. Just think about adding a new seventh argument to a 10-parameter Prolog predicate having 10 clauses and being called 10 times.
+
+<div class="p"><!----></div>
+Those are the main
+reasons for the re-design of these operations using
+BinProlog's blackboard.
+
+<div class="p"><!----></div>
+Efficient access to objects on the blackboard or part of them is based on an efficient 2-key hashing table, internal to BinProlog's run-time system.
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc6.6">
+6.6</a>&nbsp;&nbsp;Copying primitives</h3>
+<tt>Copy_term/2</tt> is Prolog's usual primitive extended to copy objects from the heap and also from blackboard to the current top of the heap. We refer to
+[<a href="#Tarau92:ECO" name="CITETarau92:ECO">13</a>] for the implementation and memory management aspects of
+these primitives.
+
+<div class="p"><!----></div>
+<tt>Save_term/2</tt> copies an object possibly distributed over the heap  and the blackboard to a new blackboard object. It also takes care not to copy parts of the object already on the blackboard.
+
+<div class="p"><!----></div>
+Remark that having known modes and argument types helps in the case of
+partial evaluation or type inference systems.
+Separating Prolog's asserts two main functions (naming+copying) in
+lower level operations allows program transformers to go <em>inside</em>
+more complex blackboard operations and possibly use the typing and mode information that comes from def/3, set/3 and val/3 to infer it for other predicates.
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc6.7">
+6.7</a>&nbsp;&nbsp;An useful Prolog extension: bestof/3</h3>
+
+<div class="p"><!----></div>
+<tt>Bestof/3</tt> is missing in other Prolog implementations we
+know of.  BinProlog's <tt>bestof/3</tt> works like <tt>findall/3</tt>, but
+instead of accumulating alternative solutions, it selects successively
+the <em>best</em> one with respect to an arbitrary <em>total order</em>
+relation. If the test succeeds the new answer replaces the previous
+one. At the end, either the query has no answers, case in which <tt>
+bestof</tt> fails, or an answer is found such that it is better than every
+other answer with respect to the total order. The proposed syntax is
+<em>Note that use bestof requires a <tt>:-[library(high)]</tt> include command.</em>
+
+<div class="p"><!----></div>
+
+<pre>
+&nbsp;&nbsp;&nbsp;?-bestof(X,TotalOrder,Goal)
+
+</pre>
+
+<div class="p"><!----></div>
+At the end, X is instantiated to the best answer. For example, the maximum of a list of integers can be defined simply as:
+
+<div class="p"><!----></div>
+
+<pre>
+&nbsp;&nbsp;&nbsp;&nbsp;max(Xs,X):-bestof(X,&#62;,member(X,Xs)).
+
+</pre>
+
+<div class="p"><!----></div>
+The following is an efficient implementation
+implementation using the blackboard.
+
+<div class="p"><!----></div>
+
+<pre>
+%&nbsp;true&nbsp;if&nbsp;X&nbsp;is&nbsp;an&nbsp;answer&nbsp;of&nbsp;Generator&nbsp;such&nbsp;that
+%&nbsp;X&nbsp;Rel&nbsp;Y&nbsp;for&nbsp;every&nbsp;other&nbsp;answer&nbsp;Y&nbsp;of&nbsp;Generator
+bestof(X,Closure,Generator):-
+&nbsp;&nbsp;copy_term(X,Y),
+&nbsp;&nbsp;Closure=..L1,
+&nbsp;&nbsp;det_append(L1,[X,Y],L2),
+&nbsp;&nbsp;Test=..L2,
+&nbsp;&nbsp;bestof0(X,Y,Generator,Test).
+
+bestof0(X,Y,Generator,Test):-
+&nbsp;&nbsp;inc_level(bestof,Level),
+&nbsp;&nbsp;Generator,
+&nbsp;&nbsp;update_bestof(Level,X,Y,Test),
+&nbsp;&nbsp;fail.
+bestof0(X,_,_,_):-
+&nbsp;&nbsp;dec_level(bestof,Level),
+&nbsp;&nbsp;val(bestof,Level,X),
+&nbsp;&nbsp;rm(bestof,Level).
+
+%&nbsp;uses&nbsp;Rel&nbsp;to&nbsp;compare&nbsp;New&nbsp;with&nbsp;so&nbsp;far&nbsp;the&nbsp;best&nbsp;answer
+update_bestof(Level,New,Old,Test):-
+&nbsp;&nbsp;val(bestof,Level,Old),!,
+&nbsp;&nbsp;Test,
+&nbsp;&nbsp;bb_set(bestof,Level,New).
+update_bestof(Level,New,_,_):-
+&nbsp;&nbsp;bb_let(bestof,Level,New).
+
+%&nbsp;ensure&nbsp;correct&nbsp;implementation&nbsp;of&nbsp;embedded&nbsp;calls&nbsp;to&nbsp;bestof/3
+inc_level(Obj,X1):-val(Obj,Obj,X),!,X1&nbsp;is&nbsp;X+1,bb_set(Obj,Obj,X1).
+inc_level(Obj,1):-bb_def(Obj,Obj,1).
+
+dec_level(Obj,X):-val(Obj,Obj,X),X&#62;0,X1&nbsp;is&nbsp;X-1,bb_set(Obj,Obj,X1).
+
+</pre>
+
+<div class="p"><!----></div>
+ Note that precomputation of Test in bestof/3 before calling the
+workhorse bestof0/4 is much more efficient than using some form
+of apply meta-predicate inside bestof0/4.
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc6.8">
+6.8</a>&nbsp;&nbsp;Blackboard based abstract data types</h3>
+
+<div class="p"><!----></div>
+We will describe some simple utilizations of the blackboard to implement efficiently some basic abstract data types.
+They all use the <tt>saved/2</tt> predicate instead of <tt>save_term/2</tt>. 
+<tt>Saved/2</tt> does
+basically the same work but also makes a call to the blackboard garbage
+collector if necessary. The reader can find the code in the file <tt>lib.pl</tt>
+of the BinProlog distribution.
+
+<div class="p"><!----></div>
+      <h4><a name="tth_sEc6.8.1">
+6.8.1</a>&nbsp;&nbsp;Blackboard based failure surviving stacks/queues</h4>
+
+<div class="p"><!----></div>
+A very useful data structure that is implemented with the blackboard is
+a stack/queue that survives failure but still allows the programmer to use some of the nice properties of logical variables. It is implemented through a set of C-based builtins in BinProlog  and used among other things
+in the implementation of BinProlog's dynamic code.
+
+<div class="p"><!----></div>
+
+<pre>
+addq/3&nbsp;adds&nbsp;to&nbsp;end&nbsp;of&nbsp;persistent&nbsp;queue&nbsp;as&nbsp;in&nbsp;addq(key1,key2,33).
+pushq/3&nbsp;adds&nbsp;to&nbsp;beginning&nbsp;of&nbsp;a&nbsp;persistent&nbsp;queue
+cpopq/3&nbsp;pops&nbsp;(copy&nbsp;of)&nbsp;first&nbsp;element&nbsp;of&nbsp;the&nbsp;queue
+cmembq/3&nbsp;backtracks&nbsp;over&nbsp;(copies&nbsp;of)&nbsp;members&nbsp;of&nbsp;a&nbsp;queue
+cdelq/4&nbsp;deletes&nbsp;first&nbsp;matching&nbsp;element&nbsp;from&nbsp;a&nbsp;queue
+
+</pre>
+
+<div class="p"><!----></div>
+See examples of use in the automatically generated Appendix.
+
+<div class="p"><!----></div>
+      <h4><a name="tth_sEc6.8.2">
+6.8.2</a>&nbsp;&nbsp;Constant time vectors</h4>
+
+<div class="p"><!----></div>
+Defining a vector is done initializing it to a given Zero
+element. The <tt>vector_set/3</tt> update operation uses <tt>saved/2</tt>, therefore
+the old content of vectors is also subject to garbage collection. 
+
+<div class="p"><!----></div>
+
+<pre>
+vector_def(Name,Dim,Zero):-&nbsp;Max&nbsp;is&nbsp;Dim-1,
+&nbsp;&nbsp;for(I,0,Max),&nbsp;%&nbsp;generator&nbsp;for&nbsp;I&nbsp;from&nbsp;0&nbsp;to&nbsp;Max
+&nbsp;&nbsp;&nbsp;&nbsp;bb_let(Name,I,Zero),
+&nbsp;&nbsp;fail.
+vector_def(_,_,_).
+
+vector_set(Name,I,Val):-bb_set(Name,I,Val).
+
+vector_val(Name,I,Val):-bb_val(Name,I,Val).
+
+</pre>
+
+<div class="p"><!----></div>
+Building multi-dimensional arrays on these vectors is straightforward, by
+defining an index-to-address translation function.
+
+<div class="p"><!----></div>
+The special case of a high-performance 2-dimension (possibly sparse) global array can be handled conveniently by using <tt>bb_def/3, bb_set/3, bb_val/3</tt> as in:
+
+<div class="p"><!----></div>
+
+<pre>
+global_array_set(I,J,Val):-bb_set(I,J,Val).
+
+</pre>
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc6.9">
+6.9</a>&nbsp;&nbsp;Blackboard based problem solving</h3>
+
+<div class="p"><!----></div>
+      <h4><a name="tth_sEc6.9.1">
+6.9.1</a>&nbsp;&nbsp;A complete knight tour</h4>
+
+<div class="p"><!----></div>
+The following is a blackboard based complete knight-tour, adapted from
+Evan Tick's well known benchmark program.
+
+<div class="p"><!----></div>
+
+<pre>
+%&nbsp;recommended&nbsp;use:&nbsp;?-go(5).
+go(N):-
+	time(_),
+	&nbsp;&nbsp;init(N,M),&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%&nbsp;prepare&nbsp;the&nbsp;chess&nbsp;board
+	&nbsp;&nbsp;knight(M,1,1),!,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%&nbsp;finds&nbsp;the&nbsp;first&nbsp;complete&nbsp;tour
+	time(T),
+&nbsp;&nbsp;write(time=T),nl,statistics,show(N).&nbsp;%&nbsp;shows&nbsp;the&nbsp;answer
+
+%&nbsp;fills&nbsp;the&nbsp;blackboard&nbsp;with&nbsp;free&nbsp;logical&nbsp;variables
+%&nbsp;representing&nbsp;empty&nbsp;cell&nbsp;on&nbsp;the&nbsp;chess&nbsp;board
+init(N,_):-
+&nbsp;&nbsp;for(I,1,N),&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%&nbsp;generates&nbsp;I&nbsp;from&nbsp;1&nbsp;to&nbsp;N&nbsp;nondeterministically
+&nbsp;&nbsp;&nbsp;&nbsp;for(J,1,N),&nbsp;&nbsp;&nbsp;%&nbsp;for/3&nbsp;is&nbsp;the&nbsp;same&nbsp;as&nbsp;range/3&nbsp;in&nbsp;the&nbsp;Art&nbsp;of&nbsp;Prolog
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bb_def(I,J,_NewVar),&nbsp;&nbsp;%&nbsp;puts&nbsp;a&nbsp;free&nbsp;slot&nbsp;in&nbsp;the&nbsp;hashing&nbsp;table
+&nbsp;&nbsp;fail.
+init(N,M):-
+&nbsp;&nbsp;M&nbsp;is&nbsp;N*N.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%&nbsp;returns&nbsp;the&nbsp;number&nbsp;of&nbsp;cells
+
+%&nbsp;tries&nbsp;to&nbsp;make&nbsp;a&nbsp;complete&nbsp;knight&nbsp;tour
+knight(0,_,_)&nbsp;:-&nbsp;!.
+knight(K,A,B)&nbsp;:-
+&nbsp;&nbsp;K1&nbsp;is&nbsp;K-1,
+&nbsp;&nbsp;val(A,B,K),&nbsp;&nbsp;%&nbsp;here&nbsp;we&nbsp;mark&nbsp;(A,B)&nbsp;as&nbsp;the&nbsp;K-th&nbsp;cell&nbsp;of&nbsp;the&nbsp;tour
+&nbsp;&nbsp;move(Dx,Dy),&nbsp;%&nbsp;we&nbsp;try&nbsp;a&nbsp;next&nbsp;move&nbsp;nondeterministically
+&nbsp;&nbsp;step(K1,A,B,Dx,Dy).
+
+%&nbsp;makes&nbsp;a&nbsp;step&nbsp;and&nbsp;then&nbsp;tries&nbsp;more
+step(K1,A,B,Dx,Dy):-
+&nbsp;&nbsp;&nbsp;&nbsp;C&nbsp;is&nbsp;A&nbsp;+&nbsp;Dx,
+&nbsp;&nbsp;&nbsp;&nbsp;D&nbsp;is&nbsp;B&nbsp;+&nbsp;Dy,
+&nbsp;&nbsp;&nbsp;&nbsp;knight(K1,C,D).
+
+%&nbsp;shows&nbsp;the&nbsp;final&nbsp;tour
+show(N):-
+&nbsp;&nbsp;for(I,1,N),
+&nbsp;&nbsp;&nbsp;&nbsp;nl,
+&nbsp;&nbsp;&nbsp;&nbsp;for(J,1,N),
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;val(I,J,V),
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;write('&nbsp;'),X&nbsp;is&nbsp;1-V&nbsp;//&nbsp;10,&nbsp;tab(X),write(V),
+&nbsp;&nbsp;fail.
+show(_):-nl.
+
+%&nbsp;possible&nbsp;moves&nbsp;of&nbsp;the&nbsp;knight
+move(&nbsp;2,&nbsp;1).&nbsp;move(&nbsp;2,-1).&nbsp;move(-2,&nbsp;1).&nbsp;move(-2,-1).
+move(&nbsp;1,&nbsp;2).&nbsp;move(-1,&nbsp;2).&nbsp;move(&nbsp;1,-2).&nbsp;move(-1,-2).
+
+</pre>
+
+<div class="p"><!----></div>
+Constant time access in this kind of problems to cell(I,J) is essential for
+efficiency as it is the most frequent operation.
+While the blackboard based version takes 39s in BinProlog for a 5x5 squares chess board, an equivalent program representing the board with a list of lists takes 147s in BinProlog, 167s in emulated Sicstus 2.1 and 68 seconds in native Sicstus 2.1. Results are expected to improve somewhat with binary trees or functor-arg representation of the board but they will still remain worse than with the blackboard based sparse array, due to their relatively high log(N) or constant factor. Moreover, representing large size (possibly updatable!) arrays with other techniques is prohibitively expensive and can get very complicated due to arity limits or tree balancing as it can see for example in the Quintus library.
+
+<div class="p"><!----></div>
+      <h4><a name="tth_sEc6.9.2">
+6.9.2</a>&nbsp;&nbsp;A lemma based TAK</h4>
+
+<div class="p"><!----></div>
+The following tak/4 program uses lemmas to avoid heap explosion in the case of
+of a particularly AND intensive program with 4 recursive calls, a problem particularly severe in the case of the continuation passing binarization that BinProlog uses to simplify the WAM. To encode the 2 first arguments in a unique integer some bit-shifting is needed as it can be seen in <tt>tak_encode/3</tt>. To avoid such problems, multi-argument hashing 
+with BinProlog 6.25's <tt>term_hash/3</tt> can be used.
+
+<div class="p"><!----></div>
+
+<pre>
+tak(X,Y,Z,A)&nbsp;:-&nbsp;X&nbsp;=&lt;&nbsp;Y,&nbsp;!,&nbsp;Z&nbsp;=&nbsp;A.
+tak(X,Y,Z,A)&nbsp;:-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;X1&nbsp;is&nbsp;X&nbsp;-&nbsp;1,&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Y1&nbsp;is&nbsp;Y&nbsp;-&nbsp;1,&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Z1&nbsp;is&nbsp;Z&nbsp;-&nbsp;1,&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ltak(X1,Y,Z,A1),&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ltak(Y1,Z,X,A2),&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ltak(Z1,X,Y,A3),&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ltak(A1,A2,A3,A).
+
+ltak(X,Y,Z,A):-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tak_encode(X,Y,XY),
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tak_lemma(XY,Z,tak(X,Y,Z,A),A).
+
+tak_encode(Y,Z,Key):-Key&nbsp;is&nbsp;Y&lt;&lt;16&nbsp;\/&nbsp;Z.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+tak_decode(Key,Y,Z):-Y&nbsp;is&nbsp;Key&#62;&#62;16,&nbsp;Z&nbsp;is&nbsp;Key&nbsp;&lt;&lt;17&#62;&#62;17&nbsp;.
+
+%optimized&nbsp;lemma&nbsp;&lt;P,I,G&#62;&nbsp;--&#62;&nbsp;O&nbsp;(instantiated&nbsp;executing&nbsp;G)
+tak_lemma(P,I,_,O):-val(P,I,X),!,X=O.
+tak_lemma(P,I,G,O):-G,!,def(P,I,O).
+
+go:-&nbsp;&nbsp;&nbsp;&nbsp;statistics(runtime,_),&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tak(24,16,8,X),
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;statistics(runtime,[_,T]),statistics,&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;write([time=T,tak=X]),&nbsp;nl.
+
+
+</pre>
+
+<div class="p"><!----></div>
+We hope that we showed the practicality of BinProlog's blackboard for basic
+work on data structures and problem solving.
+
+<div class="p"><!----></div>
+BinProlog's blackboard primitives make a clear separation between the <em>copying</em> and the <em>naming</em> intent overloaded in Prolog's assert and retract.
+
+<div class="p"><!----></div>
+Our blackboard primitives give most of the time simpler and more efficient solutions to current programming problems than assert and retract while being closer to a logical semantics and more cooperative to partial evaluation.
+
+<div class="p"><!----></div>
+Look into file dtak.pl for a Delphi-memoing version of the
+same program (a probabilistic automatic memoing method).
+
+<div class="p"><!----></div>
+ <h2><a name="tth_sEc7">
+7</a>&nbsp;&nbsp;Continuations as first order objects</h2>
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc7.1">
+7.1</a>&nbsp;&nbsp;Continuation manipulation vs. intuitionistic/linear implication</h3>
+
+<div class="p"><!----></div>
+Using intuitionistic implication we can write in BinProlog:
+
+<div class="p"><!----></div>
+
+<pre>
+&nbsp;&nbsp;&nbsp;&nbsp;insert(X,&nbsp;Xs,&nbsp;Ys)&nbsp;:-&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;paste(X)&nbsp;=&#62;&nbsp;ins(Xs,&nbsp;Ys).&nbsp;
+
+&nbsp;&nbsp;&nbsp;&nbsp;ins(Ys,&nbsp;[X|Ys])&nbsp;:-&nbsp;paste(X).
+&nbsp;&nbsp;&nbsp;&nbsp;ins([Y|Ys],&nbsp;[Y|Zs]):-&nbsp;ins(Ys,&nbsp;Zs).
+
+</pre>
+
+<div class="p"><!----></div>
+ used to nondeterministically insert an element in a list,
+the unit clause <tt>paste(X)</tt> is available only within the scope of the
+derivation for <tt>ins/2</tt>. This gives:
+
+<div class="p"><!----></div>
+<font size="-1">
+<pre>
+?-&nbsp;insert(a,[1,2,3],X).
+X=[a,1,2,3];
+
+X=[1,a,2,3];
+
+X=[1,2,a,3];
+
+X=[1,2,3,a]
+
+</pre>
+</font>
+
+<div class="p"><!----></div>
+With respect to the corresponding Prolog program
+we are working with a simpler
+formulation in which the element to be inserted does not have to percolate
+as dead weight throughout each step of the computation, only to be used in
+the very last step. We instead clearly isolate it in a global-value manner,
+within a unit clause which will only be consulted when needed, and which
+will disappear afterwards.
+
+<div class="p"><!----></div>
+Now, let us imagine we are given the ability to write part of a proof state
+context, i.e., to indicate in a rule's left-hand side not only the
+predicate which should match a goal atom to be replaced by the rule's body,
+but also which other goal atom(s) should surround the targeted one in
+order for the rule to be applicable. 
+
+<div class="p"><!----></div>
+Given this, we could write, using BinProlog's <tt>@@</tt>
+(which gives in its second argument the current continuation) a program
+for <tt>insert/3</tt> which strikingly resembles the intuitionistic
+implication based program given above:
+
+<div class="p"><!----></div>
+<font size="-1">
+<pre>
+insert(X,Xs,Ys):-ins(Xs,Ys),paste(X).
+
+ins(Ys,[X|Ys])&nbsp;@@&nbsp;paste(X).
+ins([Y|Ys],[Y|Zs]):-ins(Ys,Zs).
+
+</pre>
+</font>
+
+<div class="p"><!----></div>
+ Note that the element to be inserted is not passed to the recursive
+clause of the predicate <b>ins/2</b> (which becomes therefore simpler),
+while the unit clause of the predicate <b>ins/2</b> will communicate
+directly with <b>insert/3</b> which will directly `paste' the appropriate
+argument in the continuation.
+
+<div class="p"><!----></div>
+In this formulation, the element to be inserted is first given as
+right-hand side context of the simpler predicate <tt>ins/2</tt>, and this predicate's
+first clause consults the context <tt>paste(X)</tt> only when it is time to place it within the output list,
+i.e. when the fact 
+
+<pre>
+ins(Ys,[X|Ys]),paste(X)
+
+</pre>
+is reached. 
+
+<div class="p"><!----></div>
+Thus for this example, we can also obtain the expressive power of
+intuitionistic/linear implication
+by this kind of (much more efficient)
+direct manipulation of BinProlog's
+first order continuations.
+
+<div class="p"><!----></div>
+ <h2><a name="tth_sEc8">
+8</a>&nbsp;&nbsp;Direct binary clause programming and full-blown continuations</h2>
+
+<div class="p"><!----></div>
+BinProlog  supports direct manipulation of binary clauses
+denoted 
+
+<div class="p"><!----></div>
+
+<pre>
+&nbsp;&nbsp;&nbsp;Head&nbsp;::-&nbsp;Body.
+
+</pre>
+
+<div class="p"><!----></div>
+ They give full power to the knowledgeable programmer on
+the future of the computation. Note that such a facility is not
+available in conventional WAM-based systems where continuations
+are not first-order objects.
+
+<div class="p"><!----></div>
+We can use them to write programs like:
+
+<div class="p"><!----></div>
+<font size="-1">
+<pre>
+&nbsp;&nbsp;member_cont(X,Cont)::-
+&nbsp;&nbsp;&nbsp;&nbsp;strip_cont(Cont,X,NewCont,true(NewCont)).
+&nbsp;&nbsp;member_cont(X,Cont)::-
+&nbsp;&nbsp;&nbsp;&nbsp;strip_cont(Cont,_,NewCont,member_cont(X,NewCont)).
+
+&nbsp;&nbsp;test(X):-member_cont(X),a,b,c.
+
+</pre>
+</font>
+
+<div class="p"><!----></div>
+ A query like
+<font size="-1">
+
+<pre>
+&nbsp;&nbsp;?-test(X).
+
+</pre>
+</font>
+
+<div class="p"><!----></div>
+ will return <tt>X=a; X=b; X=c; X= whatever follows from the calling point of test(X)</tt>. 
+
+<div class="p"><!----></div>
+<font size="-1">
+<pre>
+catch(Goal,Name,Cont)::-
+&nbsp;&nbsp;&nbsp;lval(catch_throw,Name,Cont,call(Goal,Cont)).
+
+throw(Name,_)::-
+&nbsp;&nbsp;&nbsp;lval(catch_throw,Name,Cont,nonvar(Cont,Cont)).
+
+</pre>
+</font>
+
+<div class="p"><!----></div>
+ where <tt>lval(K1,K2,Val)</tt> is  a BinProlog
+primitive which unifies <tt>Val</tt> with a backtrackable global logical
+variable accessed by hashing on two (constant or variable) 
+keys <tt>K1,K2</tt>.
+
+<div class="p"><!----></div>
+This allows for instance to avoid execution of the infinite <tt>loop/0</tt>
+from inside the predicate <tt>b/1</tt>.
+
+<div class="p"><!----></div>
+<font size="-1">
+<pre>
+loop:-loop.
+
+c(X):-b(X),loop.
+
+b(hello):-throw(here).
+b(bye).
+
+go:-catch(c(X),here),write(X),nl.
+
+</pre>
+</font>
+
+<div class="p"><!----></div>
+Notice that due to its simple <em>translation semantics</em> this program
+still has a first order reading and that BinProlog's <tt>lval/3</tt>
+is not essential as it can be emulated by an extra argument passed
+to all predicates.
+
+<div class="p"><!----></div>
+Although implementation of <tt>catch</tt> and <tt>throw</tt> requires full-blown
+continuations, we can see that at user level, ordinary
+clause notation is enough.
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc8.1">
+8.1</a>&nbsp;&nbsp;Standard Prolog catch and throw</h3>
+
+<div class="p"><!----></div>
+BinProlog  implements also Standard Prolog's catch/throw mechanism,
+using a similar technique (thanks to Bart Demoen!), which works as follows:
+
+<div class="p"><!----></div>
+<font size="-1">
+<pre>
+catch(Goal,Ball,Do):-
+&nbsp;&nbsp;execute&nbsp;Goal
+&nbsp;&nbsp;on&nbsp;throw(Term):&nbsp;look&nbsp;for&nbsp;closest&nbsp;catch
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;copy&nbsp;Term
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;undo&nbsp;bindings&nbsp;until&nbsp;call&nbsp;to&nbsp;catch;&nbsp;remove&nbsp;choices
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;unify&nbsp;with&nbsp;Ball
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;fail:&nbsp;throw&nbsp;Ball&nbsp;again
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;succeed:&nbsp;call&nbsp;Do,&nbsp;continuation&nbsp;of&nbsp;catch&nbsp;goal
+
+</pre>
+</font>
+
+<div class="p"><!----></div>
+Note that our continuations and linear assumption based implementation
+ensures constant time execution of catch and throw, without actual
+stack scanning.
+
+<div class="p"><!----></div>
+<font size="-1">
+<pre>
+Example:
+
+?-catch((member(X,[1,2,3]),throw(my_term(X))),my_term(Y),println(caught(Y))).
+caught(1)
+X=_x2352,
+Y=1
+
+</pre>
+</font>
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc8.2">
+8.2</a>&nbsp;&nbsp;Ancestor cut</h3>
+
+<div class="p"><!----></div>
+For enhanced control
+BinProlog  implements a form of ancestor cut,based on the following
+3 built-ins:
+<font size="-1">
+
+<pre>
+get_neck_cut/1:&nbsp;gets&nbsp;the&nbsp;address&nbsp;of&nbsp;a&nbsp;choice&nbsp;point&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(to&nbsp;be&nbsp;use&nbsp;before&nbsp;the&nbsp;first&nbsp;not-inlined&nbsp;goal)
+
+get_deep_cut/1:&nbsp;gets&nbsp;the&nbsp;address&nbsp;of&nbsp;a&nbsp;choice&nbsp;point&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(to&nbsp;be&nbsp;use&nbsp;after&nbsp;the&nbsp;first&nbsp;not-inlined&nbsp;goal)
+
+cut_to/1:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cuts&nbsp;to&nbsp;a&nbsp;given&nbsp;choice-point
+
+untrail_to/1:&nbsp;&nbsp;&nbsp;removes&nbsp;bindings&nbsp;up&nbsp;to&nbsp;a&nbsp;given&nbsp;choice-point
+
+</pre>
+</font>
+
+<div class="p"><!----></div>
+Together with continuation manipulation and linear assumptions, the use of these built-ins allows a source-level implementation of catch and throw.
+
+<div class="p"><!----></div>
+Another example of use, committing to the current resolution branch and cutting off
+all the alternatives up to toplevel, is written simply as:
+
+<div class="p"><!----></div>
+<font size="-1">
+<pre>
+commit&nbsp;:-
+&nbsp;&nbsp;assumed(catchmarker('$commit',Do,Choice,_)),
+&nbsp;&nbsp;cut_to(Choice),&nbsp;Do.
+
+</pre>
+</font>
+
+<div class="p"><!----></div>
+ <h2><a name="tth_sEc9">
+9</a>&nbsp;&nbsp;Backtrackable destructive assignment</h2>
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc9.1">
+9.1</a>&nbsp;&nbsp;Updatable logical arrays in Prolog: fixing the semantics of <tt>setarg/3</tt></h3>
+
+<div class="p"><!----></div>
+Let us recall that <tt>setarg(I,Term,Value)</tt>  installs
+<tt>Value</tt> as the <tt>Ith</tt> argument of <tt>Term</tt> and takes care to
+put back the old value found there on backtracking.
+
+<div class="p"><!----></div>
+<tt>Setarg/3</tt> is probably
+the most widelly used 
+(at least in SICStus, Aquarius, Eclipse, ProLog-by-BIM, BinProlog), 
+incarnation of backtrackable mutable arrays (overloaded
+on Prolog's universal <em>term</em> type).
+
+<div class="p"><!----></div>
+Unfortunately <tt>setarg/3</tt> lacks
+a logical semantics and is implemented differently in
+in various systems. This is may be the reason
+why the standardization (see its absence from the Prolog ISO Draft)
+of <tt>setarg/3</tt>
+can hardly reach a consensus in the predictable future.
+
+<div class="p"><!----></div>
+Ideally, <tt>setarg/3</tt> should work as if a new term
+(array) had been created
+identical to the old one, except for the given element.
+There's no reason to `destroy' a priori the content of the updated
+cell or to make it subject to ugly side effects. Should this have
+to happen for implementation reasons, a run-time error should
+be produced, at least, although
+this is not the case in any implementation
+we know of.
+
+<div class="p"><!----></div>
+Let us start with an inefficient but fairly clean array-update
+operation, <tt>setarg/4</tt>.
+
+<div class="p"><!----></div>
+
+<pre>
+setarg(I,OldTerm,NewValue,NewTerm):-
+&nbsp;&nbsp;functor(OldTerm,F,N),
+&nbsp;&nbsp;functor(NewTerm,F,N),
+&nbsp;&nbsp;arg(I,NewTerm,NewValue),
+&nbsp;&nbsp;copy_args_except_I(N,I,OldTerm,NewTerm).
+
+copy_args_except_I(0,_,_,_):-!.
+copy_args_except_I(I,I,Old,New):-!,I1&nbsp;is&nbsp;I-1,
+&nbsp;&nbsp;copy_args_except_I(I1,I,Old,New).
+copy_args_except_I(N,I,Old,New):-N1&nbsp;is&nbsp;N-1,arg(N,Old,X),arg(N,New,X),
+&nbsp;&nbsp;copy_args_except_I(N1,I,Old,New).
+
+</pre>
+
+<div class="p"><!----></div>
+We can suppose that functor and arg are specified by a (finite)
+set of facts describing their behavior on
+the signature of the program. For a given program,
+we can obviously see setarg/4 as being
+specified similarly by a finite set of facts. 
+
+<div class="p"><!----></div>
+Furthermore,suppose that all
+uses of setarg/3 are replaced by calls to setarg/4 with the new states
+passed around with DCG-style chained variables.
+
+<div class="p"><!----></div>
+This looks like a good definition of the intended meaning of
+a program using setarg/3.
+
+<div class="p"><!----></div>
+We will show that actual implementations (Sicstus and BinProlog)
+can be made to behave accordingly to this semantics through a
+small, source level wrapping into a suitable ADT.
+
+<div class="p"><!----></div>
+Let 
+
+<pre>
+'$box'/1
+
+</pre>
+be a new functor not in the signature of any
+user program. By defining
+
+<div class="p"><!----></div>
+
+<pre>
+safe_arg(I,Term,Val):-arg(I,Term,'$box'(Val)).
+
+safe_setarg(I,Term,Val):-setarg(I,Term,'$box'(Val)).
+
+</pre>
+
+<div class="p"><!----></div>
+Using 
+
+<pre>
+'$box'/1
+
+</pre>
+in <tt>safe_arg/3</tt> (<tt>safe_setarg/3</tt>)
+ensures that cell <tt>I</tt> of the functor <tt>Term</tt>
+will be indirectly accessed (updated) even if it contains a variable
+which in a WAM would be created  on place and therefore
+it would be subject of unpredictable side-effects.
+
+<div class="p"><!----></div>
+The reason of the draconian warning in some Prolog manuals
+manual
+
+<blockquote>
+...setarg is only safe if there is no further use
+of the old value of the replaced argument...
+</blockquote>.
+will therefore disappear and a purely logical setarg
+(with a <em>translation semantics</em> expressible in
+term of <tt>setarg/4</tt>) can be implemented.
+Not only this ensures referential transparency
+and allows normal
+references to the old content of the updated
+cells but it also makes incompatible implementations
+of setarg (Sicstus, Eclipse, BinProlog) work exactly
+the same way<a href="#tthFtNtAAD" name="tthFrefAAD"><sup>3</sup></a>.
+
+<div class="p"><!----></div>
+To finish the job properly, something like the following ADT
+can be created.
+
+<div class="p"><!----></div>
+
+<pre>
+new_array(Size,Array):-
+&nbsp;&nbsp;functor(Array,'$array',Size).
+
+update_array(Array,I,Val):-
+&nbsp;&nbsp;safe_setarg(I,Array,Val).
+
+access_array(Array,I,Value):-
+&nbsp;&nbsp;safe_arg(I,Array,Value).
+
+</pre>
+
+<div class="p"><!----></div>
+We suggest to use this ADT in your program instead of basic setarg
+when performance is not an absolute requirement.
+
+<div class="p"><!----></div>
+A new <tt>change_arg/3</tt> builtin has been added to BinProlog to allow,
+efficient failure-driven iteration with persistent information.
+It works like <tt>setarg/3</tt> except that side-effects are permanent.
+Should unsafe heap objects be generated through the precess
+<tt>change_arg/3</tt> signals a run-time error. This is not the case
+as far the result is either a constant (which is does not need
+new heap allocation) or the result of moving a preexistent
+heap object to a new location.
+
+<div class="p"><!----></div>
+For instance the (Haskell-style) <tt>fold/4</tt> predicate 
+(see <tt>library/high.pl</tt>) uses <tt>change_arg/3</tt>  to avoid painful
+iteration and slow side-effects on the dynamic database.
+The implementation is competitive is speed
+with hand-written explicitly recursive code and uses
+only memory proportional to the size of the answer.
+Alternatively, BinProlog  also implements a functional style
+version of the same predicates, based on call/N (see help(fold)).
+
+<div class="p"><!----></div>
+
+<pre>
+%&nbsp;fold,foldl&nbsp;based&nbsp;on&nbsp;safe&nbsp;failure&nbsp;driven&nbsp;destructive&nbsp;change_arg
+foldl(Closure,Null,List,Final):-fold(Closure,Null,X^member(X,List),Final).
+
+fold(Closure,Null,I^Generator,Final):-
+&nbsp;&nbsp;fold0(s(Null),I,Generator,Closure,Final).
+
+fold0(Acc,I,Generator,Closure,_):-
+&nbsp;&nbsp;term_append(Closure,args(SoFar,I,O),Selector),
+&nbsp;&nbsp;Generator,
+&nbsp;&nbsp;&nbsp;&nbsp;arg(1,Acc,SoFar),
+&nbsp;&nbsp;&nbsp;&nbsp;Selector,
+&nbsp;&nbsp;&nbsp;&nbsp;change_arg(1,Acc,O),
+&nbsp;&nbsp;fail.
+fold0(Acc,_,_,_,Final):-
+&nbsp;&nbsp;arg(1,Acc,Final).
+
+?-&nbsp;foldl(+,0,[1,2,3],R).
+?-&nbsp;fold(*,1,X^member(X,[1,2,3]),R).
+
+</pre>
+
+<div class="p"><!----></div>
+ <h2><a name="tth_sEc10">
+10</a>&nbsp;&nbsp;Related work</h2>
+
+<div class="p"><!----></div>
+BinProlog related papers can be found following links from
+
+<pre>
+&nbsp;&nbsp;&nbsp;&nbsp;http://www.cs.unt.edu/~tarau
+
+</pre>
+
+<div class="p"><!----></div>
+ The reader interested in the internals of BinProlog and other
+issues related to binary logic programs, their transformations
+and performance evaluation is referred to
+[<a href="#Tarau90:PLILP" name="CITETarau90:PLILP">23</a>,<a href="#Tarau91:JAP" name="CITETarau91:JAP">12</a>,<a href="#Tarau91:RU" name="CITETarau91:RU">14</a>,<a href="#Demoen90:KUL" name="CITEDemoen90:KUL">6</a>,<a href="#Demoen91:RU" name="CITEDemoen91:RU">8</a>,<a href="#Tarau92:WAMOpt" name="CITETarau92:WAMOpt">15</a>,<a href="#Tarau92:ECO" name="CITETarau92:ECO">13</a>,<a href="#LOPSTR93:Neumerkel" name="CITELOPSTR93:Neumerkel">11</a>,<a href="#Neum92" name="CITENeum92">10</a>,<a href="#Tarau93:GULP" name="CITETarau93:GULP">17</a>,<a href="#Tarau93a" name="CITETarau93a">16</a>,<a href="#kdb93f" name="CITEkdb93f">2</a>,<a href="#WA83" name="CITEWA83">32</a>,<a href="#lindgren" name="CITElindgren">9</a>,<a href="#TD94:WE" name="CITETD94:WE">29</a>,<a href="#TA94:JFPL" name="CITETA94:JFPL">18</a>,<a href="#TN94:PLILP" name="CITETN94:PLILP">31</a>,<a href="#pt93b" name="CITEpt93b">26</a>,<a href="#kdb93j" name="CITEkdb93j">4</a>,<a href="#kdb93d" name="CITEkdb93d">3</a>,<a href="#Demoen96:GC" name="CITEDemoen96:GC">7</a>,<a href="#TarauDF95" name="CITETarauDF95">24</a>,<a href="#dbt95a" name="CITEdbt95a">5</a>,<a href="#DPT96:PAP" name="CITEDPT96:PAP">1</a>,<a href="#TDF:asian96" name="CITETDF:asian96">25</a>,<a href="#lpnet96:virtual" name="CITElpnet96:virtual">27</a>,<a href="#tdb95rev" name="CITEtdb95rev">28</a>]
+
+<div class="p"><!----></div>
+Related BinProlog documentation is available at: 
+[<a href="#bp7user" name="CITEbp7user">22</a>,<a href="#bp7advanced" name="CITEbp7advanced">20</a>,<a href="#bp7interface" name="CITEbp7interface">21</a>,<a href="#bp7crossref" name="CITEbp7crossref">19</a>].
+
+<div class="p"><!----></div>
+
+<h2>References</h2>
+
+<dl compact="compact">
+ <dt><a href="#CITEDPT96:PAP" name="DPT96:PAP">[1]</a></dt><dd>
+K.&nbsp;De&nbsp;Bosschere, D.&nbsp;Perron, and P.&nbsp;Tarau.
+ LogiMOO: Prolog Technology for Virtual Worlds.
+ In <em>Proceedings of PAP'96</em>, pages 51-64, London, Apr. 1996.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITEkdb93f" name="kdb93f">[2]</a></dt><dd>
+K.&nbsp;De&nbsp;Bosschere and P.&nbsp;Tarau.
+ Blackboard-based Extensions for Parallel Programming in
+  BinProlog.
+ In <em>Proceedings of the 1993 ILPS Conference</em>, page 664,
+  Vancouver, Canada, 1993.
+ Poster Abstract.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITEkdb93d" name="kdb93d">[3]</a></dt><dd>
+K.&nbsp;De&nbsp;Bosschere and P.&nbsp;Tarau.
+ Blackboard Communication in Logic Programming.
+ In <em>Proceedings of the PARCO'93 Conference</em>, pages 257-264,
+  Grenoble, France, Sept. 1993.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITEkdb93j" name="kdb93j">[4]</a></dt><dd>
+K.&nbsp;De&nbsp;Bosschere and P.&nbsp;Tarau.
+ High Performance Continuation Passing Style Prolog-to-C
+  Mapping.
+ In E.&nbsp;Deaton, D.&nbsp;Oppenheim, J.&nbsp;Urban, and H.&nbsp;Berghel, editors, <em>
+  Proceedings of the 1994 ACM Symposium on Applied Computing</em>, pages 383-387,
+  Phoenix/AZ, Mar. 1994. ACM Press.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITEdbt95a" name="dbt95a">[5]</a></dt><dd>
+K.&nbsp;De&nbsp;Bosschere and P.&nbsp;Tarau.
+ Blackboard-based Extensions in Prolog.
+ <em>Software - Practice and Experience</em>, 26(1):49-69, Jan. 1996.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITEDemoen90:KUL" name="Demoen90:KUL">[6]</a></dt><dd>
+B.&nbsp;Demoen.
+ On the Transformation of a Prolog program to a more efficient
+  Binary program.
+ Technical Report 130, K.U.Leuven, Dec. 1990.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITEDemoen96:GC" name="Demoen96:GC">[7]</a></dt><dd>
+B.&nbsp;Demoen, G.&nbsp;Engels, and P.&nbsp;Tarau.
+ Segment Preserving Copying Garbage Collection for WAM based
+  Prolog.
+ In <em>Proceedings of the 1996 ACM Symposium on Applied Computing</em>,
+  pages 380-386, Philadelphia, Feb. 1996. ACM Press.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITEDemoen91:RU" name="Demoen91:RU">[8]</a></dt><dd>
+B.&nbsp;Demoen and A.&nbsp;Mari&#235;n.
+ Implementation of Prolog as binary definite Programs.
+ In A.&nbsp;Voronkov, editor, <em>Logic Programming, RCLP Proceedings</em>,
+  number 592 in Lecture Notes in Artificial Intelligence, pages 165-176,
+  Berlin, Heidelberg, 1992. Springer-Verlag.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITElindgren" name="lindgren">[9]</a></dt><dd>
+T.&nbsp;Lindgren.
+ Compiling logic programs using a binary continuation style, Dec.
+  1992.
+ draft, Uppsala University.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITENeum92" name="Neum92">[10]</a></dt><dd>
+U.&nbsp;Neumerkel.
+ <em>Specialization of Prolog Programs with Partially Static Goals
+  and Binarization</em>.
+ Phd thesis, Technische Universit&#228;t Wien, 1992.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITELOPSTR93:Neumerkel" name="LOPSTR93:Neumerkel">[11]</a></dt><dd>
+U.&nbsp;Neumerkel.
+ A transformation based on the equality between terms.
+ In <em>Logic Program Synthesis and Transformation, LOPSTR 1993</em>.
+  Springer-Verlag, 1993.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITETarau91:JAP" name="Tarau91:JAP">[12]</a></dt><dd>
+P.&nbsp;Tarau.
+ A Simplified Abstract Machine for the Execution of Binary
+  Metaprograms.
+ In <em>Proceedings of the Logic Programming Conference'91</em>, pages
+  119-128. ICOT, Tokyo, 7 1991.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITETarau92:ECO" name="Tarau92:ECO">[13]</a></dt><dd>
+P.&nbsp;Tarau.
+ Ecological Memory Management in a Continuation Passing
+  Prolog Engine.
+ In Y.&nbsp;Bekkers and J.&nbsp;Cohen, editors, <em>Memory Management
+  International Workshop IWMM 92 Proceedings</em>, number 637 in Lecture Notes in
+  Computer Science, pages 344-356. Springer, Sept. 1992.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITETarau91:RU" name="Tarau91:RU">[14]</a></dt><dd>
+P.&nbsp;Tarau.
+ Program Transformations and WAM-support for the Compilation
+  of Definite Metaprograms.
+ In A.&nbsp;Voronkov, editor, <em>Logic Programming, RCLP Proceedings</em>,
+  number 592 in Lecture Notes in Artificial Intelligence, pages 462-473,
+  Berlin, Heidelberg, 1992. Springer-Verlag.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITETarau92:WAMOpt" name="Tarau92:WAMOpt">[15]</a></dt><dd>
+P.&nbsp;Tarau.
+ WAM-optimizations in BinProlog: Towards a Realistic
+  Continuation Passing Prolog Engine.
+ Technical Report 92-3, Dept. d'Informatique, Universit&#233; de
+  Moncton, July 1992.
+ available by ftp from clement.info.umoncton.ca.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITETarau93a" name="Tarau93a">[16]</a></dt><dd>
+P.&nbsp;Tarau.
+ An Efficient Specialization of the WAM for Continuation
+  Passing Binary programs.
+ In <em>Proceedings of the 1993 ILPS Conference</em>, Vancouver, Canada,
+  1993. MIT Press.
+ poster.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITETarau93:GULP" name="Tarau93:GULP">[17]</a></dt><dd>
+P.&nbsp;Tarau.
+ Language Issues and Programming Techniques in BinProlog.
+ In D.&nbsp;Sacca, editor, <em>Proceeding of the GULP'93 Conference</em>,
+  Gizzeria Lido, Italy, June 1993.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITETA94:JFPL" name="TA94:JFPL">[18]</a></dt><dd>
+P.&nbsp;Tarau.
+ Low level Issues in Implementing a High-Performance
+  Continuation Passing Binary Prolog Engine.
+ In M.-M. Corsini, editor, <em>Proceedings of JFPL'94</em>, June 1994.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITEbp7crossref" name="bp7crossref">[19]</a></dt><dd>
+P.&nbsp;Tarau.
+ BinProlog 7.0 Professional Edition: Predicate Cross-Reference Guide
+  .
+ Technical report, BinNet Corp., 1998.
+ Available from http://www.binnetcorp.com/BinProlog.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITEbp7advanced" name="bp7advanced">[20]</a></dt><dd>
+P.&nbsp;Tarau.
+ BinProlog 9.x Professional Edition: Advanced BinProlog Programming
+  and Extensions Guide.
+ Technical report, BinNet Corp., 2002.
+ Available from http://www.binnetcorp.com/BinProlog.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITEbp7interface" name="bp7interface">[21]</a></dt><dd>
+P.&nbsp;Tarau.
+ BinProlog 9.x Professional Edition: BinProlog Interfaces Guide.
+ Technical report, BinNet Corp., 2002.
+ Available from http://www.binnetcorp.com/BinProlog.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITEbp7user" name="bp7user">[22]</a></dt><dd>
+P.&nbsp;Tarau.
+ BinProlog 9.x Professional Edition: User Guide.
+ Technical report, BinNet Corp., 2002.
+ Available from http://www.binnetcorp.com/BinProlog.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITETarau90:PLILP" name="Tarau90:PLILP">[23]</a></dt><dd>
+P.&nbsp;Tarau and M.&nbsp;Boyer.
+ Elementary Logic Programs.
+ In P.&nbsp;Deransart and J.&nbsp;Maluszy\'nski, editors, <em>Proceedings of
+  Programming Language Implementation and Logic Programming</em>, number 456 in
+  Lecture Notes in Computer Science, pages 159-173. Springer, Aug. 1990.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITETarauDF95" name="TarauDF95">[24]</a></dt><dd>
+P.&nbsp;Tarau, V.&nbsp;Dahl, and A.&nbsp;Fall.
+ Backtrackable State with Linear Assumptions, Continuations
+  and Hidden Accumulator Grammars.
+ In <em>ILPS'95 Workshop on Visions for the Future of Logic
+  Programming</em>, Portland, Oregon, Nov. 1995.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITETDF:asian96" name="TDF:asian96">[25]</a></dt><dd>
+P.&nbsp;Tarau, V.&nbsp;Dahl, and A.&nbsp;Fall.
+ Backtrackable State with Linear Affine Implication and
+  Assumption Grammars.
+ In J.&nbsp;Jaffar and R.&nbsp;H. Yap, editors, <em>Concurrency and
+  Parallelism, Programming, Networking, and Security</em>, Lecture Notes in
+  Computer Science 1179, pages 53-64, Singapore, Dec. 1996. Springer.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITEpt93b" name="pt93b">[26]</a></dt><dd>
+P.&nbsp;Tarau and K.&nbsp;De&nbsp;Bosschere.
+ Memoing with Abstract Answers and Delphi Lemmas.
+ In Y.&nbsp;Deville, editor, <em>Logic Program Synthesis and
+  Transformation</em>, Springer-Verlag, pages 196-209, Louvain-la-Neuve, July
+  1993.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITElpnet96:virtual" name="lpnet96:virtual">[27]</a></dt><dd>
+P.&nbsp;Tarau and K.&nbsp;De&nbsp;Bosschere.
+ Virtual World Brokerage with BinProlog and Netscape.
+ In P.&nbsp;Tarau, A.&nbsp;Davison, K.&nbsp;De&nbsp;Bosschere, and M.&nbsp;Hermenegildo,
+  editors, <em>Proceedings of the 1st Workshop on Logic Programming Tools for
+  INTERNET Applications</em>, JICSLP'96, Bonn, Sept. 1996.
+ http://clement.info.umoncton.ca/&nbsp;lpnet.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITEtdb95rev" name="tdb95rev">[28]</a></dt><dd>
+P.&nbsp;Tarau, K.&nbsp;De&nbsp;Bosschere, and B.&nbsp;Demoen.
+ Partial Translation: Towards a Portable and Efficient Prolog
+  Implementation Technology.
+ <em>Journal of Logic Programming</em>, 29(1-3):65-83, Nov. 1996.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITETD94:WE" name="TD94:WE">[29]</a></dt><dd>
+P.&nbsp;Tarau and B.&nbsp;Demoen.
+ Language Embedding by Dual Compilation and State Mirroring.
+ In M.&nbsp;Fromherz, A.&nbsp;Kusalik, and O.&nbsp;Nytro, editors, <em>Proceedings
+  of 6-th Workshop on Logic Programming Environments, Santa Margherita Ligure,
+  1994</em>, pages 15-20, June 1994.
+ also available as TR N-7034 Norges Tek. Hogscole, TRONDHEIM.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITEtdb95" name="tdb95">[30]</a></dt><dd>
+P.&nbsp;Tarau, B.&nbsp;Demoen, and K.&nbsp;De&nbsp;Bosschere.
+ The Power of Partial Translation: an Experiment with the
+  C-ification of Binary Prolog.
+ In K.&nbsp;George, J.&nbsp;Carrol, E.&nbsp;Deaton, D.&nbsp;Oppenheim, and J.&nbsp;Hightower,
+  editors, <em>Proceedings of the 1995 ACM Symposium on Applied Computing</em>,
+  pages 152-176, Nashville, Feb. 1995. ACM Press.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITETN94:PLILP" name="TN94:PLILP">[31]</a></dt><dd>
+P.&nbsp;Tarau and U.&nbsp;Neumerkel.
+ A Novel Term Compression Scheme and Data Representation
+  in the BinWAM.
+ In M.&nbsp;Hermenegildo and J.&nbsp;Penjam, editors, <em>Proceedings of
+  Programming Language Implementation and Logic Programming</em>, number 844 in
+  Lecture Notes in Computer Science, pages 73-87. Springer, Sept. 1994.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITEWA83" name="WA83">[32]</a></dt><dd>
+D.&nbsp;H.&nbsp;D. Warren.
+ An Abstract Prolog Instruction Set.
+ Technical Note 309, SRI International, Oct. 1983.</dd>
+</dl>
+
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+<hr /><h3>Footnotes:</h3>
+
+<div class="p"><!----></div>
+<a name="tthFtNtAAB"></a><a href="#tthFrefAAB"><sup>1</sup></a>Take care if you use your own binary clauses to keep always
+the continuation as a last argument of the last embedded continuation `predicate'. Look at the <tt>asm/0</tt> tracer how
+BinProlog itself does this.
+<div class="p"><!----></div>
+<a name="tthFtNtAAC"></a><a href="#tthFrefAAC"><sup>2</sup></a>Is/2 now
+accepts execution of any predicate of arity n+1 as a function
+of arity n.
+<div class="p"><!----></div>
+<a name="tthFtNtAAD"></a><a href="#tthFrefAAD"><sup>3</sup></a>A further ambiguity in some
+implementations of <tt>setarg/3</tt> comes from the fact
+that it is not clear if the location itself or its
+dereferenced contents should be mutated
+<br /><br /><hr /><small>File translated from
+T<sub><font size="-1">E</font></sub>X
+by <a href="http://hutchinson.belmont.ma.us/tth/">
+T<sub><font size="-1">T</font></sub>H</a>,
+version 3.81.<br />On 07 Jul 2008, 12:10.</small>
+</html>

@@ -1,0 +1,2164 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+           "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<meta name="GENERATOR" content="TtH 3.81">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+ <style type="text/css"> div.p { margin-top: 7pt;}</style>
+ <style type="text/css"><!--
+ td div.comp { margin-top: -0.6ex; margin-bottom: -1ex;}
+ td div.comb { margin-top: -0.6ex; margin-bottom: -.6ex;}
+ td div.hrcomp { line-height: 0.9; margin-top: -0.8ex; margin-bottom: -1ex;}
+ td div.norm {line-height:normal;}
+ span.roman {font-family: serif; font-style: normal; font-weight: normal;} 
+ span.overacc2 {position: relative;  left: .8em; top: -1.2ex;}
+ span.overacc1 {position: relative;  left: .6em; top: -1.2ex;} --></style>
+ 
+
+  
+<title>0mm</title>
+
+0mm
+
+
+
+<div class="p"><!----></div>
+ 
+<div class="p"><!----></div>
+
+<title>
+\Huge
+BinProlog 11.x Professional Edition\
+Internet Programming Guide
+\vskip 5cm
+</title>
+    
+<h1 align="center">
+<font size="+4">
+BinProlog 11.x Professional Edition<br />
+Internet Programming Guide
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+</font> </h1>
+
+<div class="p"><!----></div>
+
+<h3 align="center">
+<font size="+2">
+  <b>Paul Tarau</b><br /><br />
+<font size="+1">
+  BinNet Corp.<br />
+  WWW: http://www.binnetcorp.com
+<font size="+0">
+ </h3></font></font></font>
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /> <h2><a name="tth_sEc1">
+1</a>&nbsp;&nbsp;Introduction</h2>
+
+<div class="p"><!----></div>
+BinProlog has evolved during the last years towards a sophisticated Logic Programming
+based Internet application building tool.
+This document covers, through examples, a number of typical Internet programming
+patterns.
+
+<div class="p"><!----></div>
+ <h2><a name="tth_sEc2">
+2</a>&nbsp;&nbsp;Installing the BinNet Internet Toolkit</h2>
+
+<div class="p"><!----></div>
+The default assumptions hold for a Windows machine, but adapting
+to Unix is mostly changing some path information.
+
+<div class="p"><!----></div>
+Just uncompress the file bp_inet.zip, containing the toolkits you have ordered
+to a directory bp_inet. The resulting directories are as follows:
+
+<div class="p"><!----></div>
+
+<ul>
+<li> <b>bin</b>: BinProlog binary executable (i.e. bp.exe)
+<div class="p"><!----></div>
+</li>
+
+<li> <b>cgi</b>: CGI scripts
+<div class="p"><!----></div>
+</li>
+
+<li> <b>library</b>: shared files, needed for various components
+<div class="p"><!----></div>
+</li>
+
+<li> <b>client</b>: HTTP Client Toolkit
+<div class="p"><!----></div>
+</li>
+
+<li> <b>server</b>: HTTP Server Toolkit
+<div class="p"><!----></div>
+</li>
+
+<li> <b>spider</b>: BinNet Internet Search Engine
+<div class="p"><!----></div>
+</li>
+
+<li> <b>tests</b>: Tests - trying out various components
+<div class="p"><!----></div>
+</li>
+</ul>
+
+<div class="p"><!----></div>
+ <h2><a name="tth_sEc3">
+3</a>&nbsp;&nbsp;The BinNet Internet Client Library</h2>
+
+<div class="p"><!----></div>
+CGI programs are executed on the server upon
+clicking on special links. They are used from froms for electronic shopping
+to online conference organizing.
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc3.1">
+3.1</a>&nbsp;&nbsp;Programming CGIs: the easy way</h3>
+
+<div class="p"><!----></div>
+To run the CGI scripts securely (assuming http://localhost as the base address)
+configure your Web server to have bp_inet/bin executable only and bp_inet/cgi
+readable only.
+
+<div class="p"><!----></div>
+The directory structure is configured in such a way, that if you add
+your own new scripts let's say somewhere in bp_inet/myscripts and follow
+the same include convention as scripts in directory <b>cgi</b>, everything
+will run fine.
+
+<div class="p"><!----></div>
+BinProlog  has some built-in facilities which make CGI-programming
+easy. The following shows a simple Web page access counter.
+
+<div class="p"><!----></div>
+<font size="-1">
+<pre>
+main:-header,inc(X),show_counter(X).
+
+header:-
+&nbsp;&nbsp;write('220&nbsp;ok'),nl,
+&nbsp;&nbsp;write('content-type:&nbsp;text/html'),nl,nl.
+
+show_counter(X):-write(counter(X)),write('.'),nl.
+
+inc(X):-
+&nbsp;&nbsp;F='cstate.pro',
+&nbsp;&nbsp;(&nbsp;see_or_fail(F)-&#62;&nbsp;see(F),read(counter(X)),seen
+&nbsp;&nbsp;;&nbsp;X=0
+&nbsp;&nbsp;),X1&nbsp;is&nbsp;X+1,
+&nbsp;&nbsp;tell(F),show_counter(X1),told.
+
+</pre></font>
+
+<div class="p"><!----></div>
+To install a similar CGI script at your site, put the <b>bp</b> executable
+in directory <b>cgi-bin</b>, together with the program and call it from
+a HTML page as follows:
+
+<div class="p"><!----></div>
+<font size="-1">
+<pre>
+&lt;TITLE&#62;
+&nbsp;BinProlog&nbsp;CGI&nbsp;counter
+&lt;/TITLE&#62;
+&lt;HTML&#62;
+&lt;BODY&#62;
+Try&nbsp;a&nbsp;BinProlog&nbsp;based
+&lt;A&nbsp;HREF=
+&nbsp;&nbsp;"/bp_inet/bin/bp.exe?$/bp_inet/cgi/counter.pro"&#62;
+CGI&nbsp;Web-counter!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;^^^^^^^^^^^^&nbsp;
+&lt;/A&#62;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ABSOLUTE&nbsp;PATH!
+&lt;/BODY&#62;
+&lt;/HTML&#62;
+
+</pre>
+</font>
+
+<div class="p"><!----></div>
+You can try it out by following the demo link at:
+
+<div class="p"><!----></div>
+<font size="-1">
+<pre>
+&nbsp;&nbsp;&nbsp;http://www.binnetcorp.com/BinProlog
+
+</pre>
+</font>
+
+<div class="p"><!----></div>
+Look for LogiMOO [<a href="#lpnet96:virtual" name="CITElpnet96:virtual">19</a>,<a href="#DPT96:PAP" name="CITEDPT96:PAP">1</a>], a more advanced BinProlog based Internet application, now also running directly under Netscape, at:
+<font size="-1">
+
+<pre>
+&nbsp;&nbsp;&nbsp;http://clement.info.umoncton.ca/~tarau/logimoo
+
+</pre>
+</font>
+
+<div class="p"><!----></div>
+      <h4><a name="tth_sEc3.1.1">
+3.1.1</a>&nbsp;&nbsp;A BinProlog Query Evaluator</h4>
+A more complex script (see files cgi/query.pro and cgi/query.html) needs to
+be used to pass information from a HTML file to the Prolog script.
+BinProlog's cgi_lib.pro library uses POST method for sending information
+to the server. This means, that after some basic header exchange, the client
+will read and parse from the standard input field names/field data pairs.
+This is achieved by components in cgi_lib.pro, the script itself 
+matches the expected parameters and proceeds with its specific tasks.
+
+<div class="p"><!----></div>
+<font size="-1">
+<pre>
+CGI&nbsp;script&nbsp;for&nbsp;querying&nbsp;BinProlog&nbsp;over&nbsp;the&nbsp;net
+%&nbsp;Copyright&nbsp;(C)&nbsp;BinNet&nbsp;Corp.&nbsp;1998
+
+:-['../library/cgi_lib'].
+:-['../library/http_tools'].
+
+main:-run_cgi(5,body).
+
+%&nbsp;POST&nbsp;method&nbsp;body
+body:-
+&nbsp;&nbsp;(get_cgi_input(Alist)-&#62;true;test,fail),
+&nbsp;&nbsp;Alist=
+&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;login=Ls,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;passwd=Ps,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;email=Ms,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;home=Hs,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;query=Qs,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;editor=Es
+&nbsp;&nbsp;&nbsp;]
+-&#62;
+&nbsp;&nbsp;(&nbsp;run_it(Ls,Ps,Ms,Hs,Qs,Es)-&#62;true
+&nbsp;&nbsp;;&nbsp;write('Error&nbsp;in&nbsp;query:&nbsp;'),write_chars(Qs),nl
+&nbsp;&nbsp;)
+;&nbsp;(&nbsp;write('Non&nbsp;matching&nbsp;fields&nbsp;in&nbsp;form'),
+&nbsp;&nbsp;&nbsp;&nbsp;fail
+&nbsp;&nbsp;;&nbsp;nl
+&nbsp;&nbsp;).
+
+</pre></font>
+
+<div class="p"><!----></div>
+      <h4><a name="tth_sEc3.1.2">
+3.1.2</a>&nbsp;&nbsp;A multi-threaded benchmark</h4>
+
+<div class="p"><!----></div>
+This CGI offers some control over the number of threads to be used
+as well as the number of iteration and data size. 
+
+<div class="p"><!----></div>
+      <h4><a name="tth_sEc3.1.3">
+3.1.3</a>&nbsp;&nbsp;A Joke Server</h4>
+
+<div class="p"><!----></div>
+This CGI implements a joke server together with an operation to add
+new jokes. The database is implemented as a Prolog file. Additions
+occur simply bay concatenation to the end of the file.
+
+<div class="p"><!----></div>
+      <h4><a name="tth_sEc3.1.4">
+3.1.4</a>&nbsp;&nbsp;A Guestbook script</h4>
+
+<div class="p"><!----></div>
+This simple script reads information provided by visitors of
+a Web page and appends it in the form of Prolog facts at the end
+of a file.
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc3.2">
+3.2</a>&nbsp;&nbsp;A multi-threaded stock market simulator script</h3>
+
+<div class="p"><!----></div>
+This simple, hand-built form (most other forms are built with HTML generators
+like Netscape's Composer) calls the script <b>smarket.pro</b>. The script 
+was originally written for Jinni - our Java based interpreter - and
+actually runs under Jinni as well.
+
+<div class="p"><!----></div>
+It simulaties a stock ticker and two trading agents - performing some 
+typical transactions, triggered by price changes. This is an example
+of complex, event driven CGI script, with BinProlog's Linda
+blackboard used for multi-agent synchronization.
+
+<div class="p"><!----></div>
+<font size="-1">
+<pre>
+&lt;html&#62;
+
+&lt;head&#62;
+&lt;title&#62;BinProlog&nbsp;CGI&nbsp;form&nbsp;script&lt;/title&#62;
+&lt;/head&#62;
+
+&lt;body&#62;
+
+&lt;form&nbsp;method="post"&nbsp;
+&nbsp;target="answer"&nbsp;
+&nbsp;action="/bp_inet/bin/bp.exe?$/bp_inet/cgi/smarket.pro"&#62;&nbsp;
+
+&lt;b&#62;Simulation&nbsp;time&nbsp;in&nbsp;seconds:&lt;/b&#62;&nbsp;
+&nbsp;&nbsp;&nbsp;&lt;input&nbsp;name="time"&nbsp;type="text"&nbsp;size="2"&nbsp;value="3"&#62;
+&lt;b&#62;Variation:&lt;/b&#62;&nbsp;
+&nbsp;&nbsp;&nbsp;&lt;input&nbsp;name="variation"&nbsp;type="text"&nbsp;size="4"&nbsp;value="0.09"&#62;
+&lt;b&#62;Direction:&lt;/b&#62;&nbsp;
+&nbsp;&nbsp;&nbsp;&lt;input&nbsp;name="direction"&nbsp;size="4"&nbsp;type="text"&nbsp;value="0.001"&#62;
+&lt;p&#62;
+Feel&nbsp;free&nbsp;to&nbsp;add&nbsp;your&nbsp;comments&nbsp;related&nbsp;to&nbsp;this&nbsp;program&nbsp;and&nbsp;BinProlog.
+&lt;/p&#62;
+&lt;textarea&nbsp;align="top"&nbsp;name="comment"&nbsp;rows=3&nbsp;cols=60&#62;
+&lt;/textarea&#62;
+&lt;input&nbsp;align="bottom"&nbsp;type="submit"&nbsp;value="Submit"&#62;
+&lt;/form&#62;
+
+&lt;/body&#62;
+&lt;/html&#62;
+
+</pre></font>
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc3.3">
+3.3</a>&nbsp;&nbsp;The BinNet HTTP Client</h3>
+
+<div class="p"><!----></div>
+ The BinNet HTTP Client library supports HTTP 1.x processing
+ directly in Prolog, using BinProlog's portable socket operations.
+ It allows a BinProlog program to get HTML or ASCII text pages
+ from a Web server and "datamine" for links found in the page. 
+ It also allows consulting BinProlog files directly from Web pages.
+ This library, easy to extend and reuse is provided in source form.
+ It interoperates with the BinNet HTTP server and the BinNet Programmable 
+ Internet Search Engine (spider).
+
+<div class="p"><!----></div>
+
+<ul>
+<li> <b>reconsult_url(AtomicURL)</b>:
+  reconsults a Prolog file from a Web server i.e. replaces each
+  predicate with a new definition found there, asserted to the current
+  database
+<div class="p"><!----></div>
+</li>
+
+<li> <b>consult_url(AtomicURL)</b>:
+  consults a Prolog file from a Web server i.e. asserts each
+  to the current database
+<div class="p"><!----></div>
+</li>
+
+<li> <b>http2line(AtomicURL,Line)</b>: Opens a URL, then gets a stream of lines
+  of chars from the WWW server. It will backtrack over them. At the end,
+  it fails. A query, for
+
+<pre>
+&nbsp;&nbsp;AtomicURL='http://www.binnecorp.com/test.txt'
+
+</pre>
+
+<div class="p"><!----></div>
+pointing to the a file containing the lines:
+
+<div class="p"><!----></div>
+
+<pre>
+&nbsp;&nbsp;This
+&nbsp;&nbsp;is
+&nbsp;&nbsp;a&nbsp;test.
+
+</pre>
+
+<div class="p"><!----></div>
+will work as follow:
+
+<div class="p"><!----></div>
+
+<pre>
+?-http2line('http://www.binnecorp.com/test.txt',Line).
+....
+....&nbsp;&nbsp;%&nbsp;some&nbsp;header&nbsp;lines
+....
+Line=[84,104,105,115];
+
+Line=[105,115];
+
+Line=[97,32,116,101,115,116,46];
+no
+
+</pre>
+
+<div class="p"><!----></div>
+This acts like if you used 
+
+<div class="p"><!----></div>
+
+<pre>
+&nbsp;?-File=[&nbsp;&nbsp;&nbsp;"This","is","a&nbsp;test."],member(Line,File).
+
+</pre>
+
+<div class="p"><!----></div>
+Use name/2 to convert each list of characters returned by Line
+to an atom. Type help(read), help(write), help(chars) for
+hints on various operations you can perform on each line.
+<div class="p"><!----></div>
+</li>
+
+<li> <b>http2line(AtomicURL,Cs)</b>:
+ Same as http2line, but skips header lines.
+<div class="p"><!----></div>
+</li>
+
+<li> <b>http2content_line(AtomicURL,Cs)</b>: 
+extracts the content of html or ascii text page, Prolog code in particular,
+to a list of charaters, headers excluded.
+<div class="p"><!----></div>
+</li>
+
+<li> <b>http2link(AtomicURL,Link)</b>: Extracts links to other URLs, found in a HTML page,
+  given through its URL.
+
+<pre>
+&nbsp;&nbsp;Try:
+
+&nbsp;&nbsp;?-http2link('http://www.binnetcorp.com',Link).
+
+</pre>
+<div class="p"><!----></div>
+</li>
+
+<li> <b>http2char(AtomicURL,C)</b>:
+  extracts content of html or ascii text page, Prolog code in particular,
+  one character at at time, header excluded.
+  Backtracks over each character, fails at end of the stream.
+
+<pre>
+&nbsp;&nbsp;Try:
+
+&nbsp;&nbsp;?-http2char('http://www.binnetcorp.com/test.txt',C),put_code(C),fail;nl.
+
+</pre>
+<div class="p"><!----></div>
+</li>
+
+<li> <b>http2chars(AtomicURL,Cs)</b>: extracts content of html or ascii text page, Prolog code in particular,
+to a list of characters.
+<div class="p"><!----></div>
+</li>
+
+<li> <b>http2clause(AtomicURL,Clause)</b>:  Extract on clause at a time, from a URL pointing to a Prolog file.
+  Backtracks over them, fails at the end.
+<div class="p"><!----></div>
+</li>
+
+<li> <b>http2db(AtomicURL)</b>:  consults a URL containing Prolog code to current database
+<div class="p"><!----></div>
+</li>
+
+<li> <b>http2db(AtomicURL,Db)</b>:  consults a URL containing Prolog code to a given database
+<div class="p"><!----></div>
+</li>
+
+<li> <b>http2db_replace(AtomicURL)</b>:  reconsults a URL containing Prolog code to current database,
+  while replacing existing predicates having the same signature
+<div class="p"><!----></div>
+</li>
+
+<li> <b>assume_url(AtomicURL)</b>: assumes with assumei/1, all Prolog clauses at URL
+<div class="p"><!----></div>
+</li>
+</ul>
+
+<div class="p"><!----></div>
+ <h2><a name="tth_sEc4">
+4</a>&nbsp;&nbsp;The BinNet Internet Search Engine</h2>
+
+<div class="p"><!----></div>
+The search engine is composed of a kernel library (file http_spider.pl)
+and a set of scripts (http_spider_scripts.pl).
+The spider remembers links followed. Links can be seen, after executions
+with <tt>show_links</tt>, together with the depth where they are found.
+
+<div class="p"><!----></div>
+The main interface to the kernel is provided through the predicate
+spider/4.
+
+<div class="p"><!----></div>
+
+<pre>
+spider(K,AtomicRoot,Link,Path):
+
+%&nbsp;Walks&nbsp;through&nbsp;links&nbsp;up&nbsp;to&nbsp;depth&nbsp;K
+%&nbsp;starting&nbsp;from&nbsp;AtomicRoot&nbsp;of&nbsp;the&nbsp;form&nbsp;'http://...'
+%&nbsp;Returns&nbsp;each&nbsp;Link&nbsp;and&nbsp;Path&nbsp;(a&nbsp;list&nbsp;of&nbsp;canonical&nbsp;links)&nbsp;used&nbsp;to&nbsp;get&nbsp;there.
+
+</pre>
+
+<div class="p"><!----></div>
+Keyword search scripts are programmed by extracting list of words,
+found on each line of the HTML or text file to which the link refers,
+with <tt>http2words(Link,Ws)</tt>.
+
+<div class="p"><!----></div>
+Good/bad link classification scripts are programmed using
+<tt>is_good_link(AtomicURL,YesNoMaybe)</tt> which returns yes/no/maybe
+depending on valid syntax and actual responsiveness of the URL to
+which the link points on the Internet.
+
+<div class="p"><!----></div>
+To scripts limited to links local to the Web site given as RootURL
+are programmed by overriding internal components of the kernel spider
+using intuitionistic implication (assumptions), as in:
+
+<div class="p"><!----></div>
+
+<pre>
+/*&nbsp;
+%&nbsp;Internal&nbsp;Spider:&nbsp;moves&nbsp;only&nbsp;inside&nbsp;the&nbsp;domain&nbsp;of&nbsp;TopURL
+*/
+internal_spider(Depth,TopURL,HarvestedLink):-
+&nbsp;&nbsp;url_filter(internal_only)=&#62;&#62;spider(Depth,TopURL,HarvestedLink).
+
+</pre>
+
+<div class="p"><!----></div>
+A number of script examples are given in file <tt>http_spider_script.pl</tt>.
+The features described can be combined independently, and it is
+also possible to start the spider with a meta-search root, for instance,
+a Lycos or Yahoo query, which is further explored as if it were an ordinary
+html file.
+
+<div class="p"><!----></div>
+Various tests for the spider as well as of its component
+are available in file <tt>bp_inet/test/http_test.pl</tt>
+
+<div class="p"><!----></div>
+ <h2><a name="tth_sEc5">
+5</a>&nbsp;&nbsp;The BinNet Web Server</h2>
+
+<div class="p"><!----></div>
+The server implements a subset of the HTTP 1.x protocol (handling of text/html
+files together with efficent execution of Prolog server side includes (SSIs) - scripts
+running much more efficiently that dynamicaly loaded CGI scripts - as they are
+part of the server. Other requests are redirec by the server to  a standard
+server (assumed on the same machine, at port 80). Our server itself,
+listens by default on port 8080.
+
+<div class="p"><!----></div>
+To try out the server, together with a server side include
+script handling facility, type
+
+<div class="p"><!----></div>
+
+<pre>
+&nbsp;&nbsp;&nbsp;bp&nbsp;http_query
+
+</pre>
+
+<div class="p"><!----></div>
+Assuming that the BinProlog Internet tools have been
+uncompressed in something like <tt>c:\bp_inet</tt>,
+just open with Netscape the following link:
+
+<div class="p"><!----></div>
+
+<pre>
+http://localhost:8080/bp_inet/cgi/http_query.html
+
+</pre>
+
+<div class="p"><!----></div>
+Click on the <b>submit</b> button to see the server interacting
+with the Netscape client, both for fetching a file and
+running a CGI script-like <em>server side include - (SSI)</em> program
+(based on code in ssi_lib.pl and http_query.pl).
+
+<div class="p"><!----></div>
+This demo form can be easily adapted to remotely
+administer the server, with appropriate password
+protected queries.
+
+<div class="p"><!----></div>
+To launch the server only, on default port 8080,
+without the SSI facilities, type in a command window:
+
+<div class="p"><!----></div>
+
+<pre>
+&nbsp;&nbsp;&nbsp;bp&nbsp;http_server
+
+</pre>
+
+<div class="p"><!----></div>
+then, type at the prompt:
+
+<div class="p"><!----></div>
+
+<pre>
+?-&nbsp;http_server.
+
+</pre>
+
+<div class="p"><!----></div>
+To create distributable bytecode application type:
+
+<div class="p"><!----></div>
+
+<pre>
+bp
+
+?-fcompile(http_query).
+
+</pre>
+
+<div class="p"><!----></div>
+Then, run the bytcode application with
+
+<div class="p"><!----></div>
+
+<pre>
+&nbsp;&nbsp;&nbsp;bp&nbsp;http_query.wam
+
+</pre>
+
+<div class="p"><!----></div>
+Note that on platforms where multi-threading is available,
+the server spawns new threads for each client.
+The script http_query.pl gives an example of a truly
+<em>multi-user</em> Prolog process: users entering different logins
+in the Web form will be assigned different clause databases as well.
+Threads/engines spawned to support user requests are recycled after
+each execution.
+
+<div class="p"><!----></div>
+ <h2><a name="tth_sEc6">
+6</a>&nbsp;&nbsp;BinProlog Networking</h2>
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc6.1">
+6.1</a>&nbsp;&nbsp;Client/server programming in BinProlog: a first look</h3>
+
+<div class="p"><!----></div>
+To try this out, open 3 windows, start BinProlog in each, then type:
+
+<div class="p"><!----></div>
+
+<pre>
+&nbsp;&nbsp;&nbsp;?-run_server.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%&nbsp;in&nbsp;the&nbsp;first&nbsp;window
+&nbsp;&nbsp;&nbsp;?-out(hello(your_name)).&nbsp;&nbsp;%&nbsp;in&nbsp;the&nbsp;second&nbsp;window
+&nbsp;&nbsp;&nbsp;?-all(X,Xs).&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%&nbsp;in&nbsp;the&nbsp;third&nbsp;window
+
+</pre>
+
+<div class="p"><!----></div>
+You will see that they are connected! The following sections
+will show how this kind of communication is achieved between
+your computer and, if you are `wired', other computers over the net.
+
+<div class="p"><!----></div>
+ <h2><a name="tth_sEc7">
+7</a>&nbsp;&nbsp;Mobile Code</h2>
+
+<div class="p"><!----></div>
+The latest version of BinProlog supports two simple <b>move/0</b> and <b>return/0</b>
+operations which transport
+computation to the server and back. 
+The client simply waits until computation completes, when bindings
+ for the first solution are propagated back:
+
+<div class="p"><!----></div>
+<font size="-1">
+<pre>
+Window&nbsp;1:&nbsp;a&nbsp;mobile&nbsp;thread&nbsp;
+
+?-there,move,println(on_server),member(X,[1,2,3]),
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return,println(back).&nbsp;
+back
+X=1;&nbsp;
+no.&nbsp;
+
+Window&nbsp;2:&nbsp;a&nbsp;server&nbsp;
+
+?-trust.&nbsp;
+on_server&nbsp;
+
+</pre></font>
+
+<div class="p"><!----></div>
+In case return is absent, computation proceeds to the end of the transported continuation.
+Note that mobile computation is more expressive and more efficient than remote predicate calls as such. Basically, it <em>moves once</em>, and executes on the server <em>all future computations</em> of the current AND branch until a return instruction is hit,
+when it takes the remaining continuation and comes back. This can be seen by comparing real time execution speed for: 
+
+<div class="p"><!----></div>
+<font size="-1">
+<pre>
+?-there,for(I,1,1000),run(println(I)),fail.&nbsp;
+
+?-there,move,for(I,1,1000),println(I),fail.&nbsp;
+
+</pre></font>
+
+<div class="p"><!----></div>
+While the first query uses <tt>run/1</tt> each time to send a remote task to the server,
+the second moves once the full computation to the server where it executes without
+further requiring network communications.
+Note that the <tt>move/0, return/0</tt> pair cut nondeterminism for the transported segment
+of the current continuation. This avoids having to transport state of the choice-point stack
+as well as implementation complexity of multiple answer returns and tedious 
+distributed backtracking synchronization. Surprisingly, this is not a strong limitation,
+as the programmer can simply use something like:
+
+<div class="p"><!----></div>
+<font size="-1">
+<pre>
+?-there,move,findall(X,for(I,1,1000),Xs),return,member(X,Xs).
+
+</pre></font>
+
+<div class="p"><!----></div>
+ to emulate (finite!) nondeterministic remote execution, by collecting all solutions
+at the remote side and exploring them through (much more efficient) local
+backtracking after returning.
+
+<div class="p"><!----></div>
+ <h2><a name="tth_sEc8">
+8</a>&nbsp;&nbsp;Threads</h2>
+
+<div class="p"><!----></div>
+Windows 95/98/NT versions of BinProlog also support multithreaded execution.
+Type help(thread), then use info/1 for more information on thread related operations.
+
+<div class="p"><!----></div>
+In fact, for most programs just using
+
+<div class="p"><!----></div>
+<font size="-1">
+<pre>
+bg(Goal)
+
+and
+
+synchronize(Statement)
+
+</pre></font>
+
+<div class="p"><!----></div>
+are all you need to get started.
+Take a look at the StockMarket Web-based demo at
+
+<pre>
+http://www.binnetcorp.com&nbsp;
+
+</pre>
+
+<div class="p"><!----></div>
+for a more interesting example using multiple threads.
+
+<div class="p"><!----></div>
+ <h2><a name="tth_sEc9">
+9</a>&nbsp;&nbsp;The Web of BinProlog users</h2>
+
+<div class="p"><!----></div>
+You can get connected to users of BinProlog over the Internet
+by opening two windows and starting BinProlog in them
+(this should work on an Internet connected Unix or Windows 95/NT
+machine).
+
+<div class="p"><!----></div>
+In the first window type:
+
+<div class="p"><!----></div>
+
+<pre>
+?-host('your.full.internet.address')=&#62;run_server.
+
+</pre>
+
+<div class="p"><!----></div>
+In the second window type:
+
+<div class="p"><!----></div>
+
+<pre>
+?-chat.
+TARGET&nbsp;SERVERS&nbsp;ALIVE&nbsp;ON&nbsp;THE&nbsp;NET:
+..............................
+..............................
+^D&nbsp;on&nbsp;Unix&nbsp;or&nbsp;^Z&nbsp;on&nbsp;PCs&nbsp;to&nbsp;end
+&#62;
+&#62;&nbsp;TYPE&nbsp;IN&nbsp;YOUR&nbsp;MESSAGES&nbsp;HERE!!!
+&#62;
+
+</pre>
+
+<div class="p"><!----></div>
+Whatever you type in the second window (as well as whatever comes
+form other users over the net) can be seen in the first one.
+
+<div class="p"><!----></div>
+Starting <tt>run_server</tt> is a fairly secure operation, the (restricted)
+server will only accept messages to be displayed and Linda operations.
+
+<div class="p"><!----></div>
+You can personalize your character (the login name appears
+on the screen of other users preceding what you say) with:
+
+<div class="p"><!----></div>
+
+<pre>
+?-login(joe)=&#62;password(evrika)=&#62;chat.
+
+</pre>
+
+<div class="p"><!----></div>
+If you cannot connect to a master server or you want to keep
+the chat local to your computer you can start a server with
+
+<pre>
+?-run_server.
+
+</pre>
+
+<div class="p"><!----></div>
+ one servant for each user with:
+
+<pre>
+?-run_servant.
+
+</pre>
+
+<div class="p"><!----></div>
+To participate to the local chat do something like:
+
+<pre>
+?-login(joe)=&#62;talk.
+
+</pre>
+
+<div class="p"><!----></div>
+ This will show what you say with prompt <tt>joe</tt> on
+the server and all its `satellite' servants.
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc9.1">
+9.1</a>&nbsp;&nbsp;High-level socket operations</h3>
+
+<div class="p"><!----></div>
+We have tried to hide socket operation as well as possible from
+the Prolog programmer, usually interested in elegant, high-level
+programming. Some inspiration from Java's approach to socket
+programming is gratefully acknowledged.
+
+<div class="p"><!----></div>
+
+<ul>
+<li>new_client(Host,Port,ClientSocket) creates ClientSocket connected to
+Host (a remote computer's Internet address, by default localhost), 
+Port (a Unix port, by default 9001)
+<div class="p"><!----></div>
+</li>
+
+<li> new_server(Port,ServerSocket) opens on Port (by default 9001)
+a new ServerSocket
+<div class="p"><!----></div>
+</li>
+
+<li> new_service(ServerSocket, Timeout, ServiceSocket)
+creates a ServiceSocket answering ServerSocket within Timeout seconds
+<div class="p"><!----></div>
+</li>
+
+<li> close_socket(Socket) closes a server, service or client socket
+<div class="p"><!----></div>
+</li>
+
+<li> sock_read(Socket,CharList) reads a list of characters from a
+socket. Internally, the length in bytes is sent as 32 bit network-ordered
+word is read, then the bytes which are converted to a Prolog list
+of character codes.
+<div class="p"><!----></div>
+</li>
+
+<li> sock_readln(Socket,CharList) reads a list of characters from a socket, allowing the programmer to internalize it with name/2. Note that
+internalizing is better to be avoided as it fills internal tables
+which are garbage collected only when restart/0 resets them together
+with all dynamic data. However, term_chars/2 allows extracting
+a term from such a list of chars without internalizing it.
+<div class="p"><!----></div>
+</li>
+
+<li> sock_write writes a list of characters
+to a socket, first its length in bytes then as a sequence of bytes.
+<div class="p"><!----></div>
+</li>
+
+<li> sock_writeln writes a list of characters
+to a socket, terminated with a newline character. Both sock_read(ln) and
+sock_write(ln) are intended to be used in `connectionless' ask/answer
+style dialog between a client and a server (see the Linda package in file extra.pl built on top of them as an example of use.
+<div class="p"><!----></div>
+</li>
+
+<li> sleep(N) waits N seconds without using CPU resources
+<div class="p"><!----></div>
+</li>
+
+<li> fork(Pid) starts a new completely IO-less background Unix process (child) with stdio, stdout and stderr redirected to /dev/null and returns
+the child's Pid to the parent and Pid=0 to the child
+<div class="p"><!----></div>
+</li>
+</ul>
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc9.2">
+9.2</a>&nbsp;&nbsp;Client/server programming: Linda operations</h3>
+
+<div class="p"><!----></div>
+
+<div class="p"><!----></div>
+
+<ul>
+<li> run_server/0 runs a foreground Linda server
+<div class="p"><!----></div>
+</li>
+
+<li> fork_server/0 runs background Linda server
+<div class="p"><!----></div>
+</li>
+
+<li> fork_server/1 forks Linda server and returns its Pid
+<div class="p"><!----></div>
+</li>
+
+<li> stop_server/0 stops Linda server
+<div class="p"><!----></div>
+</li>
+
+<li> stop_server/1 stops Linda server with given password
+<div class="p"><!----></div>
+</li>
+
+<li> ask_server/2 sends a query and gets an answer from Linda server
+<div class="p"><!----></div>
+</li>
+
+<li> server_info/1 gets language, host and port info from Linda server
+<div class="p"><!----></div>
+</li>
+
+<li> serve_answer/2 is the basic query/answer `interactor' on Linda server. It is applied with call/N to to an input from a client,
+to produce an output to be sent back (see file extra.pl for details).
+<div class="p"><!----></div>
+</li>
+
+<li> out/1 puts a term on Linda server
+<div class="p"><!----></div>
+</li>
+
+<li> in/1 waits to remove a term from Linda server
+<div class="p"><!----></div>
+</li>
+
+<li> all/2 gets the list of terms matching arg 1 from Linda server
+<div class="p"><!----></div>
+</li>
+
+<li> rd/1 reads a terms matching arg 1 from Linda server
+<div class="p"><!----></div>
+</li>
+
+<li> cin/1 tries to remove a term from Linda server
+<div class="p"><!----></div>
+</li>
+
+<li> default_host/1 returns default host for Linda server
+<div class="p"><!----></div>
+</li>
+
+<li> default_port/1 returns default port for Linda server. Use
+something like host( 'eve.info.umoncton.ca' ) <font face="symbol">Þ</font
+> port(8888) <font face="symbol">Þ</font
+> LindaOperation to `redirect' a Linda operation to work with the specified
+host/port. This use of intuitionistic implication
+<font face="symbol">Þ</font
+> avoids passing useless parameters
+to deep calls. Therefore, multiple versions of the same
+predicate with explicit host/port arguments are not needed
+for the various Linda operations. Once the host/port are
+assumed using <font face="symbol">Þ</font
+>, their values are used inside
+the proof (execution) of LindaOperation. As  <font face="symbol">Þ</font
+> is
+scoped and backtrackable, no unpleasant side-effects remain
+after its use, allowing seamless `multiple-server' dialog.
+<div class="p"><!----></div>
+</li>
+</ul>
+
+<div class="p"><!----></div>
+Some other operations fix the current host/port/remote code file
+on the server, making reference to them simpler in case
+we are repeatedly interacting with the same remote server.
+
+<div class="p"><!----></div>
+
+<ul>
+<li> set_host/1 sets IP address or name of server host we want to talk to
+<div class="p"><!----></div>
+</li>
+
+<li> set_port/1 sets port number of the server we want to talk to
+<div class="p"><!----></div>
+</li>
+
+<li> set_code/1 sets the name of the default file/database on remote server, used for instance in remote code fetching (see rload/1).
+<div class="p"><!----></div>
+</li>
+</ul>
+
+<div class="p"><!----></div>
+ <h2><a name="tth_sEc10">
+10</a>&nbsp;&nbsp;Running remote code</h2>
+
+<div class="p"><!----></div>
+On an Intranet of trusted users and computers, or in different
+windows of your unconnected PC or workstation you might want 
+to experiment with a server allowing arbitrary Prolog command
+execution. You can start a local remote predicate call server
+by typing in a first window:
+
+<div class="p"><!----></div>
+
+<pre>
+?-run_unrestricted_server.
+
+</pre>
+
+<div class="p"><!----></div>
+BinProlog's convention is that if the name returned by default_host/1
+is different from <tt>localhost</tt> it assumes you want to get connected
+and interoperate through customized servers with other computers using BinProlog.
+
+<div class="p"><!----></div>
+To override this default setting you can use either
+<tt>set_host('my.full.internet.address')</tt> or
+temporarily override your default host by assuming it as a <tt>host/1</tt>
+fact with
+BinProlog's intuitionistic assumption. Such assumptions are scoped and
+forgotten on backtracking,
+
+<div class="p"><!----></div>
+With
+
+<div class="p"><!----></div>
+
+<pre>
+?-server_host('my.full.internet.address')=&#62;run_server.
+
+</pre>
+
+<div class="p"><!----></div>
+By default such servers are registered
+on a master server at BinProlog's home,
+see <tt>default_master_server/1</tt> for its
+host/port information.
+
+<div class="p"><!----></div>
+You can try out your server in a client window with
+
+<div class="p"><!----></div>
+
+<pre>
+?-remote_run((write(hello),nl)).
+
+</pre>
+
+<div class="p"><!----></div>
+Note that registered servers are in principle accessible
+to other users and therefore <em>not</em> fully secure, unless
+you use one of the following two methods to implement security.
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc10.1">
+10.1</a>&nbsp;&nbsp;A first approach to security: servers with restricted interactors</h3>
+
+<div class="p"><!----></div>
+Here is the code of the chat server:
+
+<div class="p"><!----></div>
+
+<pre>
+chat_server_interactor(mes(From,Cs),Answer):-show_mes(From,Cs,Answer).
+chat_server_interactor(ping(T),R):-term_server_interactor(ping(T),R).
+chat_server_interactor(run(_),no).
+chat_server_interactor(run(_,_),no).
+
+chat_server:-
+&nbsp;&nbsp;server_interactor(chat_server_interactor)=&#62;&#62;
+&nbsp;&nbsp;run_server.
+
+</pre>
+
+<div class="p"><!----></div>
+Basically, by overriding the default 
+<tt>server_interactor</tt> with our <tt>chat_server_interactor</tt>
+we tell to <tt>chat_server</tt> that only commands matching
+known, secure operations has to be performed on behalf
+of remote users.
+
+<div class="p"><!----></div>
+This might look very simple but some of BinProlog's key
+features (intuitionistic implication and higher-order
+call/N) are used inside the `generic' server code (see file extra.pl)
+to achieve this form of `configurability'.
+
+<div class="p"><!----></div>
+Here is some <em>interactor</em> code (which might change in the future) for
+two other `secure' servers.
+
+<div class="p"><!----></div>
+The first one (BinProlog's default) 
+is a Linda+chat server (to be started with <tt>run_server/0</tt>).
+It offers an good combination of security and convenience:
+only allows modifying its dynamic database remotely through
+Linda operations and displaying
+messages. It can be shut down remotely (with password)
+and checked if alive
+and although it can be subject to resource attacks
+by malicious users it can do no harm to your files
+system or give away information about your computer.
+
+<div class="p"><!----></div>
+
+<pre>
+term_server_interactor(cin(X),R):-serve_cin(X,R).
+term_server_interactor(out(X),R):-serve_out(X,R).
+term_server_interactor(cout(X),R):-serve_cout(X,R).
+term_server_interactor(rd(X),R):-serve_rd(X,R).
+term_server_interactor(all(X),Xs):-serve_facts(X,X,Xs).
+term_server_interactor(all(X,G),Xs):-serve_facts(X,G,Xs).
+term_server_interactor(id(R),R):-this_id(R).
+term_server_interactor(ping(T),T):-ctime(T).
+term_server_interactor(stop(W),yes):-assumel(server_done(W)).
+term_server_interactor(halt(X),R):-serve_halt(X,R).
+term_server_interactor(add_servant(X),R):-serve_add_servant(X,R).
+term_server_interactor(mes(From,Cs),Answer):-
+&nbsp;&nbsp;show_mes(From,Cs,Answer),
+&nbsp;&nbsp;forward_to_servants(mes(From,Cs)).
+term_server_interactor(proxy(H,P,Q),R):-
+&nbsp;&nbsp;ask_a_server(H,P,Q,A)-&#62;R=A;R=no.
+term_server_interactor(in(X),R):-serve_cin(X,R).&nbsp;%&nbsp;$$thish&nbsp;should&nbsp;block!!!
+
+</pre>
+
+<div class="p"><!----></div>
+Note that this interactor even supports proxy forwarding
+to a give host/port as well as forwarding
+to passive pseudo-servers (called `servants', which
+work by watching for given patterns on real servers
+and reacting back)
+and in particular to the Java applets in related package
+LindaInteractor.tar.gz.
+Note that the secure execution
+of forwarded queries are the responsibility of the 
+proxy target.
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc10.2">
+10.2</a>&nbsp;&nbsp;A second approach to security: starting an
+Intranet specific master server</h3>
+
+<div class="p"><!----></div>
+Keeping one's host/port information secret from other users
+can be achieved by starting a master server local to a secure
+physical or virtual Intranet.
+
+<div class="p"><!----></div>
+For users behind a firewall, this might actually be the only
+way to try out these operations as the default master server
+might be unreachable.
+
+<div class="p"><!----></div>
+To start your own master server type in a window something like:
+
+<div class="p"><!----></div>
+
+<pre>
+?-&nbsp;master_server('my.secure.local.computer',7788)=&#62;run_master_server.
+
+</pre>
+
+<div class="p"><!----></div>
+Use a fact
+
+<pre>
+&nbsp;&nbsp;&nbsp;master_server('my.secure.local.computer',7788).
+
+</pre>
+
+<div class="p"><!----></div>
+Type in or have your code execute:
+
+<div class="p"><!----></div>
+
+<pre>
+&nbsp;&nbsp;set_master_server('my.secure.local.computer',7788)
+
+</pre>
+
+<div class="p"><!----></div>
+in both your client and server programs intended to be
+managed by your own master server.
+
+<div class="p"><!----></div>
+A useful application to this is to build a local chat line
+not seen by users from the outside.
+
+<div class="p"><!----></div>
+Progressively, commercial quality security will be built in BinProlog,
+especially if nonsensical export restrictions in US and Canada will be
+removed on strong cryptography.
+
+<div class="p"><!----></div>
+To keep the workload of the master server minimal, only when
+an error is detected by a client, the master_server is asked
+to refresh its information and possibly remove dead servers
+from its database.
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc10.3">
+10.3</a>&nbsp;&nbsp;Towards a Web of interacting secure mobile agents</h3>
+
+<div class="p"><!----></div>
+The MOO metaphor combined with the idea of `negotiation' between
+the agent's intentions and the `structure of the world', represented
+as a set of Linda blackboards storing state information
+on servers connected over the the Internet allows a simple and secure
+remote execution mechanism through specialized server-side interpreters.
+
+<div class="p"><!----></div>
+Implementation of arbitrary remote execution is easy
+in a Linda + Prolog system due to Prolog's metaprogramming
+abilities. No complex serialization remote procedure/method
+call packages are needed. In BinProlog (starting with free version 6.25)
+code fetched lazily over
+the network is cached in a local database and then
+dynamically recompiled on the fly if usage statistics
+indicate that it is not volatile and it is heavily used locally.
+
+<div class="p"><!----></div>
+As an example, high performance file-transfer (actually known to be faster than
+well-known <tt>http</tt> as <tt>ftp</tt> protocols) is implemented by orchestrating
+Prolog based <tt>remote_run</tt> control operations which are
+used to trigger direct full speed transfers entirely left
+to optimized C built-ins like <tt>sock2file/2</tt>:
+
+<div class="p"><!----></div>
+
+<pre>
+fget(RemoteFile,LocalFile):-
+&nbsp;&nbsp;&nbsp;remote_run(RF,fopen(RemoteFile,'rb',RF)),
+&nbsp;&nbsp;&nbsp;fopen(LocalFile,'wb',LF),
+&nbsp;&nbsp;&nbsp;term_chars(to_sock(RF),Cmd),
+&nbsp;&nbsp;&nbsp;new_client(Socket),
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sock_write(Socket,Cmd),
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;socket(Socket)=&#62;from_sock(LF,_),
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fclose(LF),
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sock_read(Socket,_),
+&nbsp;&nbsp;&nbsp;close_socket(Socket),
+&nbsp;&nbsp;&nbsp;remote_run(fclose(RF)).
+
+from_sock(F,yes):-
+&nbsp;&nbsp;&nbsp;assumed(socket(S)),
+&nbsp;&nbsp;&nbsp;sock2file(S,F),!.
+
+</pre>
+
+<div class="p"><!----></div>
+Once the basic Linda protocol is in place and Prolog terms
+are sent through sockets, a command filtering server loop
+simply listens and executes the set of `allowed' commands.
+
+<div class="p"><!----></div>
+Despite Prolog's lack of object oriented features we have implemented
+code reuse with intuitionistic assumptions.
+
+<div class="p"><!----></div>
+For instance, to iterate over the set of servers forming
+the receiving end of our `Web of MOOs', after retrieving
+the list form a `master servers' which constantly monitors
+them making sure that the list reflects login/logout
+information, we simply override host/1 and port/1 with
+intuitionistic implication:
+
+<div class="p"><!----></div>
+
+<pre>
+ask_all_servers(ListOfServers,Question):-
+&nbsp;&nbsp;member(server_id(_,H,P),ListOfServers),
+&nbsp;&nbsp;host(H)=&#62;port(P)=&#62;ask_a_server(Question,_),
+&nbsp;&nbsp;fail.
+ask_all_servers(_,_).
+
+</pre>
+
+<div class="p"><!----></div>
+To specialize a generic server into either a master server or a
+secure `chat-only' server which merges messages from BinProlog
+users world-wide we simply override the filtering step in the 
+generic server's main interpreter loop.
+
+<div class="p"><!----></div>
+Implementing agents `roaming over' a set of
+servers is a simple and efficient high-level operation.
+First, we get the list of servers from the master server.
+Then we iterate through the appropriate remote-call negotiation
+with each site. Our agent's behavior is limited through
+security and resource limitations of participating interpreters,
+each having their own command filtering policies.
+
+<div class="p"><!----></div>
+In particular, on a chat-only server our roaming agent can only
+display a message. If the local interpreter allows gathering
+user information than our agent can collect it. If the local
+interpreter allows question/answering our agent will actually
+interact with the human user through the local server window.
+
+<div class="p"><!----></div>
+Such mobile agents are seen as `connection brokers' between participating
+independent server/client sites. For instance if two sites are
+willing to have a private conversation or code exchange they can
+do so by simply using the server/port/password information our
+agent can help them to exchange.
+
+<div class="p"><!----></div>
+Note that full metaprogramming combined with source-level mobile-code
+have the potential of better security than byte-code level verification
+as it happens in Java, as meaningful analysis and verification of
+program properties is possible.
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc10.4">
+10.4</a>&nbsp;&nbsp;An overview of some remote operations</h3>
+
+<div class="p"><!----></div>
+The following operations
+
+<div class="p"><!----></div>
+
+<pre>
+host(Other_machine)=&#62;rload(File).
+
+host(Other_machine)=&#62;code(File)=&#62;TopGoal.
+
+host(Other_machine)=&#62;fetch_remote_operators.
+
+</pre>
+
+<div class="p"><!----></div>
+allow fetching remote files/operator definitions <tt>rload/1, fetch_remote_operators/0</tt> or
+on-demand fetching of a predicate at a time from host/code file
+during execution of TopGoal.
+
+<div class="p"><!----></div>
+
+<pre>
+host(Other_machine)=&#62;remote_run(RemoteGoal).
+
+host(Other_machine)=&#62;remote_run(Answer,RemoteGoal).
+
+</pre>
+
+<div class="p"><!----></div>
+allow remote predicate calls without/with returned answer
+on the calling site.
+
+<div class="p"><!----></div>
+
+<pre>
+host(Other_machine)=&#62;rsh(ShellCommand,CharListAnswer).
+
+host(Other_machine)=&#62;rsh(ShellCommand).
+
+</pre>
+
+<div class="p"><!----></div>
+allows using BinProlog to remotely execute shell commands
+on a remote machine and collect/print the answers at the
+calling site. In particular it allows what Microsoft never 
+could/wanted to build in W95 or NT: remote shell commands.
+In particular, by starting a BinProlog server on a PC with
+W95/NT it is possible to do meaningful work on it remotely
+from another W95/NT PC or Unix box.
+Note that on machines not supporting pipes rsh is approximated
+with rexec which redirects execution to a file, gets it
+back and shows it to the user. Note also that
+
+<pre>
+?-run_unrestricted_server.
+
+</pre>
+should be used on the remote computer to allow these commands.
+
+<div class="p"><!----></div>
+ <h2><a name="tth_sEc11">
+11</a>&nbsp;&nbsp;Interaction with Java Applets.</h2>
+BinProlog starting from version 5.40 communicates with
+our recently released Java based <em>Linda Interactors</em><a href="#tthFtNtAAB" name="tthFrefAAB"><sup>1</sup></a> special purpose trimmed down pure Prolog engines written
+in Java which support the same unification based
+Linda protocol as BinProlog.
+The natural extension was to allow Java applets
+to participate to the rest of our `peer-to-peer'
+network of BinProlog interactors.
+As creating a server component within a Java applet
+is impossible due to Java's (ultra)-conservative
+security policies we have simply written a receiving-end 
+<em>servant</em> close to our
+example in subsection , which relies on a proxy server
+on the site where the applet originates from,
+for seamless integration in our world of
+peer-to-peer interactors.
+
+<div class="p"><!----></div>
+Here is the code for a more realistic servant,
+multiplexed among multiple servers and usable inside
+a Java applet.
+
+<div class="p"><!----></div>
+<font size="-1">
+<pre>
+run_servant:-
+&nbsp;&nbsp;default_server_interactor(Interactor),
+&nbsp;&nbsp;this_id(ID),
+&nbsp;&nbsp;out(servant_id(ID)),&nbsp;%&nbsp;registers&nbsp;this&nbsp;servant
+&nbsp;&nbsp;repeat,
+&nbsp;&nbsp;&nbsp;&nbsp;in(query(ServerId,Query)),&nbsp;%&nbsp;waits&nbsp;for&nbsp;a&nbsp;query
+&nbsp;&nbsp;&nbsp;&nbsp;(call(Interactor,Query,Reply)-&#62;Answer=Reply;Answer=no),
+&nbsp;&nbsp;&nbsp;&nbsp;%&nbsp;sends&nbsp;back&nbsp;an&nbsp;answer,&nbsp;if&nbsp;needed
+&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;ServerId=[]-&#62;true&nbsp;%&nbsp;no&nbsp;reply&nbsp;sent&nbsp;to&nbsp;anonymous&nbsp;servers
+&nbsp;&nbsp;&nbsp;&nbsp;;&nbsp;out(answer(ServerId,Answer))
+&nbsp;&nbsp;&nbsp;&nbsp;),
+&nbsp;&nbsp;functor(Query,stop,_),&nbsp;&nbsp;%&nbsp;stops&nbsp;when&nbsp;required
+&nbsp;&nbsp;!,
+&nbsp;&nbsp;in(servant_id(ID)).
+
+</pre></font>
+
+<div class="p"><!----></div>
+Note the presence of an overridable client-side interactor,
+allowing the generic servant code to be easily reused/specialized.
+Multiplexing is achieved by having each server's in/1 and out/1
+data marked with 
+unique <tt>servant_id/1</tt> records.
+
+<div class="p"><!----></div>
+To integrate multiple Java applet based clients
+in our `Web of Worlds', we use a more complex
+forwarding server, also available as equivalent Java
+code, to be run as a BinProlog and/or Java daemon<a href="#tthFtNtAAC" name="tthFrefAAC"><sup>2</sup></a>
+on the same machine as the HTTP server the applet comes from.
+
+<div class="p"><!----></div>
+<font size="-1">
+<pre>
+run_forwarding_server:-
+&nbsp;&nbsp;server_interactor(forwarding_server_interactor)=&#62;&#62;
+&nbsp;&nbsp;run_server.
+
+forwarding_server_interactor(mes(From,Cs),R):-!,R=yes,
+&nbsp;&nbsp;&nbsp;forward_to_servants(mes(From,Cs)).
+forwarding_server_interactor(Q,A):-
+&nbsp;&nbsp;&nbsp;term_server_interactor(Q,A).
+
+forward_to_servants(Query):-
+&nbsp;&nbsp;&nbsp;clause(servant_id(_),true),
+&nbsp;&nbsp;&nbsp;assert(query([],Query)),
+&nbsp;&nbsp;&nbsp;fail.
+forward_to_servants(_).
+
+</pre></font>
+
+<div class="p"><!----></div>
+Note that the forwarding server has the ability
+to interact with multiple servants, in particular
+with multiple Java applets.
+Starting with version 6.25 this forwarding ability
+is built in default BinProlog servers started
+with <tt>run_server</tt>.
+Try out the example applet in the corresponding version of
+the related Java package Jinn available
+from 
+
+<pre>
+http://www.cs.unt.edu/~tarau/netjinni/Jinni.html
+
+</pre>
+
+<div class="p"><!----></div>
+ <h2><a name="tth_sEc12">
+12</a>&nbsp;&nbsp;Communication behind a firewall</h2>
+The simplest way to communicate behind a firewall or in case
+of dynamic IP assignement is to
+use a servant instead of a server. The servant will
+watch a real server with <tt>in/1</tt> operations to perform
+commands assigned to it. 
+To attach the servant to a server with full Internet access
+use the server at BinProlog's home i.e. something like:
+
+<div class="p"><!----></div>
+
+<pre>
+?-host('cs.unt.edu')=&#62;port(7001)=&#62;run_servant.
+
+</pre>
+
+<div class="p"><!----></div>
+or your own server on the firewall, if you have an account on it.
+
+<div class="p"><!----></div>
+ <h2><a name="tth_sEc13">
+13</a>&nbsp;&nbsp;Generating VRML through BinProlog CGIs</h2>
+
+<div class="p"><!----></div>
+The following is a quick description of a VRML generator based on my
+ILPS'97 tutorial slides. Try it out its CGI version by following a link
+from
+
+<div class="p"><!----></div>
+
+<pre>
+http://www.cs.unt.edu/~tarau
+
+</pre>
+
+<div class="p"><!----></div>
+The CGI script dynamcally generate a simple animated VRML 2.0 
+landscape with some randomly changing colors.
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc13.1">
+13.1</a>&nbsp;&nbsp;VRML and Prolog: the mappings</h3>
+
+<div class="p"><!----></div>
+
+<ul>
+<li>  hierarchical space representation + event propagation for animation = VRML 2.0
+<div class="p"><!----></div>
+</li>
+
+<li> the need for theory: deep isomorphisms between the structure of the
+ <em>SPACE</em> and the structure of <em>TRUTH</em>
+<div class="p"><!----></div>
+</li>
+
+<li> declarative SPACE representation and TRUTH representation
+share the same difficulties w.r.t TIME and change
+<div class="p"><!----></div>
+</li>
+
+<li> cross-fertilization?
+<div class="p"><!----></div>
+</li>
+
+<li> as usual: shallow dissimilarities can get in the way:
+let's show some shallow similarities <tt>:-)</tt>
+<div class="p"><!----></div>
+</li>
+</ul>
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc13.2">
+13.2</a>&nbsp;&nbsp;A syntactical mapping: VRML "is" Prolog</h3>
+
+<div class="p"><!----></div>
+
+<ul>
+<li> VRML: hierarchical decomposition of the space in regions
+<div class="p"><!----></div>
+</li>
+
+<li> Prolog: terms as trees
+<div class="p"><!----></div>
+</li>
+
+<li> concrete syntaxe: closer to Life or Feature Structures than to Prolog
+
+<ul>
+<li> all arguments are named, not positional
+<div class="p"><!----></div>
+</li>
+
+<li> VRML 2.0 ROUTES are structurally similar to DCGs:
+   they are used to <em>thread</em> together streams of change
+<div class="p"><!----></div>
+</li>
+</ul>
+<div class="p"><!----></div>
+</li>
+</ul>
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc13.3">
+13.3</a>&nbsp;&nbsp;Syntax mapping of some key idioms:</h3>
+
+<div class="p"><!----></div>
+
+<pre>
+Prolog&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VRML
+-------------------------
+&nbsp;&nbsp;@{&nbsp;&nbsp;}&nbsp;===&#62;&nbsp;&nbsp;&nbsp;{&nbsp;&nbsp;}
+&nbsp;&nbsp;@[&nbsp;&nbsp;]&nbsp;===&#62;&nbsp;&nbsp;&nbsp;[&nbsp;&nbsp;]
+&nbsp;&nbsp;f(a,b,c)&nbsp;==&#62;&nbsp;f&nbsp;a&nbsp;b&nbsp;c
+&nbsp;&nbsp;a&nbsp;is&nbsp;b&nbsp;&nbsp;&nbsp;==&#62;&nbsp;a&nbsp;'IS'&nbsp;b
+&nbsp;&nbsp;a=b&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;==&#62;&nbsp;a&nbsp;b
+------------------------
+
+</pre>
+
+<div class="p"><!----></div>
+ key idea: let's allow writting unrestricted VRML code in Prolog!
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc13.4">
+13.4</a>&nbsp;&nbsp;Pseudo VRML in Prolog: a PROTO</h3>
+
+<pre>
+proto&nbsp;anAppearance&nbsp;@[
+&nbsp;&nbsp;&nbsp;exposedField('SFColor')=color(1,0,0),
+&nbsp;&nbsp;&nbsp;exposedField('MFString')=texture@[]
+]&nbsp;
+@{
+&nbsp;&nbsp;&nbsp;'Appearance'&nbsp;@{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;material='Material'&nbsp;@{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;diffuseColor&nbsp;is&nbsp;color
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;texture='ImageTexture'&nbsp;@{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;url&nbsp;is&nbsp;texture
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;&nbsp;&nbsp;}
+}.
+
+</pre>
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc13.5">
+13.5</a>&nbsp;&nbsp;How it looks in VRML?</h3>
+
+<pre>
+#VRML&nbsp;V2.0&nbsp;utf8&nbsp;
+&nbsp;
+PROTO&nbsp;anAppearance&nbsp;
+[&nbsp;
+&nbsp;&nbsp;exposedField&nbsp;SFColor&nbsp;color&nbsp;1&nbsp;0&nbsp;0&nbsp;,&nbsp;
+&nbsp;&nbsp;exposedField&nbsp;MFString&nbsp;texture&nbsp;[]&nbsp;
+]&nbsp;{&nbsp;
+&nbsp;&nbsp;Appearance&nbsp;{&nbsp;material&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;Material&nbsp;{&nbsp;diffuseColor&nbsp;IS&nbsp;color&nbsp;}&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;texture&nbsp;ImageTexture&nbsp;{&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;url&nbsp;IS&nbsp;texture&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;
+&nbsp;&nbsp;}&nbsp;
+}&nbsp;
+
+</pre>
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc13.6">
+13.6</a>&nbsp;&nbsp;Some Prolog Macros</h3>
+
+<pre>
+shape(Geometry):-
+&nbsp;&nbsp;%&nbsp;based&nbsp;on&nbsp;scoped&nbsp;assumptions&nbsp;(=&#62;)&nbsp;
+&nbsp;&nbsp;default_color(Color),
+&nbsp;&nbsp;toVrml(
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aShape&nbsp;@{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;geometry(Geometry@{}),
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Color
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+&nbsp;&nbsp;).
+
+sphere:-&nbsp;shape('Sphere').
+cone:-&nbsp;shape('Cone').
+cylinder:-&nbsp;shape('Cylinder').
+box:-&nbsp;shape('Box').
+
+</pre>
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc13.7">
+13.7</a>&nbsp;&nbsp;Using Prolog macros</h3>
+
+<pre>
+group&nbsp;@{
+&nbsp;&nbsp;children&nbsp;@[
+&nbsp;&nbsp;&nbsp;&nbsp;`transform(
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;translation(0,10,4),scale(2,2,2),rotation(0,0,0,0),
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[`sphere,&nbsp;`cone]
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;),
+&nbsp;&nbsp;&nbsp;&nbsp;`transform(
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;translation(5,0,0),scale(1,3,6),rotation(0,1,0,1.5),
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[`box]
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)
+&nbsp;&nbsp;]
+}.
+
+</pre>
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc13.8">
+13.8</a>&nbsp;&nbsp;From the Translator: (with Assumption Grammars)</h3>
+
+<pre>
+toVrml(X):-number(X),!,#X.
+toVrml(X):-atomic(X),!,#X.
+toVrml(A@B):-!,#indent(=),toVrml(A),toVrml(B).
+toVrml(A=B):-!,toVrml(A),toVrml(B).
+toVrml(A&nbsp;is&nbsp;B):-!,#indent(=),toVrml(A),#'IS',toVrml(B).
+toVrml({X}):-!,#'{',#indent(+),toVrml(X),#indent(-),#'}'.
+toVrml(`X):-!,X.
+toVrml(X):-is_list(X),!,
+&nbsp;&nbsp;#'[',#indent(+),vrml_list(X),#indent(-),#']'.
+toVrml(X):-is_conj(X),!,vrml_conj(X).
+toVrml(T):-compound(T),#indent(=),vrml_compound(T).
+
+</pre>
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc13.9">
+13.9</a>&nbsp;&nbsp;What's generated?</h3>
+
+<pre>
+Group&nbsp;{&nbsp;
+&nbsp;&nbsp;children&nbsp;[&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;Transform&nbsp;{&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;translation&nbsp;0&nbsp;10&nbsp;4&nbsp;scale&nbsp;2&nbsp;2&nbsp;2&nbsp;rotation&nbsp;0&nbsp;0&nbsp;0&nbsp;0&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;children&nbsp;[&nbsp;#&nbsp;aShape&nbsp;is&nbsp;a&nbsp;VRML&nbsp;2.0&nbsp;PROTO!
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aShape&nbsp;{&nbsp;geometry&nbsp;Sphere{}&nbsp;color&nbsp;0.7&nbsp;0.8&nbsp;0.8&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;,&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aShape&nbsp;{&nbsp;geometry&nbsp;Cone{}&nbsp;color&nbsp;0.6&nbsp;0.3&nbsp;0.9
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;,&nbsp;.....
+&nbsp;&nbsp;]&nbsp;
+}&nbsp;
+
+</pre>
+
+<div class="p"><!----></div>
+     <h3><a name="tth_sEc13.10">
+13.10</a>&nbsp;&nbsp;Some cross-fertilization opportunities:</h3>
+
+<ul>
+<li> trivial but useful: Prolog is a great VRML syntax checker!
+<div class="p"><!----></div>
+</li>
+
+<li> Prolog as a powerful macro language/static optimizer for VRML
+<div class="p"><!----></div>
+</li>
+
+<li> Prolog as an AI <em>planner</em> for complex intelligent
+  avatar movement in VRML
+<div class="p"><!----></div>
+</li>
+
+<li> Prolog as a scripting language: Java and Javascript have little
+  structural affinity with VRML which is about TERMS: trees of
+  3D object groupings!
+<div class="p"><!----></div>
+</li>
+
+<li> completely powerless: Javascript
+<div class="p"><!----></div>
+</li>
+
+<li> unnecessarily complex: Java+EAI
+<div class="p"><!----></div>
+</li>
+</ul>
+
+<div class="p"><!----></div>
+ <h2><a name="tth_sEc14">
+14</a>&nbsp;&nbsp;Inspecting some BinProlog internals</h2>
+
+<div class="p"><!----></div>
+ You can generate a kind of intermediate WAM-assembler by
+
+<div class="p"><!----></div>
+
+<pre>
+&nbsp;&nbsp;?-&nbsp;compile(asm,[file1,file2,...],'huge_file.asm').
+
+</pre>
+
+<div class="p"><!----></div>
+ A convenient way to see interactively the sequence of program
+transformations BinProlog is based on is:
+
+<div class="p"><!----></div>
+
+<pre>
+?-&nbsp;asm.
+a--&#62;b,c,d.
+^D
+
+DEFINITE:
+a(A,B)&nbsp;:-&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b(A,C),
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c(C,D),
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;d(D,B).
+
+BINARY:
+a(A,B,C)&nbsp;:-&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b(A,D,c(D,E,d(E,B,C))).
+
+WAM-ASSEMBLER:
+clause_?&nbsp;a,3
+firstarg_?&nbsp;_/0,6
+put_structure&nbsp;d/3,var(4-4/11,1/2)
+write_variable&nbsp;put,var(5-5/10,1/2)
+write_value&nbsp;put,var(2-2/6,2/2)
+write_value&nbsp;put,var(3-3/7,2/2)
+put_structure&nbsp;c/3,var(3-8/14,1/2)
+write_variable&nbsp;put,var(2-9/13,1/2)
+write_value&nbsp;put,var(5-5/10,2/2)
+write_value&nbsp;put,var(4-4/11,2/2)
+execute_?&nbsp;b,3
+
+</pre>
+
+<div class="p"><!----></div>
+ <h2><a name="tth_sEc15">
+15</a>&nbsp;&nbsp;LogiMOO</h2>
+
+<div class="p"><!----></div>
+LogiMOO is a BinProlog based virtual world, usable for collaborative
+work or simply online chat. A simple agent, the Notifier is provided
+(see file moo.pl in directory LogiMOO).
+
+<div class="p"><!----></div>
+Still in prototype stage, but working fine. 
+
+<div class="p"><!----></div>
+See the our PAP'96 paper [<a href="#DPT96:PAP" name="CITEDPT96:PAP">1</a>] for more info.
+
+<div class="p"><!----></div>
+Here is an example of session (requires Solaris 2.4 or better) playing
+with distributed objects (created by &#246;bmaster") and listed by "joe".
+You'll need some imagination to reconstitute the exact sequence.
+Better, try it out yourself on a Sparc with Solaris!
+
+<div class="p"><!----></div>
+<font size="-1">
+<pre>
+
+---------------------------------------------------------------
+Window&nbsp;1:&nbsp;-&nbsp;wizard&nbsp;(see&nbsp;server.pl)
+
+mbp
+
+?-&nbsp;[server].
+.....
+?-&nbsp;go.
+yes
+?-&nbsp;notfier&nbsp;started&nbsp;
+wizard&nbsp;says:&nbsp;Hello&nbsp;
+?-&nbsp;list.
+place(lobby)&nbsp;.&nbsp;
+lobby&nbsp;contains&nbsp;wizard&nbsp;.&nbsp;
+yes
+?-&nbsp;joe&nbsp;says:&nbsp;Hello&nbsp;
+?-&nbsp;obmaster&nbsp;says:&nbsp;Hello&nbsp;
+?-&nbsp;
+
+------------------------------------------------------------------
+Window&nbsp;2:&nbsp;-&nbsp;joe:&nbsp;(see&nbsp;joe.pl)
+
+mbp
+
+?-&nbsp;[joe].
+...
+?-&nbsp;go.
+notfier&nbsp;started&nbsp;
+joe&nbsp;says:&nbsp;Hello&nbsp;
+?-&nbsp;yes
+?-&nbsp;obmaster&nbsp;says:&nbsp;Hello&nbsp;
+?-&nbsp;list.
+place(lobby)&nbsp;.&nbsp;
+lobby&nbsp;contains&nbsp;wizard&nbsp;.&nbsp;
+lobby&nbsp;contains&nbsp;joe&nbsp;.&nbsp;
+lobby&nbsp;contains&nbsp;obmaster&nbsp;.&nbsp;
+ob(object,&lt;:,object)&nbsp;.&nbsp;
+obs(object,:&#62;,object)&nbsp;.&nbsp;
+ob(mammal,&lt;:,object)&nbsp;.&nbsp;
+obs(object,:&#62;,mammal)&nbsp;.&nbsp;
+ob(mammal,legs,4)&nbsp;.&nbsp;
+obs(mammal,&#62;&#62;,legs)&nbsp;.&nbsp;
+ob(dog,&lt;:,mammal)&nbsp;.&nbsp;
+obs(mammal,:&#62;,dog)&nbsp;.&nbsp;
+obs(dog,&#62;&#62;,legs)&nbsp;.&nbsp;
+ob(dog,legs,3)&nbsp;.&nbsp;
+yes
+
+------------------------------------------------------------------
+Window&nbsp;3:&nbsp;-&nbsp;obmaster:&nbsp;(see&nbsp;obmaster.pl&nbsp;and&nbsp;included&nbsp;files)
+
+mbp
+
+?-&nbsp;[obmaster].
+...
+?-&nbsp;go.
+notfier&nbsp;started&nbsp;
+obmaster&nbsp;says:&nbsp;Hello&nbsp;
+
+&nbsp;:-&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;object&nbsp;with&nbsp;true.
+&nbsp;:-&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mammal&nbsp;extends&nbsp;object&nbsp;with&nbsp;(legs&nbsp;:=&nbsp;4,true).
+&nbsp;:-&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dog&nbsp;extends&nbsp;mammal&nbsp;with&nbsp;(legs&nbsp;:=&nbsp;3,true).
+
+?-&nbsp;bye.&nbsp;
+
+</pre></font>
+
+<div class="p"><!----></div>
+ <h2><a name="tth_sEc16">
+16</a>&nbsp;&nbsp;Related work</h2>
+
+<div class="p"><!----></div>
+BinProlog related papers can be found following links from
+
+<pre>
+&nbsp;&nbsp;&nbsp;&nbsp;ftp://clement.info.umoncton.ca/~tarau
+
+</pre>
+or following links from 
+
+<pre>
+&nbsp;&nbsp;&nbsp;&nbsp;http://www.cs.unt.edu/~tarau
+
+</pre>
+
+<div class="p"><!----></div>
+ The reader interested in more information on
+Internet Programming with BinProlog and its new Java based component
+is refered to the following papers:
+
+<div class="p"><!----></div>
+[<a href="#T98:jelia" name="CITET98:jelia">7</a>,<a href="#T98:Jinni" name="CITET98:Jinni">6</a>,<a href="#TD98:mobile" name="CITETD98:mobile">12</a>,<a href="#TDD98:coord" name="CITETDD98:coord">13</a>,<a href="#lm" name="CITElm">18</a>,<a href="#hawai98" name="CITEhawai98">8</a>,<a href="#TDBwetice:97" name="CITETDBwetice:97">14</a>,<a href="#TDBwww:97" name="CITETDBwww:97">16</a>]
+and [<a href="#TDB:97" name="CITETDB:97">15</a>,<a href="#RDT97" name="CITERDT97">3</a>,<a href="#TDRB97:chi" name="CITETDRB97:chi">17</a>,<a href="#inap96" name="CITEinap96">4</a>,<a href="#lpnet96:virtual1" name="CITElpnet96:virtual1">20</a>,<a href="#DPT96:PAP" name="CITEDPT96:PAP">1</a>,<a href="#dbt95a" name="CITEdbt95a">2</a>]
+
+<div class="p"><!----></div>
+Related BinProlog documentation is available at: 
+[<a href="#bp7user" name="CITEbp7user">11</a>,<a href="#bp7advanced" name="CITEbp7advanced">9</a>,<a href="#bp7interface" name="CITEbp7interface">10</a>,<a href="#bp7crossref" name="CITEbp7crossref">5</a>].
+
+<div class="p"><!----></div>
+Slides from an ILPS'97 tutorials on Internet Programming with BinProlog
+are available following links from:
+
+<div class="p"><!----></div>
+
+<pre>
+http://www.cs.unt.edu/~tarau
+
+</pre>
+
+<div class="p"><!----></div>
+
+<h2>References</h2>
+
+<dl compact="compact">
+ <dt><a href="#CITEDPT96:PAP" name="DPT96:PAP">[1]</a></dt><dd>
+K.&nbsp;De&nbsp;Bosschere, D.&nbsp;Perron, and P.&nbsp;Tarau.
+ LogiMOO: Prolog Technology for Virtual Worlds.
+ In <em>Proceedings of PAP'96</em>, pages 51-64, London, Apr. 1996.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITEdbt95a" name="dbt95a">[2]</a></dt><dd>
+K.&nbsp;De&nbsp;Bosschere and P.&nbsp;Tarau.
+ Blackboard-based Extensions in Prolog.
+ <em>Software - Practice and Experience</em>, 26(1):49-69, Jan. 1996.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITERDT97" name="RDT97">[3]</a></dt><dd>
+S.&nbsp;Rochefort, V.&nbsp;Dahl, and P.&nbsp;Tarau.
+ Controlling Virtual Worlds through Extensible Natural
+  Language.
+ In <em>AAAI Symposium on NLP for the WWW</em>, Stanford University, CA,
+  1997.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITEinap96" name="inap96">[4]</a></dt><dd>
+P.&nbsp;Tarau.
+ Logic Programming and Virtual Worlds.
+ In <em>Proceedings of INAP96</em>, Tokyo, Nov. 1996.
+ keynote address.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITEbp7crossref" name="bp7crossref">[5]</a></dt><dd>
+P.&nbsp;Tarau.
+ BinProlog 7.0 Professional Edition: Predicate Cross-Reference Guide
+  .
+ Technical report, BinNet Corp., 1998.
+ Available from http://www.binnetcorp.com/BinProlog.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITET98:Jinni" name="T98:Jinni">[6]</a></dt><dd>
+P.&nbsp;Tarau.
+ Jinni: a Lightweight Java-based Logic Engine for Internet
+  Programming.
+ In K.&nbsp;Sagonas, editor, <em>Proceedings of JICSLP'98 Implementation
+  of LP languages Workshop</em>, Manchester, U.K., June 1998.
+ invited talk.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITET98:jelia" name="T98:jelia">[7]</a></dt><dd>
+P.&nbsp;Tarau.
+ Towards Inference and Computation Mobility: The Jinni Experiment.
+ In J.&nbsp;Dix and U.&nbsp;Furbach, editors, <em>Proceedings of JELIA'98,
+  LNAI 1489</em>, pages 385-390, Dagstuhl, Germany, Oct. 1998. Springer.
+ invited talk.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITEhawai98" name="hawai98">[8]</a></dt><dd>
+P.&nbsp;Tarau.
+ Towards Logic Programming Based Coordination in Virtual Worlds.
+ In <em>Proceedings of HICSS'98, Software Technology: Coordination
+  Languages, Models, Systems</em>, Big Island of Hawaii, Jan. 1998.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITEbp7advanced" name="bp7advanced">[9]</a></dt><dd>
+P.&nbsp;Tarau.
+ BinProlog 9.x Professional Edition: Advanced BinProlog Programming
+  and Extensions Guide.
+ Technical report, BinNet Corp., 2002.
+ Available from http://www.binnetcorp.com/BinProlog.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITEbp7interface" name="bp7interface">[10]</a></dt><dd>
+P.&nbsp;Tarau.
+ BinProlog 9.x Professional Edition: BinProlog Interfaces Guide.
+ Technical report, BinNet Corp., 2002.
+ Available from http://www.binnetcorp.com/BinProlog.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITEbp7user" name="bp7user">[11]</a></dt><dd>
+P.&nbsp;Tarau.
+ BinProlog 9.x Professional Edition: User Guide.
+ Technical report, BinNet Corp., 2002.
+ Available from http://www.binnetcorp.com/BinProlog.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITETD98:mobile" name="TD98:mobile">[12]</a></dt><dd>
+P.&nbsp;Tarau and V.&nbsp;Dahl.
+ Mobile Threads through First Order Continuations.
+ In <em>Proceedings of APPAI-GULP-PRODE'98</em>, Coruna, Spain, July
+  1998.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITETDD98:coord" name="TDD98:coord">[13]</a></dt><dd>
+P.&nbsp;Tarau, V.&nbsp;Dahl, and K.&nbsp;D. Bosschere.
+ Logic Programming Based Coordination in Virtual Worlds.
+ In W.&nbsp;Conen and G.&nbsp;Neumann, editors, <em>Coordination Technology
+  for Collaborative Applications - Organizations, Processes, and Agents</em>.
+  Springer, LNCS 1364, Mar. 1998.
+ ISBN 3-540-64170-X.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITETDBwetice:97" name="TDBwetice:97">[14]</a></dt><dd>
+P.&nbsp;Tarau, V.&nbsp;Dahl, and K.&nbsp;De&nbsp;Bosschere.
+ A Logic Programming Infrastructure for Remote Execution,
+  Mobile Code and Agents.
+ In <em>Proceedings of WETICE'97</em>, pages 106-112, IEEE Computer
+  Society Press, June 1997.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITETDB:97" name="TDB:97">[15]</a></dt><dd>
+P.&nbsp;Tarau, V.&nbsp;Dahl, and K.&nbsp;De&nbsp;Bosschere.
+ Logic Programming Tools for Remote Execution, Mobile
+  Code and Agents.
+ In <em>Proceedings of ICLP'97 Workshop on Logic Programming
+  and Multi Agent Systems</em>, Leuven, Belgium, July 1997.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITETDBwww:97" name="TDBwww:97">[16]</a></dt><dd>
+P.&nbsp;Tarau, V.&nbsp;Dahl, and K.&nbsp;De&nbsp;Bosschere.
+ Remote Execution, Mobile Code and Agents in BinProlog.
+ In <em>Electronic Proceedings of WWW6 Logic Programming
+  Workshop, http://www.cs.vu.nl/&nbsp;eliens/WWW6/papers.html</em>, Santa Clara,
+  California, Mar. 1997.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITETDRB97:chi" name="TDRB97:chi">[17]</a></dt><dd>
+P.&nbsp;Tarau, V.&nbsp;Dahl, S.&nbsp;Rochefort, and K.&nbsp;De&nbsp;Bosschere.
+ LogiMOO: a Multi-User Virtual World with Agents and
+  Natural Language Programming.
+ In S.&nbsp;Pemberton, editor, <em>Proceedings of CHI'97</em>, pages 323-324,
+  Mar. 1997.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITElm" name="lm">[18]</a></dt><dd>
+P.&nbsp;Tarau, K.&nbsp;De&nbsp;Boschere, V.&nbsp;Dahl, and S.&nbsp;Rochefort.
+ LogiMOO: an Extensible Multi-User Virtual World with Natural
+  Language Control.
+ <em>Journal of Logic Programming</em>, 38(3):331-353, Mar. 1999.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITElpnet96:virtual" name="lpnet96:virtual">[19]</a></dt><dd>
+P.&nbsp;Tarau and K.&nbsp;De&nbsp;Bosschere.
+ Virtual World Brokerage with BinProlog and Netscape.
+ In P.&nbsp;Tarau, A.&nbsp;Davison, K.&nbsp;De&nbsp;Bosschere, and M.&nbsp;Hermenegildo,
+  editors, <em>Proceedings of the 1st Workshop on Logic Programming Tools for
+  INTERNET Applications</em>, JICSLP'96, Bonn, Sept. 1996.
+ http://clement.info.umoncton.ca/&nbsp;lpnet.
+
+<div class="p"><!----></div>
+</dd>
+ <dt><a href="#CITElpnet96:virtual1" name="lpnet96:virtual1">[20]</a></dt><dd>
+P.&nbsp;Tarau and K.&nbsp;De&nbsp;Bosschere.
+ Virtual World Brokerage with BinProlog and Netscape.
+ In P.&nbsp;Tarau, A.&nbsp;Davison, K.&nbsp;De&nbsp;Bosschere, and M.&nbsp;Hermenegildo,
+  editors, <em>Proceedings 1st Workshop on Logic Programming Tools for
+  INTERNET Applications</em>, Bonn, Sept. 1996.
+ http://clement.info.umoncton.ca/&nbsp;lpnet.</dd>
+</dl>
+
+
+<div class="p"><!----></div>
+<hr /><h3>Footnotes:</h3>
+
+<div class="p"><!----></div>
+<a name="tthFtNtAAB"></a><a href="#tthFrefAAB"><sup>1</sup></a>available at http://clement.info.umoncton/BinProlog/LindaInteractor.tar.gz
+
+<div class="p"><!----></div>
+<a name="tthFtNtAAC"></a><a href="#tthFrefAAC"><sup>2</sup></a>Alternatively,
+BinProlog can be embedded as a server side include in an
+Apache server (written in C) while the equivalent Java code 
+is easily embeddable in the Java based Jigsaw HTTP server.
+<br /><br /><hr /><small>File translated from
+T<sub><font size="-1">E</font></sub>X
+by <a href="http://hutchinson.belmont.ma.us/tth/">
+T<sub><font size="-1">T</font></sub>H</a>,
+version 3.81.<br />On 07 Jul 2008, 12:10.</small>
+</html>

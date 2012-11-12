@@ -1,0 +1,11 @@
+..\bin\bp -q5 [color] tell('bm2.txt') call(go) call(told) call(halt)
+..\bin\bp -q5 [cube] tell_at_end('bm2.txt') call(go) call(told) call(halt)
+..\bin\bp -q5 [han] tell_at_end('bm2.txt') call(go) call(told) call(halt)
+..\bin\bp -q5 [fibo] tell_at_end('bm2.txt') call(go) call(told) call(halt)
+..\bin\bp -q5 [knight] tell_at_end('bm2.txt') call(go) call(told) call(halt)
+..\bin\bp -q5 [nnet] tell_at_end('bm2.txt') call(go) call(told) call(halt)
+..\bin\bp -q5 [puzzle] tell_at_end('bm2.txt') call(go) call(told) call(halt)
+..\bin\bp -q5 [lat_wam] tell_at_end('bm2.txt') call(go) call(told) call(halt)
+@echo ..\bin\bp -q5 [bm_tetris] tell_at_end('bm2.txt') call(go) call(told) call(halt)
+REM ..\bin\bp -q5 -b0 [pbench] tell_at_end('bm2.txt') call(go) call(told) call(halt)
+
