@@ -222,16 +222,6 @@ void fout(cell xval, stack wam, FILE *f)
 #endif
 }
 
-#ifdef VIVO
-bp_long obfuscate(bp_long c) {
-  return c+77;
-}
-
-bp_long unobfuscate(bp_long c) {
-  return c-77;
-}
-#endif
-
 void qprint(cell xval, stack wam, FILE *f)
 { g_quote=1;
   BUFOUT();
@@ -242,16 +232,6 @@ void qprint(cell xval, stack wam, FILE *f)
   *t++='\n';
   *t='\0';
   }
-#ifdef VIVO
-  {
-   if(QLEVEL()==1111) {
-    bp_long i; string s=g.sbuf; bp_long l=strlen(s);
-    for(i=0;i<l;i++) {
-      s[i]=(char)obfuscate((bp_long)s[i]);
-    }
-   }
-  }
-#endif
   fprintf(f,"%s",g.sbuf);
   fflush(f);
 }

@@ -143,9 +143,6 @@ void set_engine_prop(cell engine, bp_long propNo, cell valNo);
 extern cell new_func(string name, no argctr);
 void qprint(cell xval, stack wam, FILE *f);
 
-#ifdef VIVO
-extern bp_long unobfuscate(bp_long i);
-#endif
 
 #if GC>0
 extern term trigger_gc(register term H, register term regs, register term *A,
@@ -2167,10 +2164,7 @@ static term bp(register term regs, register term H, register instr P,
         }
         else {
           ires = (bp_long) getc(g.seefile);
-#ifdef VIVO
-          if (QLEVEL() == 1111 && g.seefile != STD_in && ires > 0) ires
-              = unobfuscate(ires);
-#endif
+
           if ('\n' == ires && g.seefile != STD_in) g.lineno++;
         }
         OUT_RESULT(INPUT_INT(ires))
