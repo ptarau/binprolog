@@ -1,0 +1,1 @@
+BinProlog is a C-based Prolog compiler and runtime system written by Paul Tarau. It can generate bytecode or C-code and it supports multithreading and networking. BinProlog runs on Mac OS X, Linux and Windows and it had been ported in the past to various Unix systems.
