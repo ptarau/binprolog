@@ -100,7 +100,7 @@ string startup_mes(void)
      static char mes[512];
 
 
-copyright="Copyright (C) Paul Tarau 1992-2012.\n";
+copyright="Copyright (C) Paul Tarau 1992-2021.\n";
 ftp=  "Open-sourced under GPL v.3 licence at\n";
 email="http://www.gnu.org/licenses/gpl-3.0.txt.";
 chat="\n";

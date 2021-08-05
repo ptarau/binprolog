@@ -3,7 +3,7 @@
 #include "binpro.h"
 
 struct bp_instr user_bp[] = {
-{220,0,1,"prolog:v1393c0"},
+{220,0,1,"prolog:v2783c0"},
 {221,3,0,"_"},
 {17,0,1,"true"},
 {0,0,0,"c"},
