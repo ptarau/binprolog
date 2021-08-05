@@ -1,8 +1,26 @@
 Welcome to BinProlog Open Source Edition!
 
+
+After coning the repo DO:
+
+on a Linux (tested on Ubuntu 20.04lts):
+
+just type "make" (assuming gcc is installed)
+
+on a Mac (tested with OS X Big Sur):
+
+go to directory src
+
+type ./mac64mt.sh
+
+In both cases the executable "bp" will len in local directory bin
+(make sure it exists)
+
+==================================================================
+
+
 First, uncompress using unzip the source files (or use git
 to extract them from the repository).
-
 The main directories in this distribution are:
 
 -- TESTED recently on OS X Mountain Lion
@@ -32,7 +50,6 @@ The documentation has not been recently revised - some things might be outdated.
 
 WITH THE EXCEPTION of the "make" process in src, no recent testing 
 has been performed on the BinProlog EXTENSIONS.
-
 Please read the README.txt files in various directories before staring 
 to work with them. 
 
