@@ -1,6 +1,0 @@
-Released under under GPL v. 3.0 license available at:
-http://www.gnu.org/licenses/gpl-3.0.txt
-
-If interested in a different licensing model,
-contact paul.tarau@gmail.com.
-
