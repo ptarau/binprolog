@@ -83,13 +83,14 @@ go:-go('BMARK_brev:').
 go(Mes):-
 	Len=100,
 	It=300,
+  writeln(['starting',len=Len,iter=It]),
 	go(Mes,Len,It).
 
 big:-big('BMARK_brev_300_times_300_elem_nrev:').
 
 big(Mes):-
-	Len=100,
-	It=3000,
+	Len=200,
+	It=50000,
 	go(Mes,Len,It).
 
 small:-small('BMARK_brev_100_times_30_elem_nrev:').

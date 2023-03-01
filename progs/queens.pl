@@ -1,4 +1,4 @@
-go:-    N=16, 
+go:-    N=24, 
         statistics(runtime,_), 
         queens(N,L), statistics(runtime,[_,Y]), 
         write(L), nl,
