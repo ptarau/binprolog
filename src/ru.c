@@ -133,7 +133,7 @@ chat="\n";
 	   ip="type bp -p10 to detect host";
 	 };
      sprintf(mes,
-           "\n%s %s%s%s%s%s%s%s%s%s\nDetected hostname: %s (%s)",
+           "\n%s %s%s%s%s%s%s%s%s\nDetected hostname: %s (%s)",
       bp_version(),
       copyright,
       ftp,
