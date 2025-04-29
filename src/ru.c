@@ -100,8 +100,8 @@ string startup_mes(void)
      static char mes[512];
 
 
-copyright="Copyright (C) Paul Tarau 1992-2021.\n";
-ftp=  "Open-sourced under APACHE 2.0 licence at\n";
+copyright="Copyright (C) Paul Tarau 1992-2025.\n";
+ftp=  "Open-sourced under APACHE 2.0 licence\n";
 chat="\n";
      c_ified = (g.inC ? "(C-ified standalone)\n" : "") ;
 
