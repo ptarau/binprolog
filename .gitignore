@@ -1,0 +1,12 @@
+bin/bp
+src/binpro
+src/binpro.c
+src/binpro.h
+src/builtins.pl
+src/defs.h
+src/otherwam.bp
+src/prof.h
+src/ru
+src/wam.bp
+src/wam.c
+src/wam.h
