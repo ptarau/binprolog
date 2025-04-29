@@ -95,14 +95,13 @@ string bp_version(void)
 }
 
 string startup_mes(void)
-{  string copyright,ftp,email,chat,c_ified,
+{  string copyright,ftp,chat,c_ified,
           gc,th,x86,host,ip;
      static char mes[512];
 
 
 copyright="Copyright (C) Paul Tarau 1992-2021.\n";
-ftp=  "Open-sourced under GPL v.3 licence at\n";
-email="http://www.gnu.org/licenses/gpl-3.0.txt.";
+ftp=  "Open-sourced under APACHE 2.0 licence at\n";
 chat="\n";
      c_ified = (g.inC ? "(C-ified standalone)\n" : "") ;
 
@@ -138,7 +137,6 @@ chat="\n";
       bp_version(),
       copyright,
       ftp,
-      email,
       chat,
       c_ified,gc,th,x86,
       c_interface,
