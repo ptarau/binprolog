@@ -1,0 +1,1 @@
+## the binary bp lands here - a self contained executable BinProlog
