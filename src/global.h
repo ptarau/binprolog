@@ -28,7 +28,8 @@
 #endif
 
 /** CHANGES
- * 12.03 fixed socket warnings
+12.03 fixed socket warnings
+
 11.42 - bus error caused by limit of stac allocated objects MAXNBUF DEFAULT NOW REPLACES MAXSBUF in mame2list
 11.41 - fixed bus error bug un mac os x in name2list
 11.19 - ported TwinProlog to jdk 1.6.0
