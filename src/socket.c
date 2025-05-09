@@ -155,6 +155,7 @@ bp_long close_socket(bp_long sock) {
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <netdb.h>
+#include <arpa/inet.h>
 #include <sys/param.h>
 #include <sys/wait.h>
 #include <sys/time.h>
@@ -163,8 +164,8 @@ bp_long close_socket(bp_long sock) {
 #if (VCC==0)
 #include <netinet/tcp.h> /* will break WINGCC - just comment it out */
 #endif
-char *inet_ntoa();
-extern unsigned long inet_addr(char *name);
+//char *inet_ntoa();
+//extern unsigned long inet_addr(char *name);
 extern int errno;
 #define WSAGetLastError() errno
 #endif
@@ -546,7 +547,7 @@ bp_long new_client0(char *host, bp_long port) /* starts client */ {
 
     bp_long  s;                       /* socket file descriptor */
 #if 0==VCC
-    struct hostent *gethostbyname();
+    struct hostent *gethostbyname(const char*);
 #endif
     struct hostent *hp;
     struct sockaddr_in peeraddr_in;
