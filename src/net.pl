@@ -23,6 +23,7 @@ close_csocket(Socket):-
 rpc_server:-
   default_this_port(P),
   default_password(W),
+  println(server_on(port(P),pwd(W))),
   rpc_server(P,W).
 
 rpc_server(Port,Password):-
