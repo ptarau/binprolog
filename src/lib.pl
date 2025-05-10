@@ -1843,6 +1843,12 @@ rtime(T):-statistics(realtime,[T,_]).
 otime(T):-statistics(realtime,[_,T]).
 abstime(T):-statistics(realtime,[CT,OT]),T is CT+OT.
 
+walltime(G,T):-rtime(T0),foreach(G),rtime(T1),T is T1-T0.
+walltime(G):-walltime(G,T),fast_write(T),nl.
+
+time(G,T):-ctime(T0),foreach(G),ctime(T1),T is T1-T0.
+time(G):-time(G,T),fast_write(T),nl.
+
 is_predicate(H):-is_builtin(H),!.
 is_predicate(H):-is_compiled(H),!.
 is_predicate(H):-is_dynamic(H).
@@ -2335,8 +2341,15 @@ db_collect(F,Cmds,Db):-
     )
   ).
 
-% Hilog call'@'(P,Conj):-  P=..[F|As],conj2list(Conj,Bs),  det_append(As,Bs,Xs),  G=..[F|Xs],  metacall(G).
-conj2list(Conj,[A|Xs]):-nonvar(Conj),Conj=(A,Bs),!,conj2list(Bs,Xs).conj2list(A,[A]).
+% Hilog call
+'@'(P,Conj):-
+  P=..[F|As],conj2list(Conj,Bs),
+  det_append(As,Bs,Xs),
+  G=..[F|Xs],
+  metacall(G).
+
+conj2list(Conj,[A|Xs]):-nonvar(Conj),Conj=(A,Bs),!,conj2list(Bs,Xs).
+conj2list(A,[A]).
 
 % answer counting
 count_answers(Goal,Count):-

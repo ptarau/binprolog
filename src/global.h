@@ -24,7 +24,7 @@
 #define TSTORE
 
 #ifndef VERSION
-#define VERSION 1203
+#define VERSION 1205
 #endif
 
 /** CHANGES

@@ -755,6 +755,10 @@ p0(ctime,1,'gets elapsed cpu time in ms'-x(_)).
 p0(rtime,1,'gets elapsed real time in secs'-x(_)).
 p0(otime,1,'gets time in secs from arbitrary origin to start'-x(_)).
 p0(abstime,1,'gets time in secs since arbitrary origin'-x(_)).
+p0(time,2,'gets elapsed cpu time in ms for given goal'-x(_)).
+p0(time,1,'prints elapsed cpu time in ms for given goal'-x(_)).
+p0(walltime,2,'gets elapsed walltime in ms for given goal'-x(_)).
+p0(walltime,1,'prints elapsed wall time in ms for given goal'-x(_)).
 
 p0(help,0,'generates file help.txt with info and examples').
 p0(help,1,'same as apropos/1'-x(assert)).
