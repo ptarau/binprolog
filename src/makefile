@@ -9,7 +9,7 @@ LIBS = -lm
 GCC = gcc
 OPTI= $(DEFS) -O
 
-GCCS = $(GCC) -fomit-frame-pointer $(OPTI)3
+GCCS = $(GCC) -fomit-frame-pointer $(OPTI)3 -DTHREADS=1
 CC= $(GCCS)
 
 LDO = $(CC)

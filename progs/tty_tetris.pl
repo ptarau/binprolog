@@ -24,7 +24,8 @@ scr_send(p(L0,C0),Char):-
   put(Char).
 
 scr_score(Score):-
-        max(MaxL,_),        MesL is MaxL+1,
+        max(MaxL,_),
+        MesL is MaxL+1,
 		scr_score0(MesL,Score).
 		
 scr_score0(MesL,Score):-
@@ -55,7 +56,8 @@ scr_dir(D):-
         ( scr_rec(C)->usr_dir(C,D)
         ; ctime(T1), DeltaT is T1-T0,DeltaT>0.20,D is 1
         ).
-        usr_dir(-77,0).  % right -77
+        
+usr_dir(-77,0).  % right -77
 usr_dir(-80,1).  % down -80
 usr_dir(-75,2).  % left -75
 usr_dir(-72,3).  % up -72

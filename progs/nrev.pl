@@ -78,12 +78,13 @@ g4:-
 
 go(L,I):-go(test,L,I).
 
-go:-go('BMARK_brev:').
+% go:-go('BMARK_brev:').
+go:-big.
 
 go(Mes):-
 	Len=100,
 	It=300,
-  writeln(['starting',len=Len,iter=It]),
+    write(['starting',len=Len,iter=It]),nl,
 	go(Mes,Len,It).
 
 big:-big('BMARK_brev_300_times_300_elem_nrev:').
