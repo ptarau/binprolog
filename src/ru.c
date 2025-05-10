@@ -1,3 +1,4 @@
+#include <time.h>
 #include <signal.h>
 #include <string.h>
 #include "defs.h"
@@ -147,7 +148,6 @@ chat="\n";
 }
 
 
-#include <time.h>
 
 bp_long cputime()
 
@@ -162,7 +162,6 @@ bp_long cputime()
   else t=100*t/(s/10);
 
   return t;
-
 }
 
 #define BEGIN_RTIME ((no)((25*365+6)*(24*3600)))
