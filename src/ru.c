@@ -1,4 +1,5 @@
 #include <time.h>
+#include <sys/time.h>
 #include <signal.h>
 #include <string.h>
 #include "defs.h"
@@ -164,9 +165,18 @@ bp_long cputime()
   return t;
 }
 
-#define BEGIN_RTIME ((no)((25*365+6)*(24*3600)))
+bp_long walltime() {
+  struct timeval t;
+  gettimeofday(&t, NULL);
+  return (bp_long) ((t.tv_sec) * 1000000 + t.tv_usec);
+}
+  
 
-#define GET_RTIME() ((no)(time(NULL)-BEGIN_RTIME))
+//#define BEGIN_RTIME ((no)(1000*((25*365+6)*(24*3600)))
+
+//#define GET_RTIME() ((no)(time(NULL)-BEGIN_RTIME))
+
+#define GET_RTIME() (walltime())
 
 bp_long realtime(int todo)
 {
