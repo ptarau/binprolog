@@ -19,7 +19,7 @@ solve([],_).
 solve([R|Rs],Dict):-
    arg(R,Dict,C),
    color(C),
-   \+ inconsistent(R,C,Dict),
+   not inconsistent(R,C,Dict),
    solve(Rs,Dict).
 
 inconsistent(R,C,Dict):-

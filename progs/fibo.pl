@@ -23,3 +23,12 @@ go(Mes):-
 	nl,write(Mes=[time=T,heap=H,trail=TR,fibo(N,R)]),nl.
 
 go:-go('BMARK_fibo:').
+
+fibonacci(N,R) :- slide_fibo(0,N,0,1,R).
+
+slide_fibo(To,To,_X,Y,R) :- R is Y.
+slide_fibo(From,To,X,Y,R) :- 
+  From<To, 
+  NextFrom is From+1,
+  Z is X+Y, 
+  slide_fibo(NextFrom,To,Y,Z,R).
